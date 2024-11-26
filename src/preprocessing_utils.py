@@ -214,7 +214,7 @@ def create_windows_with_overlap(signal, window_length,  overlap):
         return [signal[i:i+window_length] for i in range(0, len(signal) - window_length + 1, step_size)]
     
 
-def get_label(signal, percentage, labels):
+def get_label(signal, percentage, labels, database):
     """
         Asigna una etiqueta a una señal basada en la frecuencia de sus valores.
 

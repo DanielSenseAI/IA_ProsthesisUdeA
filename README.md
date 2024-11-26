@@ -9,6 +9,8 @@ This repository focuses on developing AI models for prosthetic control. It is pa
 
 ## Project Structure  
 
+Notebooks in this project are to be run from the root folder. All routes are relative and consider that there is a "Ninapro" folder (not uploaded with the Repo) in which the Ninapro Files have been decompressed.
+
 - **`model/`**: Contains AI or machine learning models under development.  
 - **`preprocessed_data/`**: Datasets prepared for training and evaluation. Contains feature data ideally, to be used for model training and evaluation.  
 - **`src/`**: Core source code, including:  

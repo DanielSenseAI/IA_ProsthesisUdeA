@@ -60,7 +60,7 @@ def get_file_path_database(database: str) -> list:
         list
             Una lista de cadenas que contienen las rutas completas de los archivos `.mat` que cumplen con los criterios de búsqueda (contienen 'E3' en el nombre del archivo).
     """
-    main_folder_path = f'signals/{database}/'
+    main_folder_path = f'Ninapro/{database}/'
     signal_paths = []
     for folder in os.listdir(main_folder_path):
         folder_path = os.path.join(main_folder_path, folder)  
