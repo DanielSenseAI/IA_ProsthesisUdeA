@@ -1,10 +1,11 @@
 from src import process_data as data_process
 
 FC= 10 #Cutoff frequency in Hz
-WINDOWING = 0.03 #s time of the window // Ej: 0.2s = 200 ms
-OVERLAPPING = 50 #% overlapping percentage
 ELECTRODES = 8 #Number of electrodes used in the experiment  // Incrementar a 10
 THRESHOLD = 60 # Characterization percentage
+
+WINDOWING = [0.01, 0.02, 0.3]  # s time of the window // Ej: 0.2s = 200 ms
+OVERLAPPING = [0, 33, 50]  # % overlapping percentage
 
 URLS = {
     1:"https://ninapro.hevs.ch/files/DB1/Preprocessed/s", #1.zip
@@ -39,11 +40,11 @@ DATABASE_INFO = {
 FEATURES = {
     'RMS_E': data_process.calculate_rms,
     'MAV_E': data_process.calculate_mav, 
-    # 'MAVS_E': data_process.calculate_mavs,
+    'MAVS_E': data_process.calculate_mavs,
     'VARIANCE_E': data_process.calculate_variance,
     'SAMPLE_VARIANCE_E': data_process.calculate_sample_variance,
-    # 'KURTOSIS_E': data_process.calculate_kurtosis,
-    # 'SKEWNESS_E': data_process.calculate_skewness
+    'KURTOSIS_E': data_process.calculate_kurtosis,
+    'SKEWNESS_E': data_process.calculate_skewness
 }
 
 MOVEMENTS_LABEL = {

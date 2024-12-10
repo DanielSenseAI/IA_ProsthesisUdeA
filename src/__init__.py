@@ -8,3 +8,7 @@ from .preprocessing_utils import (create_windows_with_overlap, get_envelope,
 from .process_data import (calculate_kurtosis, calculate_mav, calculate_mavs,
                            calculate_rms, calculate_sample_variance,
                            calculate_skewness, calculate_variance)
+
+from .visualization_utils import plot_emg_data
+
+from .db_utils import loadmatNina, extract_data, filter_data

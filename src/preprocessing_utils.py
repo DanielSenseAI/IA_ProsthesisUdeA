@@ -1,5 +1,5 @@
 from collections import Counter
-
+import pandas as pd
 import numpy as np
 from scipy.signal import butter, filtfilt, hilbert
 
@@ -109,6 +109,25 @@ def get_signal_by_movement_complete(signal: np.array, movement: dict) -> np.arra
     """
     segmented_signal = signal[(movement['end'][0])+1:movement['end'][-1]]
     return segmented_signal
+
+def get_transition_indexes(data):
+    # Check if the input is a DataFrame
+    if isinstance(data, pd.DataFrame):
+        # Get the values from the DataFrame and flatten them
+        values = data.values.flatten()
+    elif isinstance(data, np.ndarray):
+        # Flatten the numpy array to ensure it is one-dimensional
+        values = data.flatten()
+    else:
+        raise TypeError("Input must be a pandas DataFrame or a numpy array")
+     
+    # Find indexes where the value changes from 0 to non-zero
+    zero_to_nonzero = np.where((values[:-1] == 0) & (values[1:] != 0))[0] + 1
+    
+    # Find indexes where the value changes from non-zero to 0
+    nonzero_to_zero = np.where((values[:-1] != 0) & (values[1:] == 0))[0] + 1
+    
+    return zero_to_nonzero, nonzero_to_zero
 
 
 def get_envelope(emg_signal: np.array) -> np.array:

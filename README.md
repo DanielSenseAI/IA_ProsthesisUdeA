@@ -44,4 +44,12 @@ Notebooks in this project are to be run from the root folder. All routes are rel
    pip install -r requirements.txt  
    ```  
 
+4. Organize databases for local use:
+   - Create a folder called "data" on the root folder (where this readMe is located)
+   - Inside this folder DB1 to DB10 correspond to the Ninapro Databases 
+      - Create a folder called "DB{number}" for the corresponing database
+      - Subject data can be separated in different folders for each user named s1 to s{number}
+   - Further DBs will be added form different sources (especially OWN) 
+
+5. The 'config' file may be modified to include or exclude processes and modify general settings for each process  
 --- 
