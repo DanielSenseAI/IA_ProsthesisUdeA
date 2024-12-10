@@ -49,7 +49,7 @@ def loadmatNina(database, filename=None, subject="s1"):
 
     # Calculate the total test time using the count from summary data
     emg_count = summary_df.loc['count', 'emg']
-    total_test_time = emg_count / database_info['frequency']
+    total_test_time = (emg_count/database_info['electrodes']) / database_info['frequency']
 
     print(f"Loaded file: {filename}")
     print(f"Total test time: {total_test_time} seconds")
@@ -61,9 +61,12 @@ def loadmatNina(database, filename=None, subject="s1"):
     print(summary_df)
     return mat_file
 
-def extract_data(mat_file):
+def extract_data(mat_file, use_Stimulus=False):
     emg_data = mat_file.get('emg', None)
-    restimulus_data = mat_file.get('restimulus', None)
+    if use_Stimulus:
+        restimulus_data = mat_file.get('stimulus', None)
+    else:
+        restimulus_data = mat_file.get('restimulus', None)
     
     if emg_data is None:
         print("No 'emg' data found in the file.")
@@ -75,8 +78,24 @@ def extract_data(mat_file):
     
     return emg_data, restimulus_data
 
-def filter_data(emg_data, restimulus_data, chosen_number):
-    filtered_indices = np.where(restimulus_data == chosen_number)[0]
+def filter_data(emg_data, restimulus_data, chosen_number, include_rest=False, padding=0):
+    chosen_indices = np.where(restimulus_data == chosen_number)[0]
+    
+    if chosen_indices.size == 0:
+        print(f"No data found for the chosen number: {chosen_number}")
+        return None
+    
+    first_index = max(0, chosen_indices[0] - padding)
+    last_index = min(len(restimulus_data) - 1, chosen_indices[-1] + padding)
+    
+    if include_rest:
+        filtered_indices = np.where((restimulus_data[first_index:last_index + 1] == chosen_number) | 
+                                    (restimulus_data[first_index:last_index + 1] == 0))[0] + first_index
+        print("Rest included in the movement extraction!")
+    else:
+        filtered_indices = np.where(restimulus_data[first_index:last_index + 1] == chosen_number)[0] + first_index
+        print("Extracting data without rest!")
+    
     filtered_emg_data = emg_data[filtered_indices, :]
     filtered_restimulus_data = restimulus_data[filtered_indices]
     

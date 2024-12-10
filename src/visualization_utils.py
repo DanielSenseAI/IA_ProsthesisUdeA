@@ -28,30 +28,45 @@ def plot_data(filtered_emg_data, restimulus_data, grasp_number=None, interactive
         fig.update_layout(xaxis_title=x_axis, yaxis_title='Amplitude')
         fig.show()
     else:
-        plt.figure(figsize=(18, 6))  # Adjust the width and height of the plot
-        emg_df.plot(x=x_axis, title=title)
-        plt.xlabel(x_axis, fontsize=10)  # Adjust the font size of the x-axis label
-        plt.ylabel('Amplitude', fontsize=10)  # Adjust the font size of the y-axis label
-        start_index, end_index = prep_utils.get_transition_indexes(restimulus_data)
-        print(f'Start index: {start_index}')
-        print(f'End index: {end_index}')
-        start_times = emg_df['Time (s)'][start_index]  # Replace with actual mapping logic if needed
-        end_times = emg_df['Time (s)'][end_index]  # Replace with actual mapping logic if needed
-        print(f'Start times: {start_times}')
-        print(f'End times: {end_times}')
-        
-        for time in start_times:
-            plt.axvline(x=time, color='red', linestyle='--', linewidth=0.8, label='Start Transition' if time == start_times[0] else "")  # Label only the first line for legend clarity
+        fig, ax = plt.subplots(figsize=(18, 6))  # Create figure and axis
+        emg_df.plot(x=x_axis, title=title, ax=ax)
+        ax.set_xlabel(x_axis, fontsize=10)  # Adjust the font size of the x-axis label
+        ax.set_ylabel('Amplitude', fontsize=10)  # Adjust the font size of the y-axis label
 
-        for time in end_times:
-            plt.axvline(x=time, color='blue', linestyle='--', linewidth=0.8, label='End Transition' if time == end_times[0] else "")  # Label only the first line for legend clarity
-
-        plt.legend(loc='upper right', fontsize=6)
+        plot_stimulus(ax, emg_df, restimulus_data)
+        ax.legend(loc='upper right', fontsize=6)
         plt.show()
 
-def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True):
+def plot_stimulus(ax, emg_Data, restimulus_data):
+    start_index, end_index = prep_utils.get_transition_indexes(restimulus_data)
+    #print(f'Start index: {start_index}')
+    #print(f'End index: {end_index}')
+
+    start_times = emg_Data['Time (s)'].iloc[start_index].values  # Replace with actual mapping logic if needed
+    end_times = emg_Data['Time (s)'].iloc[end_index].values  # Replace with actual mapping logic if needed
+
+    # Add vertical lines for transitions
+    for i, time in enumerate(start_times):
+        ax.axvline(
+            x=time,
+            color='red',
+            linestyle='--',
+            linewidth=0.8,
+            label='Start Transition' if i == 0 else ""  # Label only the first line for legend clarity
+        )
+
+    for i, time in enumerate(end_times):
+        ax.axvline(
+            x=time,
+            color='blue',
+            linestyle='--',
+            linewidth=0.8,
+            label='End Transition' if i == 0 else ""  # Label only the first line for legend clarity
+        )
+
+def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True, include_rest=False, padding = 10, use_stimulus = False):
     try:
-        emg_data, restimulus_data = db_utils.extract_data(mat_file)
+        emg_data, restimulus_data = db_utils.extract_data(mat_file, use_stimulus)
     except KeyError as e:
         print(f"KeyError in extract_data: {e}")
         raise
@@ -69,7 +84,7 @@ def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True
         return
 
     try:
-        filtered_emg_data, filtered_restimulus_data = db_utils.filter_data(emg_data, restimulus_data, grasp_number)
+        filtered_emg_data, filtered_restimulus_data = db_utils.filter_data(emg_data, restimulus_data, grasp_number, include_rest, padding = padding)
     except KeyError as e:
         print(f"KeyError in filter_data: {e}")
         raise
@@ -77,7 +92,7 @@ def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True
     # Debugging: Print the shapes of the filtered data
     print(f"Filtered EMG data shape: {filtered_emg_data.shape}")
     print(f"Filtered restimulus data shape: {filtered_restimulus_data.shape}")
-    print(f"test time: {len(filtered_emg_data) / frequency}")
+    print(f"test time: {len(filtered_emg_data) / frequency} seconds")
 
     # Check if filtered data is None
     if filtered_emg_data is None or filtered_restimulus_data is None:

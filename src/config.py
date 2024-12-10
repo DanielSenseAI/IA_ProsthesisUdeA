@@ -26,15 +26,15 @@ OUTPUT_DIRS = {
 }
 
 DATABASE_INFO = {
-    'DB1': {'frequency': 100, 'subjects': 27, 'repetitions': 10},
-    'DB2': {'frequency': 2000, 'subjects': 40, 'repetitions': 6},
-    'DB3': {'frequency': 2000, 'subjects': 11, 'repetitions': 6},
-    'DB4': {'frequency': 2000, 'subjects': 10, 'repetitions': 6},
-    'DB5': {'frequency': 200, 'subjects': 10, 'repetitions': 6},
-    'DB6': {'frequency': 2000, 'subjects': 10, 'repetitions': 6},
-    'DB7': {'frequency': 2000, 'subjects': 22, 'repetitions': 6},
-    'DB8': {'frequency': 2000, 'subjects': 12, 'repetitions': 6},
-    'DB9': {'frequency': 2000, 'subjects': 77, 'repetitions': 6}
+    'DB1': {'frequency': 100, 'subjects': 27, 'repetitions': 10, 'electrodes': 10},
+    'DB2': {'frequency': 2000, 'subjects': 40, 'repetitions': 6, 'electrodes': 12},
+    'DB3': {'frequency': 2000, 'subjects': 11, 'repetitions': 6, 'electrodes': 12},
+    'DB4': {'frequency': 2000, 'subjects': 10, 'repetitions': 6, 'electrodes': 12},
+    'DB5': {'frequency': 200,  'subjects': 10, 'repetitions': 6, 'electrodes': 16},
+    'DB6': {'frequency': 2000, 'subjects': 10, 'repetitions': 6, 'electrodes': 16}, #two columns are empty
+    'DB7': {'frequency': 2000, 'subjects': 22, 'repetitions': 6, 'electrodes': 12},
+    'DB8': {'frequency': 2000, 'subjects': 12, 'repetitions': 6, 'electrodes': 16},
+    'DB9': {'frequency': 2000, 'subjects': 77, 'repetitions': 6, 'electrodes': 0},
 }
 
 FEATURES = {
@@ -47,7 +47,7 @@ FEATURES = {
     'SKEWNESS_E': data_process.calculate_skewness
 }
 
-MOVEMENTS_LABEL = {
+MOVEMENTS_LIBRARY = {
     '0' : 'Rest',
     '1' : 'Thumb up',
     '2' : 'Extension index and middle',
@@ -112,8 +112,7 @@ MOVEMENTS_LABEL = {
     '61': 'Thumb Extension',
 }
 
-"""
-{
+MOVEMENTS_LABEL_DEPRECIATED = {
     '0' : 'Base',
     '17': 'Lateral',
     '9' : 'Writing Tripod',
@@ -122,5 +121,3 @@ MOVEMENTS_LABEL = {
     '10': 'Power Sphere',
     '6' : 'Ring', 
 }
-"""
-

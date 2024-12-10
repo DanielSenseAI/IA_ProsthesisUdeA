@@ -126,6 +126,8 @@ def get_transition_indexes(data):
     
     # Find indexes where the value changes from non-zero to 0
     nonzero_to_zero = np.where((values[:-1] != 0) & (values[1:] == 0))[0] + 1
+
+    print(f'Number of Repetitions: {len(zero_to_nonzero)}')
     
     return zero_to_nonzero, nonzero_to_zero
 
