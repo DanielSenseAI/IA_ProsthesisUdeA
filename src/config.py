@@ -77,7 +77,7 @@ MOVEMENTS_LIBRARY = {
     '26': 'Writing Tripod',
     '27': 'Power Sphere',
     '28': 'Three finger sphere',
-    '29': 'precision sphere',
+    '29': 'Precision sphere',
     '30': 'Tripod',
     '31': 'Prismatic pinch',
     '32': 'Tip pinch',

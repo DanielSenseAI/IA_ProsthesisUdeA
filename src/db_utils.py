@@ -50,10 +50,12 @@ def loadmatNina(database, filename=None, subject="s1"):
     # Calculate the total test time using the count from summary data
     emg_count = summary_df.loc['count', 'emg']
     total_test_time = (emg_count/database_info['electrodes']) / database_info['frequency']
+    unique_restimulus = np.unique(mat_file['restimulus'])
 
     print(f"Loaded file: {filename}")
     print(f"Total test time: {total_test_time} seconds")
     print(f"Total test time: {total_test_time/60} minutes")
+    print(f"Unique restimulus values: {unique_restimulus}")
     print(f"Total EMG samples: {emg_count}")
     print(f"Frequency: {database_info['frequency']} Hz")
 

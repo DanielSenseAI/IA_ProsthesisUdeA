@@ -274,3 +274,49 @@ def get_label(signal, percentage, labels, database):
             label = labels[str(value)]
             return label
     return 'None' # If no value meets the threshold    return 'None' # If no value meets the threshold
+
+def add_time(emg_data, frequency):
+    time = [i / frequency for i in range(len(emg_data))]
+    emg_data['Time (s)'] = time
+    return emg_data
+
+def relabel_database(database, movements_library, stimulus, exercise):
+    """
+    Adds a relabeled column to the DataFrame based on the exercise type and the movements library.
+
+    Parameters:
+        database (pd.DataFrame): The DataFrame containing the stimulus data.
+        movements_library (dict): Dictionary mapping numeric labels to movement names.
+        stimulus_column (str): The name of the column in the DataFrame containing numeric labels.
+        exercise (str): The exercise type ('A', 'B', 'C', 'D') to adjust the label mapping.
+
+    Returns:
+        pd.DataFrame: The updated DataFrame with an additional 'Relabeled' column.
+    """
+    # Define label mappings for each exercise
+    exercise_label_mappings = {
+        'A': {1: 41, 2: 42, 3: 43, 4: 44, 5: 45, 6: 46, 7: 47, 8: 48, 9: 49, 10: 50, 11: 51, 12: 52},
+        'B': {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10, 11: 11, 12: 12, 13: 13, 14: 14, 15: 15, 16: 16, 17: 17},
+        'C': {1: 18, 2: 19, 3: 20, 4: 21, 5: 22, 6: 23, 7: 24, 8: 25, 9: 26, 10: 27, 11: 28, 12: 29, 13: 30, 14: 31, 15: 32, 16: 33, 17: 34, 18: 35, 19: 36, 20: 37, 21: 38, 22: 39, 23: 40},
+        'D': {1: 41, 2: 42, 3: 43, 4: 44, 5: 45, 6: 46, 7: 47, 8: 48, 9: 49}
+    }
+
+    # Get the label mapping for the specified exercise
+    if exercise not in exercise_label_mappings:
+        raise ValueError(f"Invalid exercise type: {exercise}. Must be one of {list(exercise_label_mappings.keys())}.")
+
+    label_mapping = exercise_label_mappings[exercise]
+
+    # Map the stimulus labels to the movements library using the exercise-specific mapping
+    if database == 'DB1' or database == 'DB4' or database == 'DB5':
+        stimulus['Relabeled'] = stimulus.map(label_mapping).map(movements_library)
+    else:
+        stimulus['Relabeled'] = stimulus
+        print(f"Warning: No relabeling performed!!! Column contains repeated values and may be deleted.")
+
+    # Check for missing labels
+    missing_labels = stimulus['Relabeled'].isna().unique()
+    if missing_labels.size > 0:
+        print(f"Warning: The following labels were not found in the mapping for exercise {exercise}: {missing_labels}")
+    
+    return stimulus

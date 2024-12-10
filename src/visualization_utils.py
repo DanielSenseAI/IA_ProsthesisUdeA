@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import plotly.express as px
+from scipy.signal import savgol_filter
 import src.db_utils as db_utils
 import src.preprocessing_utils as prep_utils
 from src.config import DATABASE_INFO
@@ -12,8 +13,7 @@ def plot_data(filtered_emg_data, restimulus_data, grasp_number=None, interactive
     emg_df = pd.DataFrame(filtered_emg_data, columns=[f'Channel {i+1}' for i in range(filtered_emg_data.shape[1])])
 
     if frequency is not None:
-        time = [i / frequency for i in range(len(emg_df))]
-        emg_df['Time (s)'] = time
+        emg_df = prep_utils.add_time(emg_df, frequency)
         x_axis = 'Time (s)'
     else:
         x_axis = 'Sample'
@@ -64,7 +64,7 @@ def plot_stimulus(ax, emg_Data, restimulus_data):
             label='End Transition' if i == 0 else ""  # Label only the first line for legend clarity
         )
 
-def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True, include_rest=False, padding = 10, use_stimulus = False):
+def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True, include_rest=False, padding = 10, use_stimulus = False, addFourier = False):
     try:
         emg_data, restimulus_data = db_utils.extract_data(mat_file, use_stimulus)
     except KeyError as e:
@@ -99,3 +99,81 @@ def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True
         raise ValueError("Filtered data is None")
 
     plot_data(filtered_emg_data, filtered_restimulus_data, grasp_number, interactive, frequency)
+
+    if addFourier:
+        plot_fourier_transform_with_envelope(filtered_emg_data, frequency)
+
+def plot_fourier_transform(emg_data, frequency, start_freq=0, end_freq=600):
+    # Compute the Fourier transform of the filtered EMG data
+    fourier_data = np.fft.fft(emg_data, axis=0)
+    freqs = np.fft.fftfreq(emg_data.shape[0], d=1/frequency)
+
+    # Filter out negative frequencies
+    positive_freqs = freqs > 0
+    fourier_data = fourier_data[positive_freqs]
+    freqs = freqs[positive_freqs]
+
+    # Apply frequency boundaries
+    if end_freq is None:
+        end_freq = freqs[-1]
+    freq_mask = (freqs >= start_freq) & (freqs <= end_freq)
+    fourier_data = fourier_data[freq_mask]
+    freqs = freqs[freq_mask]
+
+    # Plot the envelope of the Fourier transform
+    plt.figure(figsize=(18, 6))
+    for i in range(fourier_data.shape[1]):
+        plt.plot(freqs, np.abs(fourier_data[:, i]), label=f'Channel {i + 1}')
+    
+    plt.title('Fourier Transform of EMG Data')
+    plt.xlabel('Frequency (Hz)')
+    plt.ylabel('Amplitude')
+    plt.legend(loc='upper right', fontsize=6)
+    plt.tight_layout()
+    plt.show()
+
+def plot_fourier_transform_with_envelope(emg_data, frequency, start_freq=0, end_freq=600, window_length=120, polyorder=3):
+    """
+    Plots the Fourier transform of EMG data with a smoothed envelope.
+    
+    Parameters:
+        emg_data (np.ndarray): EMG data array with shape (samples, channels).
+        frequency (float): Sampling frequency in Hz.
+        start_freq (float): Start frequency for plotting, default is 0 Hz.
+        end_freq (float): End frequency for plotting, default is Nyquist frequency.
+        window_length (int): Window length for Savitzky-Golay filter (must be odd).
+        polyorder (int): Polynomial order for Savitzky-Golay filter.
+    """
+    # Compute the Fourier transform of the filtered EMG data
+    fourier_data = np.fft.fft(emg_data, axis=0)
+    freqs = np.fft.fftfreq(emg_data.shape[0], d=1/frequency)
+
+    # Filter out negative frequencies
+    positive_freqs = freqs > 0
+    fourier_data = fourier_data[positive_freqs]
+    freqs = freqs[positive_freqs]
+
+    # Apply frequency boundaries
+    if end_freq is None:
+        end_freq = freqs[-1]
+    freq_mask = (freqs >= start_freq) & (freqs <= end_freq)
+    fourier_data = fourier_data[freq_mask]
+    freqs = freqs[freq_mask]
+
+    # Compute the magnitude of the Fourier transform
+    magnitude = np.abs(fourier_data)
+
+    # Apply Savitzky-Golay filter to smooth the envelope
+    smoothed_magnitude = savgol_filter(magnitude, window_length=window_length, polyorder=polyorder, axis=0)
+
+    # Plot the smoothed envelope
+    plt.figure(figsize=(18, 6))
+    for i in range(smoothed_magnitude.shape[1]):
+        plt.plot(freqs, smoothed_magnitude[:, i], label=f'Channel {i + 1}')
+    
+    plt.title('Smoothed Envelope of Fourier Transform of EMG Data')
+    plt.xlabel('Frequency (Hz)')
+    plt.ylabel('Amplitude')
+    plt.legend(loc='upper right', fontsize=6)
+    plt.tight_layout()
+    plt.show()
