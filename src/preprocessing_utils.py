@@ -2,6 +2,7 @@ from collections import Counter
 import pandas as pd
 import numpy as np
 from scipy.signal import butter, filtfilt, hilbert
+from typing import Dict
 
 
 def get_stimulus_index(stimulus):
@@ -235,7 +236,7 @@ def create_windows_with_overlap(signal, window_length,  overlap):
         return [signal[i:i+window_length] for i in range(0, len(signal) - window_length + 1, step_size)]
     
 
-def get_label(signal, percentage, labels, database):
+def get_label(signal, percentage, labels):
     """
         Asigna una etiqueta a una señal basada en la frecuencia de sus valores.
 
@@ -276,11 +277,14 @@ def get_label(signal, percentage, labels, database):
     return 'None' # If no value meets the threshold    return 'None' # If no value meets the threshold
 
 def add_time(emg_data, frequency):
-    time = [i / frequency for i in range(len(emg_data))]
-    emg_data['Time (s)'] = time
+    if isinstance(emg_data, pd.DataFrame):
+        time = [i / frequency for i in range(len(emg_data))]
+        emg_data['Time (s)'] = time
+    else:
+        raise TypeError("emg_data must be a pandas DataFrame")
     return emg_data
 
-def relabel_database(database, movements_library, stimulus, exercise):
+def relabel_database(database, stimulus, exercise = None):
     """
     Adds a relabeled column to the DataFrame based on the exercise type and the movements library.
 
@@ -293,30 +297,39 @@ def relabel_database(database, movements_library, stimulus, exercise):
     Returns:
         pd.DataFrame: The updated DataFrame with an additional 'Relabeled' column.
     """
-    # Define label mappings for each exercise
+    db_145_relation = ['A', 'B', 'C']
+    db_23_relation = ['B', 'C', 'D']
+
+    # Define label mappings for each exercise in DB1, 4 and 5
     exercise_label_mappings = {
-        'A': {1: 41, 2: 42, 3: 43, 4: 44, 5: 45, 6: 46, 7: 47, 8: 48, 9: 49, 10: 50, 11: 51, 12: 52},
-        'B': {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10, 11: 11, 12: 12, 13: 13, 14: 14, 15: 15, 16: 16, 17: 17},
-        'C': {1: 18, 2: 19, 3: 20, 4: 21, 5: 22, 6: 23, 7: 24, 8: 25, 9: 26, 10: 27, 11: 28, 12: 29, 13: 30, 14: 31, 15: 32, 16: 33, 17: 34, 18: 35, 19: 36, 20: 37, 21: 38, 22: 39, 23: 40},
-        'D': {1: 41, 2: 42, 3: 43, 4: 44, 5: 45, 6: 46, 7: 47, 8: 48, 9: 49}
+        'A': {0: 0, 1: 50, 2: 51, 3: 52, 4: 53, 5: 54, 6: 55, 7: 56, 8: 57, 9: 58, 10: 59, 11: 60, 12: 61},
+        'B': {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10, 11: 11, 12: 12, 13: 13, 14: 14, 15: 15, 16: 16, 17: 17},
+        'C': {0: 0, 1: 18, 2: 19, 3: 20, 4: 21, 5: 22, 6: 23, 7: 24, 8: 25, 9: 26, 10: 27, 11: 28, 12: 29, 13: 30, 14: 31, 15: 32, 16: 33, 17: 34, 18: 35, 19: 36, 20: 37, 21: 38, 22: 39, 23: 40},
+        'D': {0: 0, 1: 41, 2: 42, 3: 43, 4: 44, 5: 45, 6: 46, 7: 47, 8: 48, 9: 49}
     }
 
-    # Get the label mapping for the specified exercise
-    if exercise not in exercise_label_mappings:
-        raise ValueError(f"Invalid exercise type: {exercise}. Must be one of {list(exercise_label_mappings.keys())}.")
+   # Define the custom mapping for DB8
+    DB8_mapping = {0: 0, 1: 58, 2: 60, 3: 50, 4: 52, 5: 3, 6: 7, 7: 18, 8: 34, 9: 30}
 
-    label_mapping = exercise_label_mappings[exercise]
-
-    # Map the stimulus labels to the movements library using the exercise-specific mapping
-    if database == 'DB1' or database == 'DB4' or database == 'DB5':
-        stimulus['Relabeled'] = stimulus.map(label_mapping).map(movements_library)
+    # Perform relabeling
+    if database in ['DB1', 'DB4', 'DB5']:
+        exercise_label = db_145_relation[exercise-1]
+        print(f'new exercise label: {exercise_label}')
+        label_mapping = exercise_label_mappings[exercise_label]
+        stimulus['relabeled'] = stimulus['stimulus'].map(label_mapping)
+        print(f'Relabeling performed for exercise {exercise} of {database}.')
+    elif database == 'DB8':
+        stimulus['relabeled'] = stimulus['stimulus'].map(DB8_mapping)
+        print(f'Relabeling performed for DB8.')
     else:
-        stimulus['Relabeled'] = stimulus
-        print(f"Warning: No relabeling performed!!! Column contains repeated values and may be deleted.")
+        stimulus['relabeled'] = stimulus['stimulus']
+        print("Warning: No relabeling performed! 'Relabeled' column contains original values.")
 
     # Check for missing labels
-    missing_labels = stimulus['Relabeled'].isna().unique()
+    missing_labels = stimulus['relabeled'].isna().unique()
     if missing_labels.size > 0:
         print(f"Warning: The following labels were not found in the mapping for exercise {exercise}: {missing_labels}")
     
     return stimulus
+
+

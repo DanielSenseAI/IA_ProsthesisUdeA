@@ -103,6 +103,43 @@ def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True
     if addFourier:
         plot_fourier_transform_with_envelope(filtered_emg_data, frequency)
 
+def plot_emg_dataframe(database, emg_data, grasp_number, interactive=False, time=True, include_rest=False, padding = 10, use_stimulus = False, addFourier = False):
+    if time == True:
+        try:
+            frequency = DATABASE_INFO[database]['frequency']
+        except KeyError as e:
+            print(f"KeyError accessing DATABASE_INFO: {e}")
+            raise
+    else:
+        frequency = None
+
+    if emg_data is None or emg_data['stimulus'] is None:
+        return
+
+    try:
+        filtered_emg_data = db_utils.filter_data_pandas(emg_data, grasp_number, include_rest=include_rest, padding = padding)
+    except KeyError as e:
+        print(f"KeyError in filter_data: {e}")
+        raise
+
+    # Debugging: Print the shapes of the filtered data
+    print(f"Filtered EMG data shape: {filtered_emg_data.shape}")
+    print(f"test time: {len(filtered_emg_data) / frequency} seconds")
+
+    # Check if filtered data is None
+    if filtered_emg_data is None:
+        raise ValueError("Filtered data is None")
+
+    plot_data(extract_emg_channels(filtered_emg_data), filtered_emg_data['relabeled'], grasp_number, interactive, frequency)
+
+    if addFourier:
+        plot_fourier_transform_with_envelope(filtered_emg_data, frequency)
+
+def extract_emg_channels(emg_df):
+    emg_channel_columns = [col for col in emg_df.columns if col.startswith('Channel')]
+    emg_channels_df = emg_df[emg_channel_columns]
+    return emg_channels_df   
+
 def plot_fourier_transform(emg_data, frequency, start_freq=0, end_freq=600):
     # Compute the Fourier transform of the filtered EMG data
     fourier_data = np.fft.fft(emg_data, axis=0)

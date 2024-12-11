@@ -6,6 +6,7 @@ THRESHOLD = 60 # Characterization percentage
 
 WINDOWING = [0.01, 0.02, 0.3]  # s time of the window // Ej: 0.2s = 200 ms
 OVERLAPPING = [0, 33, 50]  # % overlapping percentage
+PADDING = [1, 50, 200, 500] # % padding in milliseconds
 
 URLS = {
     1:"https://ninapro.hevs.ch/files/DB1/Preprocessed/s", #1.zip
