@@ -130,15 +130,11 @@ def plot_emg_dataframe(database, emg_data, grasp_number, interactive=False, time
     if filtered_emg_data is None:
         raise ValueError("Filtered data is None")
 
-    plot_data(extract_emg_channels(filtered_emg_data), filtered_emg_data['relabeled'], grasp_number, interactive, frequency)
+    plot_data(prep_utils.extract_emg_channels(filtered_emg_data), filtered_emg_data['relabeled'], grasp_number, interactive, frequency)
 
     if addFourier:
         plot_fourier_transform_with_envelope(filtered_emg_data, frequency)
 
-def extract_emg_channels(emg_df):
-    emg_channel_columns = [col for col in emg_df.columns if col.startswith('Channel')]
-    emg_channels_df = emg_df[emg_channel_columns]
-    return emg_channels_df   
 
 def plot_fourier_transform(emg_data, frequency, start_freq=0, end_freq=600):
     # Compute the Fourier transform of the filtered EMG data

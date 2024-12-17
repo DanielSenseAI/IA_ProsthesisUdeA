@@ -326,10 +326,17 @@ def relabel_database(database, stimulus, exercise = None):
         print("Warning: No relabeling performed! 'Relabeled' column contains original values.")
 
     # Check for missing labels
+    missing_labels = 0
     missing_labels = stimulus['relabeled'].isna().unique()
     if missing_labels.size > 0:
         print(f"Warning: The following labels were not found in the mapping for exercise {exercise}: {missing_labels}")
     
     return stimulus
+
+def extract_emg_channels(emg_df):
+    emg_channel_columns = [col for col in emg_df.columns if col.startswith('Channel')]
+    emg_channels_df = emg_df[emg_channel_columns]
+    return emg_channels_df   
+
 
 
