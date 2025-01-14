@@ -8,6 +8,7 @@ from scipy.signal import savgol_filter
 import src.db_utils as db_utils
 import src.preprocessing_utils as prep_utils
 from src.config import DATABASE_INFO
+from src.preprocessing_utils import get_transition_indexes
 
 def plot_data(filtered_emg_data, restimulus_data, grasp_number=None, interactive=False, frequency=None):
     emg_df = pd.DataFrame(filtered_emg_data, columns=[f'Channel {i+1}' for i in range(filtered_emg_data.shape[1])])
@@ -210,3 +211,166 @@ def plot_fourier_transform_with_envelope(emg_data, frequency, start_freq=0, end_
     plt.legend(loc='upper right', fontsize=6)
     plt.tight_layout()
     plt.show()
+
+
+def get_transition_indexes(restimulus_data):
+    """
+    Identifica los índices donde hay cambios en el restimulus.
+
+    Parameters:
+    - restimulus_data (np.ndarray): Arreglo de estímulos.
+
+    Returns:
+    - list: Índices donde ocurren cambios en el estímulo.
+    """
+    transitions = np.where(np.diff(restimulus_data) != 0)[0] + 1
+    return transitions.tolist()
+
+
+def calculate_stimulus_times(emg_data: pd.DataFrame, restimulus_data: np.ndarray, frequency: float) -> pd.DataFrame:
+    """
+    Calculates stimulus start and end times based on restimulus data and computes
+    the average activation and non-activation times.
+
+    Parameters:
+    - emg_data (pd.DataFrame): DataFrame containing the EMG signals with a 'time' column (if calculated).
+    - restimulus_data (np.ndarray): Stimulus data array indicating the transitions.
+    - frequency (float): Sampling frequency in Hz.
+
+    Returns:
+    - pd.DataFrame: A DataFrame with the columns:
+        - 'Stimulus': stimulus number.
+        - 'Start_Time': Stimulus start time in seconds.
+        - 'End_Time': Stimulus end time in seconds.
+        - 'Duration': Duration of the stimulus (activation time).
+    - dict: A dictionary with average activation and non-activation times:
+        - 'Average_Activation_Time': Average duration of stimuli in seconds.
+        - 'Average_Non_Activation_Time': Average duration of rest periods in seconds.
+    """
+    # Obtener los índices de transición
+    transition_indexes = get_transition_indexes(restimulus_data)
+
+    # Inicializar una lista para almacenar resultados
+    stimulus_times = []
+    activation_durations = []  # Para almacenar duraciones de activación
+    non_activation_durations = []  # Para almacenar duraciones de no activación
+
+    # Calcular el tiempo correspondiente a cada índice basado en la frecuencia de muestreo
+    for i in range(0, len(transition_indexes) - 1, 2):
+        start_idx = transition_indexes[i]
+        end_idx = transition_indexes[i + 1]
+
+        start_time = start_idx / frequency  # Tiempo de inicio en segundos
+        end_time = end_idx / frequency      # Tiempo de fin en segundos
+        stimulus_number = restimulus_data[start_idx]  # Identificar el número del estímulo
+        duration = end_time - start_time   # Duración de la activación
+
+        # Almacenar resultados
+        stimulus_times.append({
+            'Stimulus': stimulus_number,
+            'Start_Time': start_time,
+            'End_Time': end_time,
+            'Duration': duration
+        })
+        activation_durations.append(duration)
+
+        # Calcular tiempo de no activación si no es el último estímulo
+        if i + 2 < len(transition_indexes):
+            next_start_idx = transition_indexes[i + 2]
+            rest_duration = (next_start_idx - end_idx) / frequency  # Tiempo de reposo
+            non_activation_durations.append(rest_duration)
+
+    # Convertir resultados en DataFrame
+    stimulus_times_df = pd.DataFrame(stimulus_times)
+
+    # Calcular promedios
+    avg_activation_time = np.mean(activation_durations) if activation_durations else 0
+    avg_non_activation_time = np.mean(non_activation_durations) if non_activation_durations else 0
+
+    # Resultados promedios
+    averages = {
+        'Average_Activation_Time': avg_activation_time,
+        'Average_Non_Activation_Time': avg_non_activation_time
+    }
+
+    return stimulus_times_df, averages
+
+
+
+def plot_emg_channels(database, mat_file, grasp_number, interactive=False, time=True, include_rest=False, 
+                      padding=10, use_stimulus=False, addFourier=False):
+    """
+    Grafica los datos EMG de cada canal en subplots dentro de la misma figura.
+
+    Parameters:
+        database (str): Nombre de la base de datos.
+        mat_file (dict): Archivo .mat cargado con datos EMG y estímulos.
+        grasp_number (int): Número de agarre específico a graficar.
+        interactive (bool): Activar modo interactivo de matplotlib.
+        time (bool): Mostrar el tiempo en el eje x si es True, de lo contrario índices.
+        include_rest (bool): Incluir periodo de reposo.
+        padding (int): Tiempo de padding para agregar antes/después de los estímulos.
+        use_stimulus (bool): Utilizar estímulos filtrados.
+        addFourier (bool): Agregar el espectro de Fourier al final.
+    """
+    try:
+        # Extraer datos EMG y estímulos
+        emg_data, restimulus_data = db_utils.extract_data(mat_file, use_stimulus)
+    except KeyError as e:
+        print(f"KeyError in extract_data: {e}")
+        raise
+
+    # Obtener frecuencia
+    frequency = DATABASE_INFO[database]['frequency'] if time else None
+    
+    if emg_data is None or restimulus_data is None:
+        raise ValueError("EMG or Restimulus data is None")
+    
+    # Filtrar los datos
+    try:
+        filtered_emg_data, filtered_restimulus_data = db_utils.filter_data(
+            emg_data, restimulus_data, grasp_number, include_rest, padding=padding)
+    except KeyError as e:
+        print(f"KeyError in filter_data: {e}")
+        raise
+    
+    # Calcular eje x (tiempo o índices)
+    num_samples = filtered_emg_data.shape[0]
+    if time and frequency:
+        x_axis = np.linspace(0, num_samples / frequency, num_samples)
+        x_label = "Time (s)"
+    else:
+        x_axis = np.arange(num_samples)
+        x_label = "Samples"
+
+    # Configurar modo interactivo
+    if interactive:
+        plt.ion()
+    else:
+        plt.ioff()
+
+    # Crear figura y subplots para cada canal
+    num_channels = filtered_emg_data.shape[1]  # Número de canales de EMG
+    fig, axes = plt.subplots(num_channels, 1, figsize=(12, 2 * num_channels), sharex=True)
+    fig.suptitle(f"EMG Data - Grasp {grasp_number}", fontsize=14)
+
+    # Asegurar que axes sea iterable, incluso si es solo un subplot
+    if num_channels == 1:
+        axes = [axes]
+
+    # Graficar cada canal
+    for i, ax in enumerate(axes):
+        ax.plot(x_axis, filtered_emg_data[:, i], label=f'Channel {i+1}', color='b')
+        ax.set_ylabel(f'Channel {i+1}')
+        ax.legend(loc='upper right')
+        ax.grid(True)
+
+    axes[-1].set_xlabel(x_label)  # Etiqueta en el último subplot
+
+    # Mostrar la figura
+    plt.tight_layout(rect=[0, 0, 1, 0.96])
+    plt.show()
+
+    # Fourier opcional
+    if addFourier:
+        plot_fourier_transform_with_envelope(filtered_emg_data, frequency)

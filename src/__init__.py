@@ -12,6 +12,6 @@ from .process_data import (calculate_kurtosis, calculate_mav, calculate_mavs,
                            calculate_rms, calculate_sample_variance,
                            calculate_skewness, calculate_variance)
 
-from .visualization_utils import plot_emg_data, plot_fourier_transform, plot_emg_dataframe
+from .visualization_utils import plot_emg_data, plot_fourier_transform, plot_emg_dataframe, calculate_stimulus_times, plot_emg_channels
 
 from .db_utils import loadmatNina, extract_data, filter_data, build_dataframe, get_exercise_number, filter_data_pandas
