@@ -5,12 +5,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import plotly.express as px
 from scipy.signal import savgol_filter
-import src.db_utils as db_utils
 import src.preprocessing_utils as prep_utils
 from src.config import DATABASE_INFO
 from src.preprocessing_utils import get_transition_indexes
+import db_utils
 
-def plot_data(filtered_emg_data, restimulus_data, grasp_number=None, interactive=False, frequency=None):
+def plot_data(filtered_emg_data, restimulus_data, grasp_number=None, interactive=False, frequency=None, title =""):
     emg_df = pd.DataFrame(filtered_emg_data, columns=[f'Channel {i+1}' for i in range(filtered_emg_data.shape[1])])
 
     if frequency is not None:
@@ -37,6 +37,8 @@ def plot_data(filtered_emg_data, restimulus_data, grasp_number=None, interactive
         plot_stimulus(ax, emg_df, restimulus_data)
         ax.legend(loc='upper right', fontsize=6)
         plt.show()
+    if title:
+        plt.title(title)
 
 def plot_stimulus(ax, emg_Data, restimulus_data):
     start_index, end_index = prep_utils.get_transition_indexes(restimulus_data)
@@ -65,7 +67,7 @@ def plot_stimulus(ax, emg_Data, restimulus_data):
             label='End Transition' if i == 0 else ""  # Label only the first line for legend clarity
         )
 
-def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True, include_rest=False, padding = 10, use_stimulus = False, addFourier = False):
+def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True, include_rest=False, padding = 10, use_stimulus = False, addFourier = False, title = "None"):
     try:
         emg_data, restimulus_data = db_utils.extract_data(mat_file, use_stimulus)
     except KeyError as e:
@@ -99,7 +101,7 @@ def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True
     if filtered_emg_data is None or filtered_restimulus_data is None:
         raise ValueError("Filtered data is None")
 
-    plot_data(filtered_emg_data, filtered_restimulus_data, grasp_number, interactive, frequency)
+    plot_data(filtered_emg_data, filtered_restimulus_data, grasp_number, interactive, frequency, title)
 
     if addFourier:
         plot_fourier_transform_with_envelope(filtered_emg_data, frequency)

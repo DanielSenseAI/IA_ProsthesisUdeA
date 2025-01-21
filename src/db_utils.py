@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 import src.preprocessing_utils as prep_utils
 from src.config import DATABASE_INFO
-
+from src import *
 
 def loadmatNina(database, filename=None, subject="s1"):
     """
