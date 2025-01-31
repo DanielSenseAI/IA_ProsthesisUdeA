@@ -10,7 +10,7 @@ import src.preprocessing_utils as prep_utils
 from src.config import DATABASE_INFO
 from src.preprocessing_utils import get_transition_indexes
 
-def plot_data(filtered_emg_data, restimulus_data, grasp_number=None, interactive=False, frequency=None):
+def plot_data(filtered_emg_data, restimulus_data, grasp_number=None, interactive=False, frequency=None, title=None):
     emg_df = pd.DataFrame(filtered_emg_data, columns=[f'Channel {i+1}' for i in range(filtered_emg_data.shape[1])])
 
     if frequency is not None:
@@ -19,11 +19,14 @@ def plot_data(filtered_emg_data, restimulus_data, grasp_number=None, interactive
     else:
         x_axis = 'Sample'
 
-    if grasp_number is None:
-        title = 'EMG Data for All Restimuli'
-    else:
-        title = f'EMG Data for Restimulus {grasp_number}'
-    
+    if title is None:
+        if grasp_number is None:
+            title = 'EMG Data for All Restimuli'
+        else:
+            title = f'EMG Data for Restimulus {grasp_number}'
+    else: 
+        title = title
+
     if interactive:
         fig = px.line(emg_df, x=x_axis, y=emg_df.columns[:-1], title=title)
         fig.update_layout(xaxis_title=x_axis, yaxis_title='Amplitude')
@@ -65,7 +68,7 @@ def plot_stimulus(ax, emg_Data, restimulus_data):
             label='End Transition' if i == 0 else ""  # Label only the first line for legend clarity
         )
 
-def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True, include_rest=False, padding = 10, use_stimulus = False, addFourier = False):
+def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True, include_rest=False, padding = 10, use_stimulus = False, addFourier = False, title = None):
     try:
         emg_data, restimulus_data = db_utils.extract_data(mat_file, use_stimulus)
     except KeyError as e:
@@ -99,7 +102,7 @@ def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True
     if filtered_emg_data is None or filtered_restimulus_data is None:
         raise ValueError("Filtered data is None")
 
-    plot_data(filtered_emg_data, filtered_restimulus_data, grasp_number, interactive, frequency)
+    plot_data(filtered_emg_data, filtered_restimulus_data, grasp_number, interactive, frequency, title)
 
     if addFourier:
         plot_fourier_transform_with_envelope(filtered_emg_data, frequency)
@@ -298,7 +301,7 @@ def calculate_stimulus_times(emg_data: pd.DataFrame, restimulus_data: np.ndarray
 
 
 def plot_emg_channels(database, mat_file, grasp_number, interactive=False, time=True, include_rest=False, 
-                      padding=10, use_stimulus=False, addFourier=False):
+                      padding=10, use_stimulus=False, addFourier=False, title=None):
     """
     Grafica los datos EMG de cada canal en subplots dentro de la misma figura.
 
@@ -352,7 +355,10 @@ def plot_emg_channels(database, mat_file, grasp_number, interactive=False, time=
     # Crear figura y subplots para cada canal
     num_channels = filtered_emg_data.shape[1]  # Número de canales de EMG
     fig, axes = plt.subplots(num_channels, 1, figsize=(12, 2 * num_channels), sharex=True)
-    fig.suptitle(f"EMG Data - Grasp {grasp_number}", fontsize=14)
+    if title is None:
+        fig.suptitle(f"EMG Data - Grasp {grasp_number}", fontsize=14)
+    else:
+        fig.suptitle(title, fontsize=14)
 
     # Asegurar que axes sea iterable, incluso si es solo un subplot
     if num_channels == 1:
