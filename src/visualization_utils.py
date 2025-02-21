@@ -107,10 +107,12 @@ def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True
     if addFourier:
         plot_fourier_transform_with_envelope(filtered_emg_data, frequency)
 
-def plot_emg_dataframe(database, emg_data, grasp_number, interactive=False, time=True, include_rest=False, padding = 10, use_stimulus = False, addFourier = False):
+
+def plot_emg_dataframe(database, emg_data, grasp_number, interactive=False, time=True, include_rest=False, padding = 10, use_stimulus = False, addFourier = False, length = 0.0): 
     if time == True:
         try:
             frequency = DATABASE_INFO[database]['frequency']
+
         except KeyError as e:
             print(f"KeyError accessing DATABASE_INFO: {e}")
             raise
@@ -122,19 +124,28 @@ def plot_emg_dataframe(database, emg_data, grasp_number, interactive=False, time
 
     try:
         filtered_emg_data = db_utils.filter_data_pandas(emg_data, grasp_number, include_rest=include_rest, padding = padding)
+        
+        if length > 0.01:
+            final_time = filtered_emg_data['Time (s)'].iloc[0] + length
+            filtered_emg_data = filtered_emg_data[filtered_emg_data['Time (s)'] < final_time]
+        
+        filtered_restimulus_data = filtered_emg_data[['relabeled']]
+        filtered_emg_data = prep_utils.extract_emg_channels(filtered_emg_data)
+
     except KeyError as e:
         print(f"KeyError in filter_data: {e}")
         raise
 
     # Debugging: Print the shapes of the filtered data
     print(f"Filtered EMG data shape: {filtered_emg_data.shape}")
+    print(f"Filtered restimulus data shape: {filtered_restimulus_data.shape}")
     print(f"test time: {len(filtered_emg_data) / frequency} seconds")
 
     # Check if filtered data is None
-    if filtered_emg_data is None:
+    if filtered_emg_data is None or filtered_restimulus_data is None:
         raise ValueError("Filtered data is None")
 
-    plot_data(prep_utils.extract_emg_channels(filtered_emg_data), filtered_emg_data['relabeled'], grasp_number, interactive, frequency)
+    plot_data(filtered_emg_data, filtered_restimulus_data, grasp_number, interactive, frequency)
 
     if addFourier:
         plot_fourier_transform_with_envelope(filtered_emg_data, frequency)

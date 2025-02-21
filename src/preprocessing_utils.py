@@ -1,7 +1,9 @@
 from collections import Counter
 import pandas as pd
 import numpy as np
-from scipy.signal import butter, filtfilt, hilbert
+from scipy.signal import hilbert, butter, filtfilt, find_peaks
+import pywt
+from scipy.interpolate import interp1d
 from typing import Dict
 
 
@@ -133,28 +135,98 @@ def get_transition_indexes(data):
     return zero_to_nonzero, nonzero_to_zero
 
 
-def get_envelope(emg_signal: np.array) -> np.array:
+def teager_kaiser_energy(signal, smooth_window=10):
+    """Compute the Teager-Kaiser Energy Operator (TKEO) envelope with correct size handling."""
+    if len(signal) < 3:  # Ensure minimum length for safe computation
+        return np.zeros_like(signal)
+
+    # Pad the signal with zeros at the beginning and end
+    padded_signal = np.pad(signal, (1, 1), 'constant')
+
+    energy = np.zeros_like(padded_signal)
+    
+    # Correct indexing to maintain shape
+    energy[1:-1] = padded_signal[1:-1]**2 - padded_signal[:-2] * padded_signal[2:]
+    
+    # Ensure no negative values before sqrt
+    energy = np.maximum(energy, 0)
+
+    # Apply smoothing with a moving average filter
+    smoothed_energy = np.convolve(energy, np.ones(smooth_window)/smooth_window, mode='same')
+
+    # Remove the padding before returning the result
+    return np.sqrt(smoothed_energy[1:-1])
+
+
+def wavelet_envelope(signal, wavelet='morl', scale=16):
+    """Compute the envelope using the modulus of the Continuous Wavelet Transform."""
+    coefficients, _ = pywt.cwt(signal, scales=[scale], wavelet=wavelet)
+    return np.abs(coefficients[0])  # Modulus of the wavelet coefficients
+
+
+def peak_interpolation(signal):
+    """Find local maxima and interpolate between them."""
+    peaks, _ = find_peaks(signal, distance=20)  # Adjust distance as needed
+    if len(peaks) < 2:  
+        return signal  # Return original signal if not enough peaks
+    interp = interp1d(peaks, signal[peaks], kind='linear', fill_value='extrapolate')
+    return interp(np.arange(len(signal)))
+
+
+def get_envelope(emg_signal, envelope_type=1, window_size=50, cutoff_freq=10, fs=2000):
     """
-        Calcula la envolvente de una señal EMG (Electromiografía) utilizando la Transformada de Hilbert.
+    Computes the envelope of an EMG signal using different methods.
 
-        Parámetros:
-        ----------
-        emg_signal : np.array
-            Un array que representa la señal EMG (Electromiografía). La señal puede estar en forma cruda o preprocesada.
+    Parameters:
+    ----------
+    emg_signal : np.array or pd.DataFrame
+        The EMG signal (raw or preprocessed). Can be a NumPy array (1D) or a Pandas DataFrame (each column is a signal).
+    envelope_type : int
+        Type of envelope to calculate:
+        1 - Hilbert Transform
+        2 - Root Mean Square (RMS) with a sliding window
+        3 - Moving Average with a sliding window
+        4 - Low-pass filtered absolute signal
+        5 - Wavelet Transform Envelope
+        6 - Peak Detection + Interpolation
+        7 - Teager-Kaiser Energy Operator (TKEO) Envelope
+    window_size : int, optional
+        Window size for moving RMS or moving average (default: 10 samples).
+    cutoff_freq : float, optional
+        Cutoff frequency for low-pass filtering (default: 10 Hz).
+    fs : int, optional
+        Sampling frequency in Hz (default: 1000 Hz).
 
-        Retorna:
-        -------
-        np.array
-            La envolvente de la señal EMG. Es un array de la misma longitud que `emg_signal`, que contiene los valores de amplitud instantánea de la señal.
+    Returns:
+    -------
+    np.array or pd.DataFrame
+        The computed envelope with the same shape as the input.
 
-        Ejemplo:
-        --------
-        emg_signal = np.array([0.1, 0.5, -0.3, 0.8, -0.2])
-        envelope = get_envelope(emg_signal)
-        print(envelope)  # Salida: np.array([...]) (La envolvente de la señal EMG)
     """
-    envelope = np.abs(hilbert(emg_signal))
-    return envelope
+    def compute_envelope(signal):
+        if envelope_type == 1:
+            return np.abs(hilbert(signal))
+        elif envelope_type == 2:
+            return np.sqrt(np.convolve(signal**2, np.ones(window_size)/window_size, mode='same'))
+        elif envelope_type == 3:
+            return np.convolve(np.abs(signal), np.ones(window_size)/window_size, mode='same')
+        elif envelope_type == 4:
+            b, a = butter(4, cutoff_freq / (fs / 2), btype='low')
+            return filtfilt(b, a, np.abs(signal))
+        elif envelope_type == 5:
+            return wavelet_envelope(signal)
+        elif envelope_type == 6:
+            return peak_interpolation(np.abs(signal))
+        elif envelope_type == 7:
+            return teager_kaiser_energy(signal)
+        else:
+            raise ValueError("Unsupported envelope type. Use 1-7.")
+
+    if isinstance(emg_signal, pd.DataFrame):
+        return emg_signal.apply(compute_envelope, axis=0)
+    else:
+        return compute_envelope(emg_signal)
+
 
 
 def get_filtered_signal(signal: np.array, fc: float, fm: float) -> np.array:
@@ -314,7 +386,7 @@ def relabel_database(database, stimulus, exercise = None):
     # Perform relabeling
     if database in ['DB1', 'DB4', 'DB5']:
         exercise_label = db_145_relation[exercise-1]
-        print(f'new exercise label: {exercise_label}')
+        print(f'New exercise label: {exercise_label}')
         label_mapping = exercise_label_mappings[exercise_label]
         stimulus['relabeled'] = stimulus['stimulus'].map(label_mapping)
         print(f'Relabeling performed for exercise {exercise} of {database}.')
