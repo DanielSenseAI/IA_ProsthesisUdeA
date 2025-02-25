@@ -9,6 +9,7 @@ import src.db_utils as db_utils
 import src.preprocessing_utils as prep_utils
 from src.config import DATABASE_INFO
 from src.preprocessing_utils import get_transition_indexes
+from src.preprocessing_utils import extract_emg_channels
 
 def plot_data(filtered_emg_data, restimulus_data, grasp_number=None, interactive=False, frequency=None, title=None):
     emg_df = pd.DataFrame(filtered_emg_data, columns=[f'Channel {i+1}' for i in range(filtered_emg_data.shape[1])])
@@ -179,6 +180,7 @@ def plot_fourier_transform(emg_data, frequency, start_freq=0, end_freq=600):
     plt.legend(loc='upper right', fontsize=6)
     plt.tight_layout()
     plt.show()
+
 
 def plot_fourier_transform_with_envelope(emg_data, frequency, start_freq=0, end_freq=600, window_length=120, polyorder=3):
     """
@@ -391,3 +393,123 @@ def plot_emg_channels(database, mat_file, grasp_number, interactive=False, time=
     # Fourier opcional
     if addFourier:
         plot_fourier_transform_with_envelope(filtered_emg_data, frequency)
+
+
+def plot_single_emg_channel(database, original_df, transformed_df, channel, start=5000, end=6000, time=True, addFourier=False):
+    """
+    Plots a given channel from the original and transformed EMG DataFrames.
+
+    Parameters:
+    - original_df: DataFrame containing the original EMG signals.
+    - transformed_df: DataFrame containing the transformed EMG signals.
+    - channel: The channel to plot.
+    - start: The starting index for the plot (default is 0).
+    - end: The ending index for the plot (default is None, which means plot till the end).
+    - time: Boolean indicating whether to use time on the x-axis.
+    - addFourier: Boolean indicating whether to add Fourier transform plots.
+    """
+    if end is None:
+        end = len(original_df)
+
+    # Extract the EMG channels for the specified indices
+    initialEMG = extract_emg_channels(original_df.iloc[start:end])
+    transformedEMG = extract_emg_channels(transformed_df.iloc[start:end])
+
+    # Get frequency if time is True
+    if time:
+        frequency = DATABASE_INFO[database]['frequency']
+        num_samples = initialEMG.shape[0]
+        x_axis = np.linspace(0, num_samples / frequency, num_samples)
+        x_label = "Time (s)"
+    else:
+        x_axis = np.arange(start, end)
+        x_label = "Samples"
+
+    plt.figure(figsize=(14, 9))
+
+    # Plot original signal
+    plt.subplot(3, 1, 1)
+    plt.plot(x_axis, initialEMG[channel])
+    plt.title(f'Original EMG Signal - Channel {channel}')
+    plt.xlabel(x_label)
+    plt.ylabel('Amplitude')
+
+    # Plot transformed signal
+    plt.subplot(3, 1, 2)
+    plt.plot(x_axis, transformedEMG[channel])
+    plt.title(f'Transformed EMG Signal - Channel {channel}')
+    plt.xlabel(x_label)
+    plt.ylabel('Amplitude')
+
+    # Plot overlaid signals
+    plt.subplot(3, 1, 3)
+    plt.plot(x_axis, initialEMG[channel], label='Original')
+    plt.plot(x_axis, transformedEMG[channel], label='Transformed', alpha=0.7)
+    plt.title(f'Overlay of Original and Transformed EMG Signal - Channel {channel}')
+    plt.xlabel(x_label)
+    plt.ylabel('Amplitude')
+    plt.legend()
+
+    plt.tight_layout()
+    plt.show()
+
+    # Plot Fourier transform if requested
+    if addFourier:
+        plot_fourier_transform_with_envelope(transformedEMG, frequency)
+
+
+def plot_emg_channel_with_envelopes(database, original_df, transformed_dfs, channel, start=5000, end=6000, time=True, addFourier=False):
+    """
+    Plots a given channel from the original and multiple transformed EMG DataFrames.
+
+    Parameters:
+    - original_df: DataFrame containing the original EMG signals.
+    - transformed_dfs: List of DataFrames containing the transformed EMG signals.
+    - channel: The channel to plot.
+    - start: The starting index for the plot (default is 0).
+    - end: The ending index for the plot (default is None, which means plot till the end).
+    - time: Boolean indicating whether to use time on the x-axis.
+    - addFourier: Boolean indicating whether to add Fourier transform plots.
+    """
+    if end is None:
+        end = len(original_df)
+
+    # Extract the EMG channels for the specified indices
+    initialEMG = extract_emg_channels(original_df.iloc[start:end])
+
+    # Get frequency if time is True
+    if time:
+        frequency = DATABASE_INFO[database]['frequency']
+        num_samples = initialEMG.shape[0]
+        x_axis = np.linspace(0, num_samples / frequency, num_samples)
+        x_label = "Time (s)"
+    else:
+        x_axis = np.arange(start, end)
+        x_label = "Samples"
+
+    plt.figure(figsize=(14, 9))
+
+    # Plot original signal
+    plt.subplot(2, 1, 1)
+    plt.plot(x_axis, initialEMG[channel])
+    plt.title(f'Original EMG Signal - Channel {channel}')
+    plt.xlabel(x_label)
+    plt.ylabel('Amplitude')
+
+    # Plot overlaid signals
+    plt.subplot(2, 1, 2)
+    plt.plot(x_axis, initialEMG[channel], label='Original')
+    for i, transformed_df in enumerate(transformed_dfs):
+        transformedEMG = extract_emg_channels(transformed_df.iloc[start:end])
+        plt.plot(x_axis, transformedEMG[channel], label=f'Transformed (Envelope Type {i+1})', alpha=0.7)
+    plt.title(f'Overlay of Original and Transformed EMG Signal - Channel {channel}')
+    plt.xlabel(x_label)
+    plt.ylabel('Amplitude')
+    plt.legend()
+
+    plt.tight_layout()
+    plt.show()
+
+    # Plot Fourier transform if requested
+    if addFourier:
+        plot_fourier_transform_with_envelope(initialEMG, frequency)
