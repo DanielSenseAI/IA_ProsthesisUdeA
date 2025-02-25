@@ -135,7 +135,7 @@ def get_transition_indexes(data):
     return zero_to_nonzero, nonzero_to_zero
 
 
-def teager_kaiser_energy(signal, smooth_window=10):
+def teager_kaiser_energy(signal, smooth_window=1):
     """Compute the Teager-Kaiser Energy Operator (TKEO) envelope with correct size handling."""
     if len(signal) < 3:  # Ensure minimum length for safe computation
         return np.zeros_like(signal)
