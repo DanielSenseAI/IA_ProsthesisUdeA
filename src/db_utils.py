@@ -93,7 +93,8 @@ def build_dataframe(mat_file, database, filename, use_Stimulus=False, rectify=Fa
 
     emg_df = pd.DataFrame(emg_data, columns=[f'Channel {i+1}' for i in range(emg_data.shape[1])])
     if normalize:
-        emg_df = (emg_df - emg_df.mean()) / emg_df.std()
+        #emg_df = (emg_df - emg_df.mean()) / emg_df.std()
+        emg_df = emg_df / emg_df.abs().max()
     if rectify:
         emg_df = emg_df.abs()
 

@@ -254,17 +254,26 @@ def get_filtered_signal(signal, fc_low: float, fc_high: float, fm: float):
     """
     nyquist = 0.5 * fm
     
-    # Low-pass filter
+    # Normalize the cutoff frequencies
     normal_frec_corte_low = fc_low / nyquist
-    b_low, a_low = butter(4, normal_frec_corte_low, btype='low', analog=False)
-    
-    # High-pass filter
     normal_frec_corte_high = fc_high / nyquist
+
+    # Ensure the cutoff frequencies are within the valid range
+    if not (0 < normal_frec_corte_low < 1):
+        raise ValueError("Low-pass filter critical frequency must be 0 < fc_low < Nyquist frequency")
+    if not (0 < normal_frec_corte_high < 1):
+        raise ValueError("High-pass filter critical frequency must be 0 < fc_high < Nyquist frequency")
+    
+    # Apply the Butterworth filters
+    b_low, a_low = butter(4, normal_frec_corte_low, btype='low', analog=False)
     b_high, a_high = butter(4, normal_frec_corte_high, btype='high', analog=False)
     
     def apply_filters(signal):
         low_passed_signal = filtfilt(b_low, a_low, signal)
         high_passed_signal = filtfilt(b_high, a_high, low_passed_signal)
+        max_value = np.max(np.abs(high_passed_signal))
+        if max_value != 0:
+            high_passed_signal = high_passed_signal# / max_value
         return high_passed_signal
     
     if isinstance(signal, pd.DataFrame):

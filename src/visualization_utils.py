@@ -182,7 +182,7 @@ def plot_fourier_transform(emg_data, frequency, start_freq=0, end_freq=600):
     plt.show()
 
 
-def plot_fourier_transform_with_envelope(emg_data, frequency, start_freq=0, end_freq=600, window_length=120, polyorder=3):
+def plot_fourier_transform_with_envelope(emg_data, frequency, start_freq=0, end_freq=600, window_length=30, polyorder=6, print_max = True):
     """
     Plots the Fourier transform of EMG data with a smoothed envelope.
     
@@ -220,11 +220,15 @@ def plot_fourier_transform_with_envelope(emg_data, frequency, start_freq=0, end_
     plt.figure(figsize=(18, 6))
     for i in range(smoothed_magnitude.shape[1]):
         plt.plot(freqs, smoothed_magnitude[:, i], label=f'Channel {i + 1}')
+        max_freq = freqs[np.argmax(smoothed_magnitude[:, i])]
+        if print_max:
+            print(f"Max smoothed frequency for Channel {i + 1}: {max_freq} Hz")
     
     plt.title('Smoothed Envelope of Fourier Transform of EMG Data')
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Amplitude')
     plt.legend(loc='upper right', fontsize=6)
+    plt.xticks(np.arange(start_freq, end_freq + 1, step=10))  # Add more x-ticks
     plt.tight_layout()
     plt.show()
 
