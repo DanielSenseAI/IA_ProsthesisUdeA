@@ -1,14 +1,12 @@
 import os
-from scipy.io import loadmat
+import re
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import plotly.express as px
-import re
-import os
+from sklearn.preprocessing import MinMaxScaler
 from scipy.io import loadmat
-import pandas as pd
-import numpy as np
+
 import src.preprocessing_utils as prep_utils
 from src.config import DATABASE_INFO
 
@@ -93,8 +91,12 @@ def build_dataframe(mat_file, database, filename, use_Stimulus=False, rectify=Fa
 
     emg_df = pd.DataFrame(emg_data, columns=[f'Channel {i+1}' for i in range(emg_data.shape[1])])
     if normalize:
+        # Apply MinMaxScaler to normalize the data between 0 and 1
+        scaler = MinMaxScaler()
+        emg_df = pd.DataFrame(scaler.fit_transform(emg_df.values), columns=emg_df.columns)
         #emg_df = (emg_df - emg_df.mean()) / emg_df.std()
-        emg_df = emg_df / emg_df.abs().max()
+        #emg_df = emg_df / emg_df.abs().max()
+
     if rectify:
         emg_df = emg_df.abs()
 

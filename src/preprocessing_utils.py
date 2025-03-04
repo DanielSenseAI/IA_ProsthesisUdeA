@@ -1,8 +1,9 @@
-from collections import Counter
 import pandas as pd
 import numpy as np
-from scipy.signal import hilbert, butter, filtfilt, find_peaks
 import pywt
+from scipy.signal import hilbert, butter, filtfilt, find_peaks
+from sklearn.preprocessing import MinMaxScaler
+from collections import Counter
 from scipy.interpolate import interp1d
 from typing import Dict
 
@@ -277,9 +278,18 @@ def get_filtered_signal(signal, fc_low: float, fc_high: float, fm: float):
         return high_passed_signal
     
     if isinstance(signal, pd.DataFrame):
-        return signal.apply(apply_filters, axis=0)
+        filtered_signal = signal.apply(apply_filters, axis=0)
     else:
-        return apply_filters(signal)
+        filtered_signal = apply_filters(signal)
+    
+    # Normalize the filtered signal between 0 and 1
+    scaler = MinMaxScaler()
+    if isinstance(filtered_signal, pd.DataFrame):
+        normalized_signal = pd.DataFrame(scaler.fit_transform(filtered_signal.values), columns=filtered_signal.columns)
+    else:
+        normalized_signal = scaler.fit_transform(filtered_signal.reshape(-1, 1)).flatten()
+    
+    return normalized_signal
 
 
 def get_envelope_filtered(emg_signal, fc_low: float, fc_high: float, fm: float, envelope_type):

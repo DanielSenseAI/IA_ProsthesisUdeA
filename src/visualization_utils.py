@@ -4,7 +4,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import plotly.express as px
-from scipy.signal import savgol_filter
+from scipy.signal import savgol_filter, convolve
+from scipy.ndimage import gaussian_filter1d
+
 import src.db_utils as db_utils
 import src.preprocessing_utils as prep_utils
 from src.config import DATABASE_INFO
@@ -182,9 +184,9 @@ def plot_fourier_transform(emg_data, frequency, start_freq=0, end_freq=600):
     plt.show()
 
 
-def plot_fourier_transform_with_envelope(emg_data, frequency, start_freq=0, end_freq=600, window_length=30, polyorder=6, print_max = True):
+def plot_fourier_transform_with_envelope(emg_data, frequency, start_freq=0, end_freq=600, window_length=51, polyorder=3, sigma=30, print_max=True):
     """
-    Plots the Fourier transform of EMG data with a smoothed envelope.
+    Plots the Fourier transform of EMG data with a smoothed envelope and computes median and center frequencies.
     
     Parameters:
         emg_data (np.ndarray): EMG data array with shape (samples, channels).
@@ -193,6 +195,14 @@ def plot_fourier_transform_with_envelope(emg_data, frequency, start_freq=0, end_
         end_freq (float): End frequency for plotting, default is Nyquist frequency.
         window_length (int): Window length for Savitzky-Golay filter (must be odd).
         polyorder (int): Polynomial order for Savitzky-Golay filter.
+        sigma (float): Standard deviation for Gaussian filter.
+        print_max (bool): Whether to print the maximum frequency for each channel.
+    
+    Returns:
+        Tuple containing:
+        - List of maximum frequencies for each channel.
+        - List of median frequencies for each channel.
+        - List of center frequencies for each channel.
     """
     # Compute the Fourier transform of the filtered EMG data
     fourier_data = np.fft.fft(emg_data, axis=0)
@@ -216,21 +226,46 @@ def plot_fourier_transform_with_envelope(emg_data, frequency, start_freq=0, end_
     # Apply Savitzky-Golay filter to smooth the envelope
     smoothed_magnitude = savgol_filter(magnitude, window_length=window_length, polyorder=polyorder, axis=0)
 
+    # Apply Gaussian filter for additional smoothing
+    smoothed_magnitude = gaussian_filter1d(smoothed_magnitude, sigma=sigma, axis=0)
+
+    # Initialize lists to store max, median, and center frequencies
+    max_freqs = []
+    median_freqs = []
+    center_freqs = []
+
     # Plot the smoothed envelope
     plt.figure(figsize=(18, 6))
     for i in range(smoothed_magnitude.shape[1]):
         plt.plot(freqs, smoothed_magnitude[:, i], label=f'Channel {i + 1}')
+        
+        # Maximum frequency
         max_freq = freqs[np.argmax(smoothed_magnitude[:, i])]
+        max_freqs.append(max_freq)
+        
+        # Median frequency
+        cumulative_power = np.cumsum(smoothed_magnitude[:, i])
+        total_power = cumulative_power[-1]
+        median_freq = freqs[np.searchsorted(cumulative_power, total_power / 2)]
+        median_freqs.append(median_freq)
+        
+        # Center frequency
+        center_freq = np.sum(freqs * smoothed_magnitude[:, i]) / np.sum(smoothed_magnitude[:, i])
+        center_freqs.append(center_freq)
+        
         if print_max:
-            print(f"Max smoothed frequency for Channel {i + 1}: {max_freq} Hz")
+            print(f"Channel {i + 1}: Max Frequency = {max_freq} Hz, Median Frequency = {median_freq} Hz, Center Frequency = {center_freq} Hz")
     
     plt.title('Smoothed Envelope of Fourier Transform of EMG Data')
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Amplitude')
     plt.legend(loc='upper right', fontsize=6)
-    plt.xticks(np.arange(start_freq, end_freq + 1, step=10))  # Add more x-ticks
+    plt.xticks(np.arange(start_freq, end_freq + 1, step=20))  # Add more x-ticks
+    plt.grid(True)
     plt.tight_layout()
     plt.show()
+
+    return max_freqs, median_freqs, center_freqs
 
 
 def get_transition_indexes(restimulus_data):
