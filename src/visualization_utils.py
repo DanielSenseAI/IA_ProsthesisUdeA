@@ -13,7 +13,7 @@ from src.config import DATABASE_INFO
 from src.preprocessing_utils import get_transition_indexes
 from src.preprocessing_utils import extract_emg_channels
 
-def plot_data(filtered_emg_data, restimulus_data, grasp_number=None, interactive=False, frequency=None, title=None):
+def plot_data(filtered_emg_data, restimulus_data, grasp_number=None, interactive=False, frequency=None, title=None, sort_channels=False):
     emg_df = pd.DataFrame(filtered_emg_data, columns=[f'Channel {i+1}' for i in range(filtered_emg_data.shape[1])])
 
     if frequency is not None:
@@ -36,6 +36,12 @@ def plot_data(filtered_emg_data, restimulus_data, grasp_number=None, interactive
         fig.show()
     else:
         fig, ax = plt.subplots(figsize=(18, 6))  # Create figure and axis
+        if sort_channels:
+            # Sort channels by their maximum absolute amplitude
+            min_amplitudes = emg_df.abs().min()
+            sorted_columns = min_amplitudes.sort_values().index
+            emg_df = emg_df[sorted_columns]
+
         emg_df.plot(x=x_axis, title=title, ax=ax)
         ax.set_xlabel(x_axis, fontsize=10)  # Adjust the font size of the x-axis label
         ax.set_ylabel('Amplitude', fontsize=10)  # Adjust the font size of the y-axis label
@@ -111,7 +117,7 @@ def plot_emg_data(database, mat_file, grasp_number, interactive=False, time=True
         plot_fourier_transform_with_envelope(filtered_emg_data, frequency)
 
 
-def plot_emg_dataframe(database, emg_data, grasp_number, interactive=False, time=True, include_rest=False, padding = 10, use_stimulus = False, addFourier = False, length = 0.0): 
+def plot_emg_dataframe(database, emg_data, grasp_number, interactive=False, time=True, include_rest=False, padding = 10, use_stimulus = False, addFourier = False, length = 0.0, fourier_sigma = 25): 
     if time == True:
         try:
             frequency = DATABASE_INFO[database]['frequency']
@@ -151,7 +157,7 @@ def plot_emg_dataframe(database, emg_data, grasp_number, interactive=False, time
     plot_data(filtered_emg_data, filtered_restimulus_data, grasp_number, interactive, frequency)
 
     if addFourier:
-        plot_fourier_transform_with_envelope(filtered_emg_data, frequency)
+        plot_fourier_transform_with_envelope(filtered_emg_data, frequency, sigma=fourier_sigma)
 
 
 def plot_fourier_transform(emg_data, frequency, start_freq=0, end_freq=600):
@@ -184,35 +190,76 @@ def plot_fourier_transform(emg_data, frequency, start_freq=0, end_freq=600):
     plt.show()
 
 
-def plot_fourier_transform_with_envelope(emg_data, frequency, start_freq=0, end_freq=600, window_length=51, polyorder=3, sigma=30, print_max=True):
-    """
-    Plots the Fourier transform of EMG data with a smoothed envelope and computes median and center frequencies.
-    
-    Parameters:
-        emg_data (np.ndarray): EMG data array with shape (samples, channels).
-        frequency (float): Sampling frequency in Hz.
-        start_freq (float): Start frequency for plotting, default is 0 Hz.
-        end_freq (float): End frequency for plotting, default is Nyquist frequency.
-        window_length (int): Window length for Savitzky-Golay filter (must be odd).
-        polyorder (int): Polynomial order for Savitzky-Golay filter.
-        sigma (float): Standard deviation for Gaussian filter.
-        print_max (bool): Whether to print the maximum frequency for each channel.
-    
-    Returns:
-        Tuple containing:
-        - List of maximum frequencies for each channel.
-        - List of median frequencies for each channel.
-        - List of center frequencies for each channel.
-    """
-    # Compute the Fourier transform of the filtered EMG data
+def compute_fourier_transform(emg_data, frequency):
+    """Computes the Fourier Transform and corresponding frequencies."""
     fourier_data = np.fft.fft(emg_data, axis=0)
     freqs = np.fft.fftfreq(emg_data.shape[0], d=1/frequency)
+    return fourier_data, freqs
 
-    # Filter out negative frequencies
-    positive_freqs = freqs > 0
-    fourier_data = fourier_data[positive_freqs]
-    freqs = freqs[positive_freqs]
 
+def filter_frequencies(fourier_data, freqs, start_freq, end_freq, remove_zero_freq=True, zero_band=3.0):
+    """
+    Removes the 0 Hz frequency component (optionally within a small range) and selects the desired frequency range.
+    
+    Parameters:
+        fourier_data (np.ndarray): Fourier-transformed data.
+        freqs (np.ndarray): Corresponding frequency bins.
+        start_freq (float): Lower bound of frequency range.
+        end_freq (float): Upper bound of frequency range.
+        remove_zero_freq (bool): If True, removes frequencies within the `zero_band` around 0 Hz.
+        zero_band (float): Width of the exclusion zone around 0 Hz (default 1 Hz).
+        
+    Returns:
+        Filtered fourier_data and frequency array.
+    """
+    if remove_zero_freq:
+        valid_freqs = (freqs < -zero_band) | (freqs > zero_band)  # Removes frequencies within [-zero_band, zero_band]
+    else:
+        valid_freqs = np.ones_like(freqs, dtype=bool)  # Keep all frequencies
+
+    fourier_data, freqs = fourier_data[valid_freqs], freqs[valid_freqs]
+
+    # Apply frequency range selection
+    freq_mask = (freqs >= start_freq) & (freqs <= end_freq)
+    return fourier_data[freq_mask], freqs[freq_mask]
+
+
+
+def apply_smoothing(magnitude, window_length=101, polyorder=3, sigma=9):
+    """Applies Savitzky-Golay and Gaussian smoothing."""
+    smoothed = savgol_filter(magnitude, window_length=window_length, polyorder=polyorder, axis=0)
+    return gaussian_filter1d(smoothed, sigma=sigma, axis=0)
+
+
+def compute_frequency_metrics(freqs, smoothed_magnitude):
+    """Computes max, median, and center frequencies for each channel."""
+    max_freqs, median_freqs, center_freqs = [], [], []
+    
+    for i in range(smoothed_magnitude.shape[1]):
+        max_freq = freqs[np.argmax(smoothed_magnitude[:, i])]
+        max_freqs.append(max_freq)
+
+        cumulative_power = np.cumsum(smoothed_magnitude[:, i])
+        median_freq = freqs[np.searchsorted(cumulative_power, cumulative_power[-1] / 2)]
+        median_freqs.append(median_freq)
+
+        center_freq = np.sum(freqs * smoothed_magnitude[:, i]) / np.sum(smoothed_magnitude[:, i])
+        center_freqs.append(center_freq)
+
+    return max_freqs, median_freqs, center_freqs
+
+
+def plot_fourier_transform_with_envelope(emg_data, frequency, start_freq=5, end_freq=600, 
+                                         window_length=101, polyorder=3, sigma=9, 
+                                         print_max=True, remove_zero_freq=True):
+    """
+    Computes and plots the Fourier transform of EMG data with a smoothed envelope.
+    """
+    # Compute FFT
+    fourier_data, freqs = compute_fourier_transform(emg_data, frequency)
+    
+    # Filter frequencies
+    #fourier_data, freqs = filter_frequencies(fourier_data, freqs, start_freq, end_freq, remove_zero_freq)
     # Apply frequency boundaries
     if end_freq is None:
         end_freq = freqs[-1]
@@ -220,47 +267,27 @@ def plot_fourier_transform_with_envelope(emg_data, frequency, start_freq=0, end_
     fourier_data = fourier_data[freq_mask]
     freqs = freqs[freq_mask]
 
-    # Compute the magnitude of the Fourier transform
+    # Compute magnitude
     magnitude = np.abs(fourier_data)
 
-    # Apply Savitzky-Golay filter to smooth the envelope
-    smoothed_magnitude = savgol_filter(magnitude, window_length=window_length, polyorder=polyorder, axis=0)
+    # Apply smoothing
+    smoothed_magnitude = apply_smoothing(magnitude, window_length, polyorder, sigma)
 
-    # Apply Gaussian filter for additional smoothing
-    smoothed_magnitude = gaussian_filter1d(smoothed_magnitude, sigma=sigma, axis=0)
+    # Compute frequency metrics
+    max_freqs, median_freqs, center_freqs = compute_frequency_metrics(freqs, smoothed_magnitude)
 
-    # Initialize lists to store max, median, and center frequencies
-    max_freqs = []
-    median_freqs = []
-    center_freqs = []
-
-    # Plot the smoothed envelope
+    # Plot
     plt.figure(figsize=(18, 6))
     for i in range(smoothed_magnitude.shape[1]):
         plt.plot(freqs, smoothed_magnitude[:, i], label=f'Channel {i + 1}')
-        
-        # Maximum frequency
-        max_freq = freqs[np.argmax(smoothed_magnitude[:, i])]
-        max_freqs.append(max_freq)
-        
-        # Median frequency
-        cumulative_power = np.cumsum(smoothed_magnitude[:, i])
-        total_power = cumulative_power[-1]
-        median_freq = freqs[np.searchsorted(cumulative_power, total_power / 2)]
-        median_freqs.append(median_freq)
-        
-        # Center frequency
-        center_freq = np.sum(freqs * smoothed_magnitude[:, i]) / np.sum(smoothed_magnitude[:, i])
-        center_freqs.append(center_freq)
-        
         if print_max:
-            print(f"Channel {i + 1}: Max Frequency = {max_freq} Hz, Median Frequency = {median_freq} Hz, Center Frequency = {center_freq} Hz")
-    
+            print(f"{i + 1}: Max= {max_freqs[i]:.2f} Hz, Med= {median_freqs[i]:.2f} Hz, Cen= {center_freqs[i]:.2f} Hz")
+
     plt.title('Smoothed Envelope of Fourier Transform of EMG Data')
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Amplitude')
     plt.legend(loc='upper right', fontsize=6)
-    plt.xticks(np.arange(start_freq, end_freq + 1, step=20))  # Add more x-ticks
+    plt.xticks(np.arange(start_freq, end_freq + 1, step=20))
     plt.grid(True)
     plt.tight_layout()
     plt.show()

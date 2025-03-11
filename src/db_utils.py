@@ -92,10 +92,11 @@ def build_dataframe(mat_file, database, filename, use_Stimulus=False, rectify=Fa
     emg_df = pd.DataFrame(emg_data, columns=[f'Channel {i+1}' for i in range(emg_data.shape[1])])
     if normalize:
         # Apply MinMaxScaler to normalize the data between 0 and 1
-        scaler = MinMaxScaler()
-        emg_df = pd.DataFrame(scaler.fit_transform(emg_df.values), columns=emg_df.columns)
+        #scaler = MinMaxScaler()
+        #emg_df = pd.DataFrame(scaler.fit_transform(emg_df.values), columns=emg_df.columns)
         #emg_df = (emg_df - emg_df.mean()) / emg_df.std()
-        #emg_df = emg_df / emg_df.abs().max()
+        global_max = emg_df.abs().values.max()  # Get single max across all channels
+        emg_df = emg_df / global_max  # Scale all values using one factor
 
     if rectify:
         emg_df = emg_df.abs()

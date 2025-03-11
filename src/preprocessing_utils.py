@@ -230,7 +230,7 @@ def get_envelope(emg_signal, envelope_type=1, window_size=50, cutoff_freq=10, fs
         return compute_envelope(emg_signal)
 
 
-def get_filtered_signal(signal, fc_low: float, fc_high: float, fm: float):
+def get_filtered_signal(signal, fc_high: float, fc_low: float, fm: float):
     """
     Aplica un filtro pasabajo (low-pass) y un filtro pasa-alto (high-pass) a una señal utilizando un filtro Butterworth.
 
@@ -266,30 +266,26 @@ def get_filtered_signal(signal, fc_low: float, fc_high: float, fm: float):
         raise ValueError("High-pass filter critical frequency must be 0 < fc_high < Nyquist frequency")
     
     # Apply the Butterworth filters
-    b_low, a_low = butter(4, normal_frec_corte_low, btype='low', analog=False)
-    b_high, a_high = butter(4, normal_frec_corte_high, btype='high', analog=False)
+    b_low, a_low = butter(4, normal_frec_corte_low, btype='lowpass', analog=False)
+    b_high, a_high = butter(4, normal_frec_corte_high, btype='highpass', analog=False)
     
     def apply_filters(signal):
         low_passed_signal = filtfilt(b_low, a_low, signal)
         high_passed_signal = filtfilt(b_high, a_high, low_passed_signal)
-        max_value = np.max(np.abs(high_passed_signal))
-        if max_value != 0:
-            high_passed_signal = high_passed_signal# / max_value
         return high_passed_signal
     
     if isinstance(signal, pd.DataFrame):
         filtered_signal = signal.apply(apply_filters, axis=0)
+        global_max = filtered_signal.abs().values.max()  # Get single max across all channels
+        if global_max != 0:
+            filtered_signal = filtered_signal / global_max  # Scale all values using one factor
     else:
         filtered_signal = apply_filters(signal)
-    
-    # Normalize the filtered signal between 0 and 1
-    scaler = MinMaxScaler()
-    if isinstance(filtered_signal, pd.DataFrame):
-        normalized_signal = pd.DataFrame(scaler.fit_transform(filtered_signal.values), columns=filtered_signal.columns)
-    else:
-        normalized_signal = scaler.fit_transform(filtered_signal.reshape(-1, 1)).flatten()
-    
-    return normalized_signal
+        global_max = np.max(np.abs(filtered_signal))  # Get single max across all channels
+        if global_max != 0:
+            filtered_signal = filtered_signal / global_max  # Scale all values using one factor
+
+    return filtered_signal
 
 
 def get_envelope_filtered(emg_signal, fc_low: float, fc_high: float, fm: float, envelope_type):
