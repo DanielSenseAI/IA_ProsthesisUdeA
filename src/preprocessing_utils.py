@@ -230,7 +230,7 @@ def get_envelope(emg_signal, envelope_type=1, window_size=50, cutoff_freq=10, fs
         return compute_envelope(emg_signal)
 
 
-def get_filtered_signal(signal, fc_high: float, fc_low: float, fm: float):
+def get_filtered_signal(signal, fc_high: float, fc_low: float, fm: float, normalize = False):
     """
     Aplica un filtro pasabajo (low-pass) y un filtro pasa-alto (high-pass) a una señal utilizando un filtro Butterworth.
 
@@ -285,7 +285,7 @@ def get_filtered_signal(signal, fc_high: float, fc_low: float, fm: float):
         if global_max != 0:
             filtered_signal = filtered_signal / global_max  # Scale all values using one factor
 
-    return filtered_signal
+    return np.abs(filtered_signal) if normalize else filtered_signal
 
 
 def get_envelope_filtered(emg_signal, fc_low: float, fc_high: float, fm: float, envelope_type):
