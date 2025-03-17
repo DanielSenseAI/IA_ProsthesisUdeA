@@ -6,7 +6,7 @@ import requests
 
 from src import config
 
-
+ 
 def download_data(url: str, database: int):
     """
     Función para descar la información de cada URL
