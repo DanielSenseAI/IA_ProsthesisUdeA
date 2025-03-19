@@ -311,9 +311,93 @@ def get_envelope_filtered(emg_signal, fc_low: float, fc_high: float, fm: float, 
     np.array o pd.DataFrame
         La envolvente de la señal EMG filtrada, que representa los valores de amplitud instantánea de la señal procesada.
     """
+
     filtered_signal = get_filtered_signal(emg_signal, fc_low, fc_high, fm)
     envelope = get_envelope(filtered_signal, envelope_type)
     return envelope
+
+
+def get_envelope_lowpass(emg_signal, fm: float, envelope_type, cutoff_freq=1):
+    """
+    Applies a low-pass filter to the envelope of an EMG signal.
+
+    Parameters:
+    ----------
+    emg_signal : np.array or pd.DataFrame
+        The EMG signal (raw or preprocessed).
+    fm : float
+        Sampling frequency in Hz.
+    envelope_type : int
+        Type of envelope to calculate.
+    cutoff_freq : float, optional
+        Cutoff frequency for the low-pass filter (default: 3 Hz).
+
+    Returns:
+    -------
+    np.array or pd.DataFrame
+        The low-pass filtered envelope of the EMG signal.
+    """
+    def apply_low_pass_filter(signal, cutoff_freq, fs, order=4):
+        nyquist = 0.5 * fs
+        normal_cutoff = cutoff_freq / nyquist
+        b, a = butter(order, normal_cutoff, btype='low', analog=False)
+        if len(signal) <= 15:
+            raise ValueError("Input signal length must be greater than 15 for filtering.")
+        return filtfilt(b, a, signal)
+
+    # Compute the envelope
+    envelope = get_envelope(emg_signal, envelope_type)
+    print(f"Envelope shape: {envelope.shape}")  # Debugging
+
+    # Apply low-pass filter
+    if isinstance(envelope, pd.DataFrame):
+        envelope_lowpass = envelope.apply(lambda col: apply_low_pass_filter(col, cutoff_freq, fm), axis=0)
+    else:
+        envelope_lowpass = apply_low_pass_filter(envelope, cutoff_freq, fm)
+
+    return envelope_lowpass
+
+def get_envelope_hanning(emg_signal, fm: float, envelope_type, window_size=0):
+    """
+    Applies a Hanning window to the envelope of an EMG signal.
+
+    Parameters:
+    ----------
+    emg_signal : np.array or pd.DataFrame
+        The EMG signal (raw or preprocessed).
+    fm : float
+        Sampling frequency in Hz.
+    envelope_type : int
+        Type of envelope to calculate.
+    window_size : int, optional
+        Size of the Hanning window (default: 50% of the sampling frequency).
+
+    Returns:
+    -------
+    np.array or pd.DataFrame
+        The Hanning-windowed envelope of the EMG signal.
+    """
+    def apply_hanning_window(signal, window_size):
+        if len(signal) < window_size:
+            raise ValueError(f"Signal length ({len(signal)}) must be greater than or equal to the window size ({window_size}).")
+        window = np.hanning(window_size)
+        return np.convolve(signal, window / window.sum(), mode='same')
+
+    # Set default window size if not provided
+    if window_size == 0:
+        window_size = int(0.5 * fm)  # Default to 50% of the sampling frequency
+
+    # Compute the envelope
+    envelope = get_envelope(emg_signal, envelope_type)
+    print(f"Envelope shape: {envelope.shape}")  # Debugging
+
+    # Apply Hanning window
+    if isinstance(envelope, pd.DataFrame):
+        envelope_hanning = envelope.apply(lambda col: apply_hanning_window(col, window_size), axis=0)
+    else:
+        envelope_hanning = apply_hanning_window(envelope, window_size)
+
+    return envelope_hanning
 
 
 def create_windows_with_overlap(signal, window_length, overlap):

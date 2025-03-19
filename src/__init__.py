@@ -5,9 +5,11 @@ from .model_utils import print_evaluation_metrics, warmup_scheduler
 
 from .preprocessing_utils import (create_windows_with_overlap, get_envelope,
                                   get_envelope_filtered, get_filtered_signal,
+                                  get_envelope_lowpass, get_envelope_hanning,
                                   get_label, get_signal_by_movement_complete,
                                   get_start_end_index, get_stimulus_index, add_time,
                                   relabel_database, extract_emg_channels)
+
 from .process_data import (calculate_kurtosis, calculate_mav, calculate_mavs,
                            calculate_rms, calculate_sample_variance,
                            calculate_skewness, calculate_variance)

@@ -461,121 +461,162 @@ def plot_emg_channels(database, mat_file, grasp_number, interactive=False, time=
         plot_fourier_transform_with_envelope(filtered_emg_data, frequency)
 
 
-def plot_single_emg_channel(database, original_df, transformed_df, channel, start=5000, end=6000, time=True, addFourier=False):
+def plot_single_emg_channel(database, raw_data, processed_data, grasp_number, channel, start=0, end=None, 
+                            time=True, include_rest=False, padding=10, length=0.0, 
+                            use_stimulus=False, addFourier=False):
     """
-    Plots a given channel from the original and transformed EMG DataFrames.
+    Plots a given channel from the raw and processed EMG DataFrames.
 
     Parameters:
-    - original_df: DataFrame containing the original EMG signals.
-    - transformed_df: DataFrame containing the transformed EMG signals.
+    - database: Name of the database.
+    - raw_data: DataFrame containing the raw EMG signals.
+    - processed_data: DataFrame containing the processed EMG signals.
+    - grasp_number: The grasp number to filter.
     - channel: The channel to plot.
     - start: The starting index for the plot (default is 0).
     - end: The ending index for the plot (default is None, which means plot till the end).
     - time: Boolean indicating whether to use time on the x-axis.
+    - include_rest: Boolean indicating whether to include rest periods.
+    - padding: Padding to add before and after the stimulus.
+    - length: Length of the test time to plot (in seconds).
+    - use_stimulus: Boolean indicating whether to use filtered stimulus.
     - addFourier: Boolean indicating whether to add Fourier transform plots.
     """
-    if end is None:
-        end = len(original_df)
+    # Filter the raw and processed data
+    filtered_raw_data = db_utils.filter_data_pandas(raw_data, grasp_number, include_rest=include_rest, padding=padding)
+    filtered_processed_data = db_utils.filter_data_pandas(processed_data, grasp_number, include_rest=include_rest, padding=padding)
+    
+    if length > 0.01:
+        final_time = filtered_raw_data['Time (s)'].iloc[0] + length
+        filtered_raw_data = filtered_raw_data[filtered_raw_data['Time (s)'] < final_time]
+        filtered_processed_data = filtered_processed_data[filtered_processed_data['Time (s)'] < final_time]
 
-    # Extract the EMG channels for the specified indices
-    initialEMG = extract_emg_channels(original_df.iloc[start:end])
-    transformedEMG = extract_emg_channels(transformed_df.iloc[start:end])
+    # Extract the EMG channels
+    raw_emg = prep_utils.extract_emg_channels(filtered_raw_data)
+    processed_emg = prep_utils.extract_emg_channels(filtered_processed_data)
 
     # Get frequency if time is True
     if time:
         frequency = DATABASE_INFO[database]['frequency']
-        num_samples = initialEMG.shape[0]
+        num_samples = raw_emg.shape[0]
         x_axis = np.linspace(0, num_samples / frequency, num_samples)
         x_label = "Time (s)"
     else:
         x_axis = np.arange(start, end)
         x_label = "Samples"
 
-    plt.figure(figsize=(14, 9))
+    plt.figure(figsize=(14, 6))
 
-    # Plot original signal
-    plt.subplot(3, 1, 1)
-    plt.plot(x_axis, initialEMG[channel])
-    plt.title(f'Original EMG Signal - Channel {channel}')
-    plt.xlabel(x_label)
-    plt.ylabel('Amplitude')
+    # Plot the raw EMG signal
+    plt.plot(x_axis, raw_emg[channel], label=f'Raw EMG - Channel {channel}', color='orange', alpha=0.7)
 
-    # Plot transformed signal
-    plt.subplot(3, 1, 2)
-    plt.plot(x_axis, transformedEMG[channel])
-    plt.title(f'Transformed EMG Signal - Channel {channel}')
-    plt.xlabel(x_label)
-    plt.ylabel('Amplitude')
+    # Plot the processed EMG signal
+    plt.plot(x_axis, processed_emg[channel], label=f'Processed EMG - Channel {channel}', color='blue')
 
-    # Plot overlaid signals
-    plt.subplot(3, 1, 3)
-    plt.plot(x_axis, initialEMG[channel], label='Original')
-    plt.plot(x_axis, transformedEMG[channel], label='Transformed', alpha=0.7)
-    plt.title(f'Overlay of Original and Transformed EMG Signal - Channel {channel}')
+    plt.title(f'Raw and Processed EMG Signal - Channel {channel}')
     plt.xlabel(x_label)
     plt.ylabel('Amplitude')
     plt.legend()
+
+    # Add transition marks
+    if 'relabeled' in filtered_processed_data.columns:
+        # Map transition indexes to the x_axis
+        start_index, end_index = prep_utils.get_transition_indexes(filtered_processed_data['relabeled'].values)
+        start_times = x_axis[start_index]  # Map start indexes to x_axis
+        end_times = x_axis[end_index]      # Map end indexes to x_axis
+
+        for time in start_times:
+            plt.axvline(x=time, color='red', linestyle='--', linewidth=0.8, label='Start Transition')
+        for time in end_times:
+            plt.axvline(x=time, color='blue', linestyle='--', linewidth=0.8, label='End Transition')
 
     plt.tight_layout()
     plt.show()
 
     # Plot Fourier transform if requested
     if addFourier:
-        plot_fourier_transform_with_envelope(transformedEMG, frequency)
+        plot_fourier_transform_with_envelope(processed_emg, frequency)
 
 
-def plot_emg_channel_with_envelopes(database, original_df, transformed_dfs, channel, start=5000, end=6000, time=True, addFourier=False):
+def plot_emg_channel_with_envelopes(database, raw_data, processed_data_list, grasp_number, channel, 
+                                    start=0, end=None, time=True, include_rest=True, 
+                                    padding=10, length=0.0, use_stimulus=False, addFourier=False):
     """
-    Plots a given channel from the original and multiple transformed EMG DataFrames.
+    Plots a given channel from the raw and processed EMG DataFrames, along with transformed envelopes.
 
     Parameters:
-    - original_df: DataFrame containing the original EMG signals.
-    - transformed_dfs: List of DataFrames containing the transformed EMG signals.
+    - database: Name of the database.
+    - raw_data: DataFrame containing the raw EMG signals.
+    - processed_data_list: List of DataFrames containing the processed EMG signals.
+    - grasp_number: The grasp number to filter.
     - channel: The channel to plot.
     - start: The starting index for the plot (default is 0).
     - end: The ending index for the plot (default is None, which means plot till the end).
     - time: Boolean indicating whether to use time on the x-axis.
+    - include_rest: Boolean indicating whether to include rest periods.
+    - padding: Padding to add before and after the stimulus.
+    - length: Length of the test time to plot (in seconds).
+    - use_stimulus: Boolean indicating whether to use filtered stimulus.
     - addFourier: Boolean indicating whether to add Fourier transform plots.
     """
-    if end is None:
-        end = len(original_df)
+    # Filter the raw data
+    filtered_raw_data = db_utils.filter_data_pandas(raw_data, grasp_number, include_rest=include_rest, padding=padding)
+    
+    if length > 0.01:
+        final_time = filtered_raw_data['Time (s)'].iloc[0] + length
+        filtered_raw_data = filtered_raw_data[filtered_raw_data['Time (s)'] < final_time]
 
-    # Extract the EMG channels for the specified indices
-    initialEMG = extract_emg_channels(original_df.iloc[start:end])
+    # Extract the raw EMG channels
+    raw_emg = prep_utils.extract_emg_channels(filtered_raw_data)
 
     # Get frequency if time is True
     if time:
         frequency = DATABASE_INFO[database]['frequency']
-        num_samples = initialEMG.shape[0]
+        num_samples = raw_emg.shape[0]
         x_axis = np.linspace(0, num_samples / frequency, num_samples)
         x_label = "Time (s)"
     else:
         x_axis = np.arange(start, end)
         x_label = "Samples"
 
-    plt.figure(figsize=(14, 9))
+    plt.figure(figsize=(14, 6))
 
-    # Plot original signal
-    plt.subplot(2, 1, 1)
-    plt.plot(x_axis, initialEMG[channel])
-    plt.title(f'Original EMG Signal - Channel {channel}')
-    plt.xlabel(x_label)
-    plt.ylabel('Amplitude')
+    # Plot the raw EMG signal
+    plt.plot(x_axis, raw_emg[channel], label=f'Raw EMG - Channel {channel}', color='orange', alpha=0.7)
 
-    # Plot overlaid signals
-    plt.subplot(2, 1, 2)
-    plt.plot(x_axis, initialEMG[channel], label='Original')
-    for i, transformed_df in enumerate(transformed_dfs):
-        transformedEMG = extract_emg_channels(transformed_df.iloc[start:end])
-        plt.plot(x_axis, transformedEMG[channel], label=f'Transformed (Envelope Type {i+1})', alpha=0.7)
-    plt.title(f'Overlay of Original and Transformed EMG Signal - Channel {channel}')
+    # Iterate through the list of processed DataFrames and plot each one
+    for i, processed_data in enumerate(processed_data_list):
+        # Filter the processed data
+        filtered_processed_data = db_utils.filter_data_pandas(processed_data, grasp_number, include_rest=include_rest, padding=padding)
+        
+        if length > 0.01:
+            filtered_processed_data = filtered_processed_data[filtered_processed_data['Time (s)'] < final_time]
+
+        # Extract the processed EMG channels
+        processed_emg = prep_utils.extract_emg_channels(filtered_processed_data)
+
+        # Plot the processed EMG signal
+        plt.plot(x_axis, processed_emg[channel], label=f'Processed EMG {i+1} - Channel {channel}', alpha=0.7)
+
+    plt.title(f'Raw and Processed EMG Signal with Envelopes - Channel {channel}')
     plt.xlabel(x_label)
     plt.ylabel('Amplitude')
     plt.legend()
 
+    # Add transition marks (using the first processed DataFrame as reference)
+    if 'relabeled' in filtered_processed_data.columns:
+        start_index, end_index = prep_utils.get_transition_indexes(filtered_processed_data['relabeled'].values)
+        start_times = x_axis[start_index]  # Map start indexes to x_axis
+        end_times = x_axis[end_index]      # Map end indexes to x_axis
+
+        for time in start_times:
+            plt.axvline(x=time, color='red', linestyle='--', linewidth=0.8, label='Start Transition')
+        for time in end_times:
+            plt.axvline(x=time, color='blue', linestyle='--', linewidth=0.8, label='End Transition')
+
     plt.tight_layout()
     plt.show()
 
-    # Plot Fourier transform if requested
+    # Plot Fourier transform if requested (using the first processed DataFrame as reference)
     if addFourier:
-        plot_fourier_transform_with_envelope(initialEMG, frequency)
+        plot_fourier_transform_with_envelope(processed_emg, frequency)
