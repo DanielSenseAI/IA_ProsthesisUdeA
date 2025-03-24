@@ -391,3 +391,55 @@ def plot_emg_channels(database, mat_file, grasp_number, interactive=False, time=
     # Fourier opcional
     if addFourier:
         plot_fourier_transform_with_envelope(filtered_emg_data, frequency)
+
+def plot_emg_windowed(database, mat_file, grasp_number, windowing, interactive=False, time=True, include_rest=False, padding=10, use_stimulus=False, addFourier=False, title=None):
+    try:
+        emg_data, restimulus_data = db_utils.extract_data(mat_file, use_stimulus)
+    except KeyError as e:
+        print(f"KeyError in extract_data: {e}")
+        raise
+
+    if time:
+        try:
+            frequency = DATABASE_INFO[database]['frequency']
+        except KeyError as e:
+            print(f"KeyError accessing DATABASE_INFO: {e}")
+            raise
+    else:
+        frequency = None
+
+    if emg_data is None or restimulus_data is None:
+        return
+
+    try:
+        filtered_emg_data, filtered_restimulus_data = db_utils.filter_data(
+            emg_data, restimulus_data, grasp_number, include_rest, padding=padding)
+    except KeyError as e:
+        print(f"KeyError in filter_data: {e}")
+        raise
+
+    print(f"Filtered EMG data shape: {filtered_emg_data.shape}")
+    print(f"Filtered restimulus data shape: {filtered_restimulus_data.shape}")
+
+    if filtered_emg_data is None or filtered_restimulus_data is None:
+        raise ValueError("Filtered data is None")
+
+    # Definir la duración de la ventana en muestras
+    window_size = int(windowing * frequency)  # 100 ms en muestras
+    
+    if window_size > filtered_emg_data.shape[0]:
+        raise ValueError("Window size is larger than available data.")
+    
+    windowed_data = filtered_emg_data[:window_size, :]
+    time_axis = np.arange(window_size) / frequency
+
+    plt.figure(figsize=(10, 6))
+    for i in range(windowed_data.shape[1]):
+        plt.plot(time_axis, windowed_data[:, i], label=f'Channel {i+1}')
+    
+    plt.xlabel('Time (s)')
+    plt.ylabel('EMG Signal')
+    plt.title(title if title else 'EMG Windowed Signal (100 ms)')
+    plt.legend()
+    plt.grid()
+    plt.show()
