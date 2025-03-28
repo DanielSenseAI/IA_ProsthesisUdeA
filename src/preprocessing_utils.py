@@ -1,8 +1,9 @@
-from collections import Counter
 import pandas as pd
 import numpy as np
-from scipy.signal import hilbert, butter, filtfilt, find_peaks
 import pywt
+from scipy.signal import hilbert, butter, filtfilt, find_peaks
+from sklearn.preprocessing import MinMaxScaler
+from collections import Counter
 from scipy.interpolate import interp1d
 from typing import Dict
 
@@ -113,6 +114,7 @@ def get_signal_by_movement_complete(signal: np.array, movement: dict) -> np.arra
     segmented_signal = signal[(movement['end'][0])+1:movement['end'][-1]]
     return segmented_signal
 
+
 def get_transition_indexes(data):
     # Check if the input is a DataFrame
     if isinstance(data, pd.DataFrame):
@@ -135,7 +137,7 @@ def get_transition_indexes(data):
     return zero_to_nonzero, nonzero_to_zero
 
 
-def teager_kaiser_energy(signal, smooth_window=10):
+def teager_kaiser_energy(signal, smooth_window=1):
     """Compute the Teager-Kaiser Energy Operator (TKEO) envelope with correct size handling."""
     if len(signal) < 3:  # Ensure minimum length for safe computation
         return np.zeros_like(signal)
@@ -228,125 +230,254 @@ def get_envelope(emg_signal, envelope_type=1, window_size=50, cutoff_freq=10, fs
         return compute_envelope(emg_signal)
 
 
-
-def get_filtered_signal(signal: np.array, fc: float, fm: float) -> np.array:
+def get_filtered_signal(signal, fc_high: float, fc_low: float, fm: float, normalize = False):
     """
-        Aplica un filtro pasabajo (low-pass) a una señal utilizando un filtro Butterworth.
+    Aplica un filtro pasabajo (low-pass) y un filtro pasa-alto (high-pass) a una señal utilizando un filtro Butterworth.
 
-        Parámetros:
-        ----------
-        signal : np.array
-            El array que representa la señal que se desea filtrar.
-        
-        fc : float
-            La frecuencia de corte del filtro pasabajo, en Hz. Las frecuencias por encima de esta serán atenuadas.
-        
-        fm : float
-            La frecuencia de muestreo de la señal, en Hz. Es necesaria para calcular la frecuencia de Nyquist.
+    Parámetros:
+    ----------
+    signal : np.array o pd.DataFrame
+        El array o DataFrame que representa la señal que se desea filtrar.
+    
+    fc_low : float
+        La frecuencia de corte del filtro pasabajo, en Hz. Las frecuencias por encima de esta serán atenuadas.
+    
+    fc_high : float
+        La frecuencia de corte del filtro pasa-alto, en Hz. Las frecuencias por debajo de esta serán atenuadas.
+    
+    fm : float
+        La frecuencia de muestreo de la señal, en Hz. Es necesaria para calcular la frecuencia de Nyquist.
 
-        Retorna:
-        -------
-        np.array
-            La señal filtrada, después de aplicar el filtro pasabajo de Butterworth.
+    Retorna:
+    -------
+    np.array o pd.DataFrame
+        La señal filtrada, después de aplicar el filtro pasabajo y el filtro pasa-alto de Butterworth.
     """
     nyquist = 0.5 * fm
-    normal_frec_corte = fc / nyquist
-    b, a = butter(4, normal_frec_corte, btype='low', analog=False)
-    return filtfilt(b, a, signal)
+    
+    # Normalize the cutoff frequencies
+    normal_frec_corte_low = fc_low / nyquist
+    normal_frec_corte_high = fc_high / nyquist
+
+    # Ensure the cutoff frequencies are within the valid range
+    if not (0 < normal_frec_corte_low < 1):
+        raise ValueError("Low-pass filter critical frequency must be 0 < fc_low < Nyquist frequency")
+    if not (0 < normal_frec_corte_high < 1):
+        raise ValueError("High-pass filter critical frequency must be 0 < fc_high < Nyquist frequency")
+    
+    # Apply the Butterworth filters
+    b_low, a_low = butter(4, normal_frec_corte_low, btype='lowpass', analog=False)
+    b_high, a_high = butter(4, normal_frec_corte_high, btype='highpass', analog=False)
+    
+    def apply_filters(signal):
+        low_passed_signal = filtfilt(b_low, a_low, signal)
+        high_passed_signal = filtfilt(b_high, a_high, low_passed_signal)
+        return high_passed_signal
+    
+    if isinstance(signal, pd.DataFrame):
+        filtered_signal = signal.apply(apply_filters, axis=0)
+        global_max = filtered_signal.abs().values.max()  # Get single max across all channels
+        if global_max != 0:
+            filtered_signal = filtered_signal / global_max  # Scale all values using one factor
+    else:
+        filtered_signal = apply_filters(signal)
+        global_max = np.max(np.abs(filtered_signal))  # Get single max across all channels
+        if global_max != 0:
+            filtered_signal = filtered_signal / global_max  # Scale all values using one factor
+
+    return np.abs(filtered_signal) if normalize else filtered_signal
 
 
-def get_envelope_filtered(emg_signal: np.array, fc:float, fm:float) ->np.array:
+def get_envelope_filtered(emg_signal, fc_low: float, fc_high: float, fm: float, envelope_type):
     """
-        Aplica un filtro pasabajo a una señal EMG y luego calcula la envolvente de la señal filtrada.
+    Aplica un filtro pasabajo (low-pass) y un filtro pasa-alto (high-pass) a una señal EMG y luego calcula la envolvente de la señal filtrada.
 
-        Parámetros:
-        ----------
-        emg_signal : np.array
-            Un array que representa la señal de Electromiografía (EMG).
-        
-        fc : float
-            La frecuencia de corte del filtro pasabajo en Hz. Las frecuencias por encima de este valor serán atenuadas.
-        
-        fm : float
-            La frecuencia de muestreo de la señal EMG en Hz. Es necesaria para calcular la frecuencia de Nyquist.
+    Parámetros:
+    ----------
+    emg_signal : np.array o pd.DataFrame
+        El array o DataFrame que representa la señal de Electromiografía (EMG).
+    
+    fc_low : float
+        La frecuencia de corte del filtro pasabajo, en Hz. Las frecuencias por encima de esta serán atenuadas.
+    
+    fc_high : float
+        La frecuencia de corte del filtro pasa-alto, en Hz. Las frecuencias por debajo de esta serán atenuadas.
+    
+    fm : float
+        La frecuencia de muestreo de la señal EMG en Hz. Es necesaria para calcular la frecuencia de Nyquist.
 
-        Retorna:
-        -------
-        np.array
-            La envolvente de la señal EMG filtrada, que representa los valores de amplitud instantánea de la señal procesada.
+    Retorna:
+    -------
+    np.array o pd.DataFrame
+        La envolvente de la señal EMG filtrada, que representa los valores de amplitud instantánea de la señal procesada.
     """
-    filtered_signal = get_filtered_signal(emg_signal, fc, fm)
-    envelope = get_envelope(filtered_signal)
+
+    filtered_signal = get_filtered_signal(emg_signal, fc_low, fc_high, fm)
+    envelope = get_envelope(filtered_signal, envelope_type)
     return envelope
 
 
-def create_windows_with_overlap(signal, window_length,  overlap):
+def get_envelope_lowpass(emg_signal, fm: float, envelope_type, cutoff_freq):
     """
-        Divide una señal en ventanas de longitud fija, permitiendo superposición entre ventanas.
+    Applies a low-pass filter to the envelope of an EMG signal.
 
-        Parámetros:
-        ----------
-        signal : np.array
-            Un array que representa la señal que se va a dividir en ventanas.
+    Parameters:
+    ----------
+    emg_signal : np.array or pd.DataFrame
+        The EMG signal (raw or preprocessed).
+    fm : float
+        Sampling frequency in Hz.
+    envelope_type : int
+        Type of envelope to calculate.
+    cutoff_freq : float, optional
+        Cutoff frequency.
 
-        window_length : int
-            La longitud de cada ventana (cantidad de muestras por ventana).
+    Returns:
+    -------
+    np.array or pd.DataFrame
+        The low-pass filtered envelope of the EMG signal.
+    """
+    def apply_low_pass_filter(signal, cutoff_freq, fs, order=4):
+        nyquist = 0.5 * fs
+        normal_cutoff = cutoff_freq / nyquist
+        b, a = butter(order, normal_cutoff, btype='low', analog=False)
+        if len(signal) <= 15:
+            raise ValueError("Input signal length must be greater than 15 for filtering.")
+        return filtfilt(b, a, signal)
 
-        overlap : float
-            El porcentaje de superposición entre ventanas. Si es 0, no habrá superposición.
+    # Compute the envelope
+    envelope = get_envelope(emg_signal, envelope_type)
+    print(f"Envelope shape: {envelope.shape}")  # Debugging
 
-        Retorna:
-        -------
-        list
-            Una lista de ventanas (subarrays) extraídas de la señal original, cada una con una longitud de `window_length`.
+    # Apply low-pass filter
+    if isinstance(envelope, pd.DataFrame):
+        envelope_lowpass = envelope.apply(lambda col: apply_low_pass_filter(col, cutoff_freq, fm), axis=0)
+    else:
+        envelope_lowpass = apply_low_pass_filter(envelope, cutoff_freq, fm)
+
+    return envelope_lowpass
+
+def get_envelope_hanning(emg_signal, fm: float, envelope_type, window_size=0):
+    """
+    Applies a Hanning window to the envelope of an EMG signal.
+
+    Parameters:
+    ----------
+    emg_signal : np.array or pd.DataFrame
+        The EMG signal (raw or preprocessed).
+    fm : float
+        Sampling frequency in Hz.
+    envelope_type : int
+        Type of envelope to calculate.
+    window_size : int, optional
+        Size of the Hanning window (default: 50% of the sampling frequency).
+
+    Returns:
+    -------
+    np.array or pd.DataFrame
+        The Hanning-windowed envelope of the EMG signal.
+    """
+    def apply_hanning_window(signal, window_size):
+        if len(signal) < window_size:
+            raise ValueError(f"Signal length ({len(signal)}) must be greater than or equal to the window size ({window_size}).")
+        window = np.hanning(window_size)
+        return np.convolve(signal, window / window.sum(), mode='same')
+
+    # Set default window size if not provided
+    if window_size == 0:
+        window_size = int(0.5 * fm)  # Default to 50% of the sampling frequency
+
+    # Compute the envelope
+    envelope = get_envelope(emg_signal, envelope_type)
+    print(f"Envelope shape: {envelope.shape}")  # Debugging
+
+    # Apply Hanning window
+    if isinstance(envelope, pd.DataFrame):
+        envelope_hanning = envelope.apply(lambda col: apply_hanning_window(col, window_size), axis=0)
+    else:
+        envelope_hanning = apply_hanning_window(envelope, window_size)
+
+    return envelope_hanning
+
+
+def create_windows_with_overlap(signal, window_length, overlap):
+    """
+    Divide una señal en ventanas de longitud fija, permitiendo superposición entre ventanas.
+
+    Parámetros:
+    ----------
+    signal : np.array o pd.DataFrame
+        Un array o DataFrame que representa la señal que se va a dividir en ventanas.
+
+    window_length : int
+        La longitud de cada ventana (cantidad de muestras por ventana).
+
+    overlap : float
+        El porcentaje de superposición entre ventanas. Si es 0, no habrá superposición.
+
+    Retorna:
+    -------
+    list
+        Una lista de ventanas (subarrays) extraídas de la señal original, cada una con una longitud de `window_length`.
     """
     if overlap == 0:
-        return [signal[i:i+window_length] for i in range(0, len(signal), window_length)]
+        step_size = window_length
     else:
         overlap_size = int(window_length * overlap / 100)
         step_size = window_length - overlap_size
-        return [signal[i:i+window_length] for i in range(0, len(signal) - window_length + 1, step_size)]
-    
+
+    if isinstance(signal, pd.DataFrame):
+        windows = [signal.iloc[i:i+window_length] for i in range(0, len(signal) - window_length + 1, step_size)]
+    else:
+        windows = [signal[i:i+window_length] for i in range(0, len(signal) - window_length + 1, step_size)]
+
+    return windows
+
 
 def get_label(signal, percentage, labels):
     """
-        Asigna una etiqueta a una señal basada en la frecuencia de sus valores.
+    Asigna una etiqueta a una señal basada en la frecuencia de sus valores.
 
-        La función cuenta la frecuencia de los elementos en la señal y compara la frecuencia 
-        de cada valor con un umbral determinado por el porcentaje especificado. Si la frecuencia 
-        de un valor excede el umbral, se devuelve la etiqueta correspondiente a ese valor.
+    La función cuenta la frecuencia de los elementos en la señal y compara la frecuencia 
+    de cada valor con un umbral determinado por el porcentaje especificado. Si la frecuencia 
+    de un valor excede el umbral, se devuelve la etiqueta correspondiente a ese valor.
 
-        Parámetros:
-        ----------
-        signal : list
-            Una lista de listas (por ejemplo, ventanas de una señal) que contiene los valores 
-            de la señal.
+    Parámetros:
+    ----------
+    signal : np.array, pd.DataFrame o list
+        Un array, DataFrame o lista de listas (por ejemplo, ventanas de una señal) que contiene los valores 
+        de la señal.
 
-        percentage : float
-            El porcentaje que se usará para calcular el umbral de frecuencia. Si un valor 
-            tiene una frecuencia igual o mayor que este umbral, se le asignará la etiqueta.
+    percentage : float
+        El porcentaje que se usará para calcular el umbral de frecuencia. Si un valor 
+        tiene una frecuencia igual o mayor que este umbral, se le asignará la etiqueta.
 
-        labels : dict
-            Un diccionario que mapea valores a etiquetas. Las claves deben ser cadenas 
-            que representan los valores de la señal.
+    labels : dict
+        Un diccionario que mapea valores a etiquetas. Las claves deben ser cadenas 
+        que representan los valores de la señal.
 
-        Retorna:
-        -------
-        str
-            La etiqueta asociada al valor que cumple con el umbral de frecuencia. 
-            Si ningún valor cumple con el umbral, se retorna 'None'.
+    Retorna:
+    -------
+    str
+        La etiqueta asociada al valor que cumple con el umbral de frecuencia. 
+        Si ningún valor cumple con el umbral, se retorna 'None'.
     """
-    flattened_signal = [item for sublist in signal for item in sublist]
+    if isinstance(signal, pd.DataFrame):
+        flattened_signal = signal.values.flatten()
+    elif isinstance(signal, np.ndarray):
+        flattened_signal = signal.flatten()
+    else:
+        flattened_signal = [item for sublist in signal for item in sublist]
     
     counter = Counter(flattened_signal)
-    total_elements = len(signal)
+    total_elements = len(flattened_signal)
     threshold = (percentage / 100) * total_elements
     for value, frequency in counter.items():
-        # if value != 0 and frequency >= threshold:
         if frequency >= threshold:
-            label = labels[str(value)]
+            label = labels.get(str(value), 'None')
             return label
-    return 'None' # If no value meets the threshold    return 'None' # If no value meets the threshold
+    return 'None'  # If no value meets the threshold
+
 
 def add_time(emg_data, frequency):
     if isinstance(emg_data, pd.DataFrame):
@@ -355,6 +486,7 @@ def add_time(emg_data, frequency):
     else:
         raise TypeError("emg_data must be a pandas DataFrame")
     return emg_data
+
 
 def relabel_database(database, stimulus, exercise = None):
     """
@@ -404,6 +536,7 @@ def relabel_database(database, stimulus, exercise = None):
         print(f"Warning: The following labels were not found in the mapping for exercise {exercise}: {missing_labels}")
     
     return stimulus
+
 
 def extract_emg_channels(emg_df):
     emg_channel_columns = [col for col in emg_df.columns if col.startswith('Channel')]

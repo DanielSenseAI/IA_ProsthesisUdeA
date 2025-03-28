@@ -443,3 +443,26 @@ def plot_emg_windowed(database, mat_file, grasp_number, windowing, interactive=F
     plt.legend()
     plt.grid()
     plt.show()
+
+def plot_emg_data_basic(emg_data, frequency=2000, title=None):
+    """
+    Grafica las señales EMG contenidas en un DataFrame.
+    
+    Parámetros:
+    - emg_data: DataFrame con señales EMG (columnas = canales).
+    - frequency: Frecuencia de muestreo en Hz (predeterminado: 1000 Hz).
+    - title: Título de la gráfica.
+    """
+    time_axis = [i / frequency for i in range(len(emg_data))] 
+
+    plt.figure(figsize=(12, 6))
+    
+    for column in emg_data.columns:
+        plt.plot(time_axis, emg_data[column], label=column)
+
+    plt.xlabel("Tiempo (s)")
+    plt.ylabel("Amplitud EMG")
+    plt.title(title)
+    plt.legend(loc='upper right')
+    plt.grid(True)
+    plt.show()
