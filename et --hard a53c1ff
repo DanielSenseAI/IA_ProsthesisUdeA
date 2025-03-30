@@ -1,0 +1,33 @@
+[33md36dc7e[m[33m ([m[1;36mHEAD -> [m[1;32mLuisa[m[33m, [m[1;31morigin/Luisa[m[33m)[m HEAD@{0}: reset: moving to HEAD~1
+[33ma53c1ff[m HEAD@{1}: commit: Plots señal cruda y envolvente separado o en el mismo plot
+[33md36dc7e[m[33m ([m[1;36mHEAD -> [m[1;32mLuisa[m[33m, [m[1;31morigin/Luisa[m[33m)[m HEAD@{2}: commit: Enventanado con hilbert y hilbert y lowpass
+[33mb6161e2[m HEAD@{3}: commit: Graficas de la envolvente de hilbert en diferentes enventanados sin overlap y con enventanado rectangular
+[33m778156a[m HEAD@{4}: commit: db_hilbert organizado, espera de enventanado, eliminando PCA
+[33m5f568e5[m HEAD@{5}: commit: Organización del notebook con movimientos seleccionados, creación de envelope_hilbert
+[33ma952f88[m HEAD@{6}: commit: Análisis de PCA para todos los features
+[33me42dd99[m HEAD@{7}: commit: Análisis con PCA
+[33m720ba2a[m HEAD@{8}: commit: Cambio de rama
+[33ma36a7a6[m HEAD@{9}: reset: moving to a36a7a6f361443a0514bd5022ad1f9d81b4487e7
+[33m72adae4[m HEAD@{10}: checkout: moving from Luisa_Temp to Luisa
+[33m9e9c48c[m[33m ([m[1;32mLuisa_Temp[m[33m)[m HEAD@{11}: commit: Intento
+[33m9ec1587[m HEAD@{12}: commit: Intento
+[33m8ccafef[m HEAD@{13}: commit: PCA incluido en los ananálisis de dendograma, enventanada de hilbert con 10 movimientos basados en el dendograma obtenido
+[33m1812e44[m HEAD@{14}: commit (merge): PCA incluido en los ananálisis de dendograma, enventanada de hilbert con 10 movimientos basados en el dendograma obtenido
+[33mcc030bb[m HEAD@{15}: commit: Metrics for grasp
+[33m4077956[m HEAD@{16}: reset: moving to 40779563b1f386b30d2dad52a983fd419fcf255e
+[33m1e8d87e[m HEAD@{17}: commit: Metrics for grasp
+[33m4077956[m HEAD@{18}: checkout: moving from 40779563b1f386b30d2dad52a983fd419fcf255e to Luisa_Temp
+[33m4077956[m HEAD@{19}: commit: Ultimo cambio
+[33m309fc11[m HEAD@{20}: checkout: moving from Luisa to 309fc11546167d31bda555b8dad842a4a88a98ad
+[33m72adae4[m HEAD@{21}: checkout: moving from main to Luisa
+[33ma9f398b[m HEAD@{22}: checkout: moving from Luisa to main
+[33m72adae4[m HEAD@{23}: commit: Bad code
+[33ma36a7a6[m HEAD@{24}: checkout: moving from main to Luisa
+[33ma9f398b[m HEAD@{25}: reset: moving to HEAD
+[33ma9f398b[m HEAD@{26}: reset: moving to a9f398b488827fec55ecf869e6f57f7302375cf3
+[33m309fc11[m HEAD@{27}: checkout: moving from Luisa to main
+[33ma36a7a6[m HEAD@{28}: commit: Trabajo en desarrollo
+[33m309fc11[m HEAD@{29}: checkout: moving from main to Luisa
+[33m309fc11[m HEAD@{30}: commit: Copia ipynb para trabajo de Luisa
+[33ma9f398b[m HEAD@{31}: pull: Fast-forward
+[33m9351eff[m HEAD@{32}: clone: from https://github.com/DanielSenseAI/IA_ProsthesisUdeA.git
