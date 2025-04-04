@@ -311,6 +311,29 @@ def get_envelope_filtered(emg_signal, fc_low: float, fc_high: float, fm: float, 
     np.array o pd.DataFrame
         La envolvente de la señal EMG filtrada, que representa los valores de amplitud instantánea de la señal procesada.
     """
+    # Validate input signal
+    if isinstance(emg_signal, pd.DataFrame):
+        if emg_signal.empty:
+            raise ValueError("Input EMG signal DataFrame is empty")
+        min_length = emg_signal.shape[0]
+    elif isinstance(emg_signal, np.ndarray):
+        if emg_signal.size == 0:
+            raise ValueError("Input EMG signal array is empty")
+        min_length = len(emg_signal)
+    else:
+        raise TypeError("Input EMG signal must be a numpy array or pandas DataFrame")
+
+    # Check minimum signal length for filtering
+    if min_length <= 15:
+        raise ValueError(f"Input signal length ({min_length}) must be greater than 15 for filtering")
+
+    # Validate frequency parameters
+    if not all(isinstance(x, (int, float)) for x in [fc_low, fc_high, fm]):
+        raise TypeError("Frequency parameters must be numeric")
+    if not all(x > 0 for x in [fc_low, fc_high, fm]):
+        raise ValueError("Frequency parameters must be positive")
+    if fc_low >= fc_high:
+        raise ValueError("Low cutoff frequency must be less than high cutoff frequency")
 
     filtered_signal = get_filtered_signal(emg_signal, fc_low, fc_high, fm)
     envelope = get_envelope(filtered_signal, envelope_type)
@@ -541,7 +564,7 @@ def relabel_database(database, stimulus, exercise = None):
 def extract_emg_channels(emg_df):
     emg_channel_columns = [col for col in emg_df.columns if col.startswith('Channel')]
     emg_channels_df = emg_df[emg_channel_columns]
-    return emg_channels_df   
+    return emg_channels_df
 
 
 
