@@ -1,0 +1,2083 @@
+Grid Search Log - 2025-04-06 19:31:13
+Database: DB4
+Window Sizes: [200, 400, 800]
+Envelope Types: [0, 1, 6]
+Filter Cutoffs: [0.6, 1.0, 5.0]
+Overlap Percentage: 0%
+Use GPU: False
+Batch Size: 64
+Python Executable: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe
+
+--------------------------------------------------------------------------------
+
+Combination 1/21 - 19:31:13
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 200 --overlap 0 --envelope-type 0 --filter-cutoff 0.6
+Status: Success
+Execution Time: 536.60 seconds
+Return Code: 0
+
+STDOUT:
+GPU acceleration not requested, using CPU
+Processing database: DB4
+Window size: 200 samples (0.100 seconds at 2kHz)
+Overlap: 0 samples
+Envelope type: 0
+Filter cutoff: 0.6 Hz
+Labels: All
+Channels: All available channels
+Output file will be: DB4_w200_env0_f0.6
+Found 10 subject folders.
+Total .mat files to process: 30
+Using 12 parallel processes
+
+Found 6 previously saved chunks. Consolidating...
+Loading chunk 1/6: chunk_DB4_w200_env0_f0.6_20250406-193535.parquet
+  - 507972 windows loaded
+Loading chunk 2/6: chunk_DB4_w200_env0_f0.6_20250406-193540.parquet
+  - 550740 windows loaded
+Loading chunk 3/6: chunk_DB4_w200_env0_f0.6_20250406-193731.parquet
+  - 581832 windows loaded
+Loading chunk 4/6: chunk_DB4_w200_env0_f0.6_20250406-193811.parquet
+  - 507624 windows loaded
+Loading chunk 5/6: chunk_DB4_w200_env0_f0.6_20250406-193900.parquet
+  - 550740 windows loaded
+Loading chunk 6/6: chunk_DB4_w200_env0_f0.6_20250406-193958.parquet
+  - 581856 windows loaded
+
+Combining 6 dataframes with a total of 6561528 windows...
+Saving consolidated file with 3280764 windows to preprocessed_data\DB4\DB4_w200_env0_f0.6[20250406-194002].parquet
+Consolidated file successfully saved to preprocessed_data\DB4\DB4_w200_env0_f0.6[20250406-194002].parquet
+Cleaning up intermediate chunks...
+  - Deleted: chunk_DB4_w200_env0_f0.6_20250406-193535.parquet
+  - Deleted: chunk_DB4_w200_env0_f0.6_20250406-193540.parquet
+  - Deleted: chunk_DB4_w200_env0_f0.6_20250406-193731.parquet
+  - Deleted: chunk_DB4_w200_env0_f0.6_20250406-193811.parquet
+  - Deleted: chunk_DB4_w200_env0_f0.6_20250406-193900.parquet
+  - Deleted: chunk_DB4_w200_env0_f0.6_20250406-193958.parquet
+
+Processing complete in 8.77 minutes!
+Average speed: 0.06 files/second
+Total windows extracted: 3280764
+
+STDERR:
+
+Processing files:   0%|          | 0/30 [00:00<?, ?it/s]
+Processing files:   3%|3         | 1/30 [02:11<1:03:33, 131.49s/it]
+Processing files:   3%|3         | 1/30 [02:11<1:03:33, 131.49s/it, errors=0, windows=74292]
+Processing files:   7%|6         | 2/30 [03:03<39:35, 84.86s/it, errors=0, windows=74292]   
+Processing files:   7%|6         | 2/30 [03:03<39:35, 84.86s/it, errors=0, windows=179856]
+Processing files:  10%|#         | 3/30 [04:13<35:06, 78.02s/it, errors=0, windows=179856]
+Processing files:  10%|#         | 3/30 [04:13<35:06, 78.02s/it, errors=0, windows=328176]
+Processing files:  13%|#3        | 4/30 [04:13<20:28, 47.26s/it, errors=0, windows=328176]
+Processing files:  13%|#3        | 4/30 [04:13<20:28, 47.26s/it, errors=0, windows=402444]
+Processing files:  17%|#6        | 5/30 [04:18<13:14, 31.78s/it, errors=0, windows=402444]
+Processing files:  17%|#6        | 5/30 [04:18<13:14, 31.78s/it, errors=0, windows=507972]
+Processing files:  20%|##        | 6/30 [04:18<12:42, 31.78s/it, errors=0, windows=656352]
+Processing files:  23%|##3       | 7/30 [04:18<12:10, 31.78s/it, errors=0, windows=730632]
+Processing files:  27%|##6       | 8/30 [04:18<11:39, 31.78s/it, errors=0, windows=835980]
+Processing files:  30%|###       | 9/30 [04:18<03:38, 10.41s/it, errors=0, windows=835980]
+Processing files:  30%|###       | 9/30 [04:18<03:38, 10.41s/it, errors=0, windows=984396]
+Processing files:  33%|###3      | 10/30 [04:21<03:28, 10.41s/it, errors=0, windows=1058712]
+Processing files:  37%|###6      | 11/30 [04:21<02:22,  7.50s/it, errors=0, windows=1058712]
+Processing files:  37%|###6      | 11/30 [04:21<02:22,  7.50s/it, errors=0, windows=1164084]
+Processing files:  40%|####      | 12/30 [04:21<02:14,  7.50s/it, errors=0, windows=1312404]
+Processing files:  43%|####3     | 13/30 [04:21<02:07,  7.50s/it, errors=0, windows=1386876]
+Processing files:  47%|####6     | 14/30 [05:00<02:37,  9.83s/it, errors=0, windows=1386876]
+Processing files:  47%|####6     | 14/30 [05:00<02:37,  9.83s/it, errors=0, windows=1492200]
+Processing files:  50%|#####     | 15/30 [06:12<05:00, 20.03s/it, errors=0, windows=1492200]
+Processing files:  50%|#####     | 15/30 [06:12<05:00, 20.03s/it, errors=0, windows=1640544]
+Processing files:  53%|#####3    | 16/30 [06:12<04:40, 20.03s/it, errors=0, windows=1714848]
+Processing files:  57%|#####6    | 17/30 [06:12<04:20, 20.03s/it, errors=0, windows=1820196]
+Processing files:  60%|######    | 18/30 [06:49<03:22, 16.86s/it, errors=0, windows=1820196]
+Processing files:  60%|######    | 18/30 [06:49<03:22, 16.86s/it, errors=0, windows=1968492]
+Processing files:  63%|######3   | 19/30 [06:49<03:05, 16.86s/it, errors=0, windows=2042832]
+Processing files:  67%|######6   | 20/30 [06:51<02:03, 12.37s/it, errors=0, windows=2042832]
+Processing files:  67%|######6   | 20/30 [06:51<02:03, 12.37s/it, errors=0, windows=2148168]
+Processing files:  70%|#######   | 21/30 [07:35<02:39, 17.70s/it, errors=0, windows=2148168]
+Processing files:  70%|#######   | 21/30 [07:35<02:39, 17.70s/it, errors=0, windows=2.3e+6] 
+Processing files:  73%|#######3  | 22/30 [07:35<02:21, 17.70s/it, errors=0, windows=2370876]
+Processing files:  77%|#######6  | 23/30 [07:35<02:03, 17.70s/it, errors=0, windows=2476236]
+Processing files:  80%|########  | 24/30 [07:38<01:03, 10.66s/it, errors=0, windows=2476236]
+Processing files:  80%|########  | 24/30 [07:38<01:03, 10.66s/it, errors=0, windows=2624628]
+Processing files:  83%|########3 | 25/30 [07:39<00:45,  9.12s/it, errors=0, windows=2624628]
+Processing files:  83%|########3 | 25/30 [07:39<00:45,  9.12s/it, errors=0, windows=2.7e+6] 
+Processing files:  87%|########6 | 26/30 [07:39<00:36,  9.12s/it, errors=0, windows=2.8e+6]
+Processing files:  90%|######### | 27/30 [08:05<00:30, 10.28s/it, errors=0, windows=2.8e+6]
+Processing files:  90%|######### | 27/30 [08:05<00:30, 10.28s/it, errors=0, windows=2952768]
+Processing files:  93%|#########3| 28/30 [08:05<00:20, 10.28s/it, errors=0, windows=3027024]
+Processing files:  97%|#########6| 29/30 [08:05<00:10, 10.28s/it, errors=0, windows=3132372]
+Processing files: 100%|##########| 30/30 [08:38<00:00, 10.65s/it, errors=0, windows=3132372]
+Processing files: 100%|##########| 30/30 [08:38<00:00, 10.65s/it, errors=0, windows=3280764]
+Processing files: 100%|##########| 30/30 [08:38<00:00, 17.29s/it, errors=0, windows=3280764]
+
+--------------------------------------------------------------------------------
+
+Combination 4/21 - 19:40:09
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 200 --overlap 0 --envelope-type 1 --filter-cutoff 0.6
+Status: Success
+Execution Time: 737.96 seconds
+Return Code: 0
+
+STDOUT:
+GPU acceleration not requested, using CPU
+Processing database: DB4
+Window size: 200 samples (0.100 seconds at 2kHz)
+Overlap: 0 samples
+Envelope type: 1
+Filter cutoff: 0.6 Hz
+Labels: All
+Channels: All available channels
+Output file will be: DB4_w200_env1_f0.6
+Found 10 subject folders.
+Total .mat files to process: 30
+Using 12 parallel processes
+
+Found 6 previously saved chunks. Consolidating...
+Loading chunk 1/6: chunk_DB4_w200_env1_f0.6_20250406-194428.parquet
+  - 507972 windows loaded
+Loading chunk 2/6: chunk_DB4_w200_env1_f0.6_20250406-194432.parquet
+  - 550740 windows loaded
+Loading chunk 3/6: chunk_DB4_w200_env1_f0.6_20250406-194957.parquet
+  - 581832 windows loaded
+Loading chunk 4/6: chunk_DB4_w200_env1_f0.6_20250406-195036.parquet
+  - 507624 windows loaded
+Loading chunk 5/6: chunk_DB4_w200_env1_f0.6_20250406-195119.parquet
+  - 550740 windows loaded
+Loading chunk 6/6: chunk_DB4_w200_env1_f0.6_20250406-195214.parquet
+  - 581856 windows loaded
+
+Combining 6 dataframes with a total of 6561528 windows...
+Saving consolidated file with 3280764 windows to preprocessed_data\DB4\DB4_w200_env1_f0.6[20250406-195218].parquet
+Consolidated file successfully saved to preprocessed_data\DB4\DB4_w200_env1_f0.6[20250406-195218].parquet
+Cleaning up intermediate chunks...
+  - Deleted: chunk_DB4_w200_env1_f0.6_20250406-194428.parquet
+  - Deleted: chunk_DB4_w200_env1_f0.6_20250406-194432.parquet
+  - Deleted: chunk_DB4_w200_env1_f0.6_20250406-194957.parquet
+  - Deleted: chunk_DB4_w200_env1_f0.6_20250406-195036.parquet
+  - Deleted: chunk_DB4_w200_env1_f0.6_20250406-195119.parquet
+  - Deleted: chunk_DB4_w200_env1_f0.6_20250406-195214.parquet
+
+Processing complete in 12.15 minutes!
+Average speed: 0.04 files/second
+Total windows extracted: 3280764
+
+STDERR:
+
+Processing files:   0%|          | 0/30 [00:00<?, ?it/s]
+Processing files:   3%|3         | 1/30 [02:13<1:04:33, 133.56s/it]
+Processing files:   3%|3         | 1/30 [02:13<1:04:33, 133.56s/it, errors=0, windows=74292]
+Processing files:   7%|6         | 2/30 [03:03<39:22, 84.37s/it, errors=0, windows=74292]   
+Processing files:   7%|6         | 2/30 [03:03<39:22, 84.37s/it, errors=0, windows=179856]
+Processing files:  10%|#         | 3/30 [04:10<34:27, 76.58s/it, errors=0, windows=179856]
+Processing files:  10%|#         | 3/30 [04:10<34:27, 76.58s/it, errors=0, windows=328176]
+Processing files:  13%|#3        | 4/30 [04:11<20:07, 46.44s/it, errors=0, windows=328176]
+Processing files:  13%|#3        | 4/30 [04:11<20:07, 46.44s/it, errors=0, windows=402444]
+Processing files:  17%|#6        | 5/30 [04:15<13:01, 31.27s/it, errors=0, windows=402444]
+Processing files:  17%|#6        | 5/30 [04:15<13:01, 31.27s/it, errors=0, windows=507972]
+Processing files:  20%|##        | 6/30 [04:15<12:30, 31.27s/it, errors=0, windows=656352]
+Processing files:  23%|##3       | 7/30 [04:15<11:59, 31.27s/it, errors=0, windows=730632]
+Processing files:  27%|##6       | 8/30 [04:15<04:31, 12.32s/it, errors=0, windows=730632]
+Processing files:  27%|##6       | 8/30 [04:15<04:31, 12.32s/it, errors=0, windows=835980]
+Processing files:  30%|###       | 9/30 [04:15<03:21,  9.58s/it, errors=0, windows=835980]
+Processing files:  30%|###       | 9/30 [04:15<03:21,  9.58s/it, errors=0, windows=984396]
+Processing files:  33%|###3      | 10/30 [04:19<02:41,  8.09s/it, errors=0, windows=984396]
+Processing files:  33%|###3      | 10/30 [04:19<02:41,  8.09s/it, errors=0, windows=1058712]
+Processing files:  37%|###6      | 11/30 [04:19<02:33,  8.09s/it, errors=0, windows=1164084]
+Processing files:  40%|####      | 12/30 [04:19<01:26,  4.81s/it, errors=0, windows=1164084]
+Processing files:  40%|####      | 12/30 [04:19<01:26,  4.81s/it, errors=0, windows=1312404]
+Processing files:  43%|####3     | 13/30 [04:19<01:03,  3.75s/it, errors=0, windows=1312404]
+Processing files:  43%|####3     | 13/30 [04:19<01:03,  3.75s/it, errors=0, windows=1386876]
+Processing files:  47%|####6     | 14/30 [08:31<17:11, 64.45s/it, errors=0, windows=1386876]
+Processing files:  47%|####6     | 14/30 [08:31<17:11, 64.45s/it, errors=0, windows=1492200]
+Processing files:  50%|#####     | 15/30 [09:43<16:35, 66.40s/it, errors=0, windows=1492200]
+Processing files:  50%|#####     | 15/30 [09:43<16:35, 66.40s/it, errors=0, windows=1640544]
+Processing files:  53%|#####3    | 16/30 [09:43<15:29, 66.40s/it, errors=0, windows=1714848]
+Processing files:  57%|#####6    | 17/30 [09:43<08:16, 38.20s/it, errors=0, windows=1714848]
+Processing files:  57%|#####6    | 17/30 [09:43<08:16, 38.20s/it, errors=0, windows=1820196]
+Processing files:  57%|#####6    | 17/30 [09:57<08:16, 38.20s/it, errors=0, windows=1820196]
+Processing files:  60%|######    | 18/30 [10:19<07:30, 37.55s/it, errors=0, windows=1820196]
+Processing files:  60%|######    | 18/30 [10:19<07:30, 37.55s/it, errors=0, windows=1968492]
+Processing files:  63%|######3   | 19/30 [10:19<06:53, 37.55s/it, errors=0, windows=2042832]
+Processing files:  67%|######6   | 20/30 [10:20<03:48, 22.89s/it, errors=0, windows=2042832]
+Processing files:  67%|######6   | 20/30 [10:20<03:48, 22.89s/it, errors=0, windows=2148168]
+Processing files:  70%|#######   | 21/30 [11:01<04:00, 26.73s/it, errors=0, windows=2148168]
+Processing files:  70%|#######   | 21/30 [11:01<04:00, 26.73s/it, errors=0, windows=2.3e+6] 
+Processing files:  73%|#######3  | 22/30 [11:01<03:33, 26.73s/it, errors=0, windows=2370876]
+Processing files:  77%|#######6  | 23/30 [11:01<03:07, 26.73s/it, errors=0, windows=2476236]
+Processing files:  80%|########  | 24/30 [11:02<01:23, 13.91s/it, errors=0, windows=2476236]
+Processing files:  80%|########  | 24/30 [11:02<01:23, 13.91s/it, errors=0, windows=2624628]
+Processing files:  83%|########3 | 25/30 [11:03<00:57, 11.50s/it, errors=0, windows=2624628]
+Processing files:  83%|########3 | 25/30 [11:03<00:57, 11.50s/it, errors=0, windows=2.7e+6] 
+Processing files:  87%|########6 | 26/30 [11:03<00:46, 11.50s/it, errors=0, windows=2.8e+6]
+Processing files:  90%|######### | 27/30 [11:29<00:36, 12.10s/it, errors=0, windows=2.8e+6]
+Processing files:  90%|######### | 27/30 [11:29<00:36, 12.10s/it, errors=0, windows=2952768]
+Processing files:  93%|#########3| 28/30 [11:29<00:24, 12.10s/it, errors=0, windows=3027024]
+Processing files:  97%|#########6| 29/30 [11:29<00:12, 12.10s/it, errors=0, windows=3132372]
+Processing files: 100%|##########| 30/30 [11:58<00:00, 11.02s/it, errors=0, windows=3132372]
+Processing files: 100%|##########| 30/30 [11:58<00:00, 11.02s/it, errors=0, windows=3280764]
+Processing files: 100%|##########| 30/30 [11:58<00:00, 23.96s/it, errors=0, windows=3280764]
+
+--------------------------------------------------------------------------------
+
+Combination 5/21 - 19:52:27
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 200 --overlap 0 --envelope-type 1 --filter-cutoff 1.0
+Status: Success
+Execution Time: 529.09 seconds
+Return Code: 0
+
+STDOUT:
+GPU acceleration not requested, using CPU
+Processing database: DB4
+Window size: 200 samples (0.100 seconds at 2kHz)
+Overlap: 0 samples
+Envelope type: 1
+Filter cutoff: 1.0 Hz
+Labels: All
+Channels: All available channels
+Output file will be: DB4_w200_env1_f1.0
+Found 10 subject folders.
+Total .mat files to process: 30
+Using 12 parallel processes
+
+Found 6 previously saved chunks. Consolidating...
+Loading chunk 1/6: chunk_DB4_w200_env1_f1.0_20250406-195638.parquet
+  - 507972 windows loaded
+Loading chunk 2/6: chunk_DB4_w200_env1_f1.0_20250406-195643.parquet
+  - 550740 windows loaded
+Loading chunk 3/6: chunk_DB4_w200_env1_f1.0_20250406-195841.parquet
+  - 581832 windows loaded
+Loading chunk 4/6: chunk_DB4_w200_env1_f1.0_20250406-195920.parquet
+  - 507624 windows loaded
+Loading chunk 5/6: chunk_DB4_w200_env1_f1.0_20250406-200005.parquet
+  - 550740 windows loaded
+Loading chunk 6/6: chunk_DB4_w200_env1_f1.0_20250406-200103.parquet
+  - 581856 windows loaded
+
+Combining 6 dataframes with a total of 6561528 windows...
+Saving consolidated file with 3280764 windows to preprocessed_data\DB4\DB4_w200_env1_f1.0[20250406-200106].parquet
+Consolidated file successfully saved to preprocessed_data\DB4\DB4_w200_env1_f1.0[20250406-200106].parquet
+Cleaning up intermediate chunks...
+  - Deleted: chunk_DB4_w200_env1_f1.0_20250406-195638.parquet
+  - Deleted: chunk_DB4_w200_env1_f1.0_20250406-195643.parquet
+  - Deleted: chunk_DB4_w200_env1_f1.0_20250406-195841.parquet
+  - Deleted: chunk_DB4_w200_env1_f1.0_20250406-195920.parquet
+  - Deleted: chunk_DB4_w200_env1_f1.0_20250406-200005.parquet
+  - Deleted: chunk_DB4_w200_env1_f1.0_20250406-200103.parquet
+
+Processing complete in 8.64 minutes!
+Average speed: 0.06 files/second
+Total windows extracted: 3280764
+
+STDERR:
+
+Processing files:   0%|          | 0/30 [00:00<?, ?it/s]
+Processing files:   3%|3         | 1/30 [02:07<1:01:26, 127.12s/it]
+Processing files:   3%|3         | 1/30 [02:07<1:01:26, 127.12s/it, errors=0, windows=74292]
+Processing files:   7%|6         | 2/30 [02:57<38:20, 82.15s/it, errors=0, windows=74292]   
+Processing files:   7%|6         | 2/30 [02:57<38:20, 82.15s/it, errors=0, windows=179856]
+Processing files:  10%|#         | 3/30 [04:03<33:29, 74.43s/it, errors=0, windows=179856]
+Processing files:  10%|#         | 3/30 [04:03<33:29, 74.43s/it, errors=0, windows=328176]
+Processing files:  13%|#3        | 4/30 [04:03<32:15, 74.43s/it, errors=0, windows=402444]
+Processing files:  17%|#6        | 5/30 [04:06<13:52, 33.29s/it, errors=0, windows=402444]
+Processing files:  17%|#6        | 5/30 [04:06<13:52, 33.29s/it, errors=0, windows=507972]
+Processing files:  20%|##        | 6/30 [04:06<13:18, 33.29s/it, errors=0, windows=656352]
+Processing files:  23%|##3       | 7/30 [04:06<12:45, 33.29s/it, errors=0, windows=730632]
+Processing files:  27%|##6       | 8/30 [04:06<05:31, 15.07s/it, errors=0, windows=730632]
+Processing files:  27%|##6       | 8/30 [04:06<05:31, 15.07s/it, errors=0, windows=835980]
+Processing files:  30%|###       | 9/30 [04:07<05:16, 15.07s/it, errors=0, windows=984396]
+Processing files:  33%|###3      | 10/30 [04:11<03:34, 10.73s/it, errors=0, windows=984396]
+Processing files:  33%|###3      | 10/30 [04:11<03:34, 10.73s/it, errors=0, windows=1058712]
+Processing files:  37%|###6      | 11/30 [04:11<03:23, 10.73s/it, errors=0, windows=1164084]
+Processing files:  40%|####      | 12/30 [04:11<02:09,  7.22s/it, errors=0, windows=1164084]
+Processing files:  40%|####      | 12/30 [04:11<02:09,  7.22s/it, errors=0, windows=1312404]
+Processing files:  43%|####3     | 13/30 [04:11<02:02,  7.22s/it, errors=0, windows=1386876]
+Processing files:  43%|####3     | 13/30 [04:30<02:02,  7.22s/it, errors=0, windows=1386876]
+Processing files:  47%|####6     | 14/30 [04:54<03:08, 11.77s/it, errors=0, windows=1386876]
+Processing files:  47%|####6     | 14/30 [04:54<03:08, 11.77s/it, errors=0, windows=1492200]
+Processing files:  50%|#####     | 15/30 [06:07<05:47, 23.16s/it, errors=0, windows=1492200]
+Processing files:  50%|#####     | 15/30 [06:07<05:47, 23.16s/it, errors=0, windows=1640544]
+Processing files:  53%|#####3    | 16/30 [06:07<05:24, 23.16s/it, errors=0, windows=1714848]
+Processing files:  57%|#####6    | 17/30 [06:07<05:01, 23.16s/it, errors=0, windows=1820196]
+Processing files:  60%|######    | 18/30 [06:44<03:40, 18.41s/it, errors=0, windows=1820196]
+Processing files:  60%|######    | 18/30 [06:44<03:40, 18.41s/it, errors=0, windows=1968492]
+Processing files:  63%|######3   | 19/30 [06:44<03:22, 18.41s/it, errors=0, windows=2042832]
+Processing files:  67%|######6   | 20/30 [06:47<02:12, 13.30s/it, errors=0, windows=2042832]
+Processing files:  67%|######6   | 20/30 [06:47<02:12, 13.30s/it, errors=0, windows=2148168]
+Processing files:  70%|#######   | 21/30 [07:27<02:41, 17.97s/it, errors=0, windows=2148168]
+Processing files:  70%|#######   | 21/30 [07:27<02:41, 17.97s/it, errors=0, windows=2.3e+6] 
+Processing files:  73%|#######3  | 22/30 [07:27<02:23, 17.97s/it, errors=0, windows=2370876]
+Processing files:  77%|#######6  | 23/30 [07:27<02:05, 17.97s/it, errors=0, windows=2476236]
+Processing files:  80%|########  | 24/30 [07:29<01:03, 10.59s/it, errors=0, windows=2476236]
+Processing files:  80%|########  | 24/30 [07:29<01:03, 10.59s/it, errors=0, windows=2624628]
+Processing files:  83%|########3 | 25/30 [07:31<00:45,  9.05s/it, errors=0, windows=2624628]
+Processing files:  83%|########3 | 25/30 [07:31<00:45,  9.05s/it, errors=0, windows=2.7e+6] 
+Processing files:  87%|########6 | 26/30 [07:31<00:36,  9.05s/it, errors=0, windows=2.8e+6]
+Processing files:  90%|######### | 27/30 [07:58<00:31, 10.50s/it, errors=0, windows=2.8e+6]
+Processing files:  90%|######### | 27/30 [07:58<00:31, 10.50s/it, errors=0, windows=2952768]
+Processing files:  93%|#########3| 28/30 [07:58<00:21, 10.50s/it, errors=0, windows=3027024]
+Processing files:  97%|#########6| 29/30 [07:58<00:10, 10.50s/it, errors=0, windows=3132372]
+Processing files: 100%|##########| 30/30 [08:28<00:00, 10.35s/it, errors=0, windows=3132372]
+Processing files: 100%|##########| 30/30 [08:28<00:00, 10.35s/it, errors=0, windows=3280764]
+Processing files: 100%|##########| 30/30 [08:28<00:00, 16.95s/it, errors=0, windows=3280764]
+
+--------------------------------------------------------------------------------
+
+Combination 6/21 - 20:01:16
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 200 --overlap 0 --envelope-type 1 --filter-cutoff 5.0
+Status: Success
+Execution Time: 228.05 seconds
+Return Code: 0
+
+STDOUT:
+GPU acceleration not requested, using CPU
+Processing database: DB4
+Window size: 200 samples (0.100 seconds at 2kHz)
+Overlap: 0 samples
+Envelope type: 1
+Filter cutoff: 5.0 Hz
+Labels: All
+Channels: All available channels
+Output file will be: DB4_w200_env1_f5.0
+Found 10 subject folders.
+Total .mat files to process: 30
+Using 12 parallel processes
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s2\S2_E1_A1.mat: std::bad_alloc
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s4\S4_E1_A1.mat: Unable to allocate 114. MiB for an array with shape (12, 1242566) and data type float64
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s4\S4_E2_A1.mat: Unable to allocate 80.4 MiB for an array with shape (21086376,) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s4\S4_E3_A1.mat: Unable to allocate 113. MiB for an array with shape (29696988,) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s5\S5_E1_A1.mat: Unable to allocate 56.7 MiB for an array with shape (14875764,) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s5\S5_E2_A1.mat: Unable to allocate 80.5 MiB for an array with shape (21092448,) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s1\S1_E2_A1.mat: std::bad_alloc
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s6\S6_E1_A1.mat: Unable to allocate 56.8 MiB for an array with shape (14881560,) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s5\S5_E3_A1.mat: Unable to allocate 113. MiB for an array with shape (29691228,) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s6\S6_E2_A1.mat: Unable to allocate 80.5 MiB for an array with shape (21093300,) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s6\S6_E3_A1.mat: Unable to allocate 113. MiB for an array with shape (29707008,) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s10\S10_E1_A1.mat: std::bad_alloc
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s7\S7_E2_A1.mat: Unable to allocate 80.5 MiB for an array with shape (1, 21094956) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s7\S7_E3_A1.mat: Unable to allocate 113. MiB for an array with shape (29699220,) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s8\S8_E1_A1.mat: Unable to allocate 56.7 MiB for an array with shape (12, 1239541) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s8\S8_E2_A1.mat: Unable to allocate 80.6 MiB for an array with shape (21119352,) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s8\S8_E3_A1.mat: 
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s9\S9_E1_A1.mat: Unable to allocate 56.7 MiB for an array with shape (14867244,) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s9\S9_E2_A1.mat: Unable to allocate 80.5 MiB for an array with shape (21095988,) and data type float32
+Error processing file C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\data\DB4\s9\S9_E3_A1.mat: Unable to allocate 113. MiB for an array with shape (29705544,) and data type float32
+
+Too many errors (4/13). Stopping processing.
+
+Found 1 previously saved chunks. Consolidating...
+Loading chunk 1/1: chunk_DB4_w200_env1_f5.0_20250406-200458.parquet
+  - 581868 windows loaded
+
+Combining 2 dataframes with a total of 1640160 windows...
+Saving consolidated file with 1058292 windows to preprocessed_data\DB4\DB4_w200_env1_f5.0[20250406-200501].parquet
+Consolidated file successfully saved to preprocessed_data\DB4\DB4_w200_env1_f5.0[20250406-200501].parquet
+Cleaning up intermediate chunks...
+  - Deleted: chunk_DB4_w200_env1_f5.0_20250406-200458.parquet
+
+Processing complete in 3.66 minutes!
+Average speed: 0.14 files/second
+Total windows extracted: 1058292
+
+STDERR:
+
+Processing files:   0%|          | 0/30 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 1012, in process_file
+    signal_df = src.get_envelope_lowpass(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\preprocessing_utils.py", line 372, in get_envelope_lowpass
+    envelope = get_envelope(emg_signal, envelope_type)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\preprocessing_utils.py", line 228, in get_envelope
+    return emg_signal.apply(compute_envelope, axis=0)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\frame.py", line 10374, in apply
+    return op.apply().__finalize__(self, method="apply")
+           ^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\apply.py", line 916, in apply
+    return self.apply_standard()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\apply.py", line 1063, in apply_standard
+    results, res_index = self.apply_series_generator()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\apply.py", line 1081, in apply_series_generator
+    results[i] = self.func(v, *self.args, **self.kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\preprocessing_utils.py", line 210, in compute_envelope
+    return np.abs(hilbert(signal))
+                  ^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\signal\_signaltools.py", line 2432, in hilbert
+    x = sp_fft.ifft(Xf * h, axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\fft\_backend.py", line 28, in __ua_function__
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\fft\_basic_backend.py", line 85, in ifft
+    return _execute_1D('ifft', _pocketfft.ifft, x, n=n, axis=axis, norm=norm,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\fft\_basic_backend.py", line 32, in _execute_1D
+    return pocketfft_func(x, n=n, axis=axis, norm=norm,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\fft\_pocketfft\basic.py", line 31, in c2c
+    return pfft.c2c(tmp, (axis,), forward, norm, out, workers)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+MemoryError: std::bad_alloc
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 938, in process_file
+    test_df, grasps = src.build_dataframe(
+                      ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 96, in build_dataframe
+    emg_df = (emg_df - emg_df.mean()) / emg_df.std()
+                                        ^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\frame.py", line 11748, in std
+    result = super().std(axis, skipna, ddof, numeric_only, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12358, in std
+    return self._stat_function_ddof(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12322, in _stat_function_ddof
+    return self._reduce(
+           ^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\frame.py", line 11562, in _reduce
+    res = df._mgr.reduce(blk_func)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\internals\managers.py", line 1500, in reduce
+    nbs = blk.reduce(func)
+          ^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\internals\blocks.py", line 404, in reduce
+    result = func(self.values)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\frame.py", line 11481, in blk_func
+    return op(values, axis=axis, skipna=skipna, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 950, in nanstd
+    result = np.sqrt(nanvar(values, axis=axis, skipna=skipna, ddof=ddof, mask=mask))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 85, in _f
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 1016, in nanvar
+    sqr = _ensure_numeric((avg - values) ** 2)
+                          ~~~~~~~~~~~~~~~^~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 114. MiB for an array with shape (12, 1242566) and data type float64
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 11976, in describe
+    return describe_ndframe(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 97, in describe_ndframe
+    result = describer.describe(percentiles=percentiles)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 133, in describe
+    return describe_func(self.obj, percentiles)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 233, in describe_numeric_1d
+    [series.count(), series.mean(), series.std(), series.min()]
+                                    ^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6592, in std
+    return NDFrame.std(self, axis, skipna, ddof, numeric_only, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12358, in std
+    return self._stat_function_ddof(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12322, in _stat_function_ddof
+    return self._reduce(
+           ^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6457, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 950, in nanstd
+    result = np.sqrt(nanvar(values, axis=axis, skipna=skipna, ddof=ddof, mask=mask))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 85, in _f
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 1004, in nanvar
+    values = values.copy()
+             ^^^^^^^^^^^^^
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 80.4 MiB for an array with shape (21086376,) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                                  ^^^^^^^^^^^^^^^
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 113. MiB for an array with shape (29696988,) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 11976, in describe
+    return describe_ndframe(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 97, in describe_ndframe
+    result = describer.describe(percentiles=percentiles)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 133, in describe
+    return describe_func(self.obj, percentiles)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 233, in describe_numeric_1d
+    [series.count(), series.mean(), series.std(), series.min()]
+                                    ^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6592, in std
+    return NDFrame.std(self, axis, skipna, ddof, numeric_only, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12358, in std
+    return self._stat_function_ddof(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12322, in _stat_function_ddof
+    return self._reduce(
+           ^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6457, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 950, in nanstd
+    result = np.sqrt(nanvar(values, axis=axis, skipna=skipna, ddof=ddof, mask=mask))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 85, in _f
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 1004, in nanvar
+    values = values.copy()
+             ^^^^^^^^^^^^^
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 56.7 MiB for an array with shape (14875764,) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                                  ^^^^^^^^^^^^^^^
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 80.5 MiB for an array with shape (21092448,) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 1012, in process_file
+    signal_df = src.get_envelope_lowpass(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\preprocessing_utils.py", line 372, in get_envelope_lowpass
+    envelope = get_envelope(emg_signal, envelope_type)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\preprocessing_utils.py", line 228, in get_envelope
+    return emg_signal.apply(compute_envelope, axis=0)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\frame.py", line 10374, in apply
+    return op.apply().__finalize__(self, method="apply")
+           ^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\apply.py", line 916, in apply
+    return self.apply_standard()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\apply.py", line 1063, in apply_standard
+    results, res_index = self.apply_series_generator()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\apply.py", line 1081, in apply_series_generator
+    results[i] = self.func(v, *self.args, **self.kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\preprocessing_utils.py", line 210, in compute_envelope
+    return np.abs(hilbert(signal))
+                  ^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\signal\_signaltools.py", line 2432, in hilbert
+    x = sp_fft.ifft(Xf * h, axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\fft\_backend.py", line 28, in __ua_function__
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\fft\_basic_backend.py", line 85, in ifft
+    return _execute_1D('ifft', _pocketfft.ifft, x, n=n, axis=axis, norm=norm,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\fft\_basic_backend.py", line 32, in _execute_1D
+    return pocketfft_func(x, n=n, axis=axis, norm=norm,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\fft\_pocketfft\basic.py", line 31, in c2c
+    return pfft.c2c(tmp, (axis,), forward, norm, out, workers)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+MemoryError: std::bad_alloc
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 11976, in describe
+    return describe_ndframe(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 97, in describe_ndframe
+    result = describer.describe(percentiles=percentiles)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 133, in describe
+    return describe_func(self.obj, percentiles)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 233, in describe_numeric_1d
+    [series.count(), series.mean(), series.std(), series.min()]
+                                    ^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6592, in std
+    return NDFrame.std(self, axis, skipna, ddof, numeric_only, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12358, in std
+    return self._stat_function_ddof(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12322, in _stat_function_ddof
+    return self._reduce(
+           ^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6457, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 950, in nanstd
+    result = np.sqrt(nanvar(values, axis=axis, skipna=skipna, ddof=ddof, mask=mask))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 85, in _f
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 1016, in nanvar
+    sqr = _ensure_numeric((avg - values) ** 2)
+                          ~~~~~~~~~~~~~~~^~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 56.8 MiB for an array with shape (14881560,) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 11976, in describe
+    return describe_ndframe(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 97, in describe_ndframe
+    result = describer.describe(percentiles=percentiles)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 133, in describe
+    return describe_func(self.obj, percentiles)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 233, in describe_numeric_1d
+    [series.count(), series.mean(), series.std(), series.min()]
+                                    ^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6592, in std
+    return NDFrame.std(self, axis, skipna, ddof, numeric_only, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12358, in std
+    return self._stat_function_ddof(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12322, in _stat_function_ddof
+    return self._reduce(
+           ^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6457, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 950, in nanstd
+    result = np.sqrt(nanvar(values, axis=axis, skipna=skipna, ddof=ddof, mask=mask))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 85, in _f
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 1004, in nanvar
+    values = values.copy()
+             ^^^^^^^^^^^^^
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 113. MiB for an array with shape (29691228,) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 11976, in describe
+    return describe_ndframe(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 97, in describe_ndframe
+    result = describer.describe(percentiles=percentiles)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 133, in describe
+    return describe_func(self.obj, percentiles)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 233, in describe_numeric_1d
+    [series.count(), series.mean(), series.std(), series.min()]
+                                    ^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6592, in std
+    return NDFrame.std(self, axis, skipna, ddof, numeric_only, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12358, in std
+    return self._stat_function_ddof(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12322, in _stat_function_ddof
+    return self._reduce(
+           ^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6457, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 950, in nanstd
+    result = np.sqrt(nanvar(values, axis=axis, skipna=skipna, ddof=ddof, mask=mask))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 85, in _f
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 1004, in nanvar
+    values = values.copy()
+             ^^^^^^^^^^^^^
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 80.5 MiB for an array with shape (21093300,) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 11976, in describe
+    return describe_ndframe(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 97, in describe_ndframe
+    result = describer.describe(percentiles=percentiles)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 133, in describe
+    return describe_func(self.obj, percentiles)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 233, in describe_numeric_1d
+    [series.count(), series.mean(), series.std(), series.min()]
+                                    ^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6592, in std
+    return NDFrame.std(self, axis, skipna, ddof, numeric_only, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12358, in std
+    return self._stat_function_ddof(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12322, in _stat_function_ddof
+    return self._reduce(
+           ^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6457, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 950, in nanstd
+    result = np.sqrt(nanvar(values, axis=axis, skipna=skipna, ddof=ddof, mask=mask))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 85, in _f
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 1004, in nanvar
+    values = values.copy()
+             ^^^^^^^^^^^^^
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 113. MiB for an array with shape (29707008,) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 1012, in process_file
+    signal_df = src.get_envelope_lowpass(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\preprocessing_utils.py", line 372, in get_envelope_lowpass
+    envelope = get_envelope(emg_signal, envelope_type)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\preprocessing_utils.py", line 228, in get_envelope
+    return emg_signal.apply(compute_envelope, axis=0)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\frame.py", line 10374, in apply
+    return op.apply().__finalize__(self, method="apply")
+           ^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\apply.py", line 916, in apply
+    return self.apply_standard()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\apply.py", line 1063, in apply_standard
+    results, res_index = self.apply_series_generator()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\apply.py", line 1081, in apply_series_generator
+    results[i] = self.func(v, *self.args, **self.kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\preprocessing_utils.py", line 210, in compute_envelope
+    return np.abs(hilbert(signal))
+                  ^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\signal\_signaltools.py", line 2432, in hilbert
+    x = sp_fft.ifft(Xf * h, axis=axis)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\fft\_backend.py", line 28, in __ua_function__
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\fft\_basic_backend.py", line 85, in ifft
+    return _execute_1D('ifft', _pocketfft.ifft, x, n=n, axis=axis, norm=norm,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\fft\_basic_backend.py", line 32, in _execute_1D
+    return pocketfft_func(x, n=n, axis=axis, norm=norm,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\fft\_pocketfft\basic.py", line 31, in c2c
+    return pfft.c2c(tmp, (axis,), forward, norm, out, workers)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+MemoryError: std::bad_alloc
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 11976, in describe
+    return describe_ndframe(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 97, in describe_ndframe
+    result = describer.describe(percentiles=percentiles)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 133, in describe
+    return describe_func(self.obj, percentiles)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 234, in describe_numeric_1d
+    + series.quantile(percentiles).tolist()
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 2887, in quantile
+    result = df.quantile(q=q, interpolation=interpolation, numeric_only=False)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\frame.py", line 12191, in quantile
+    res = data._mgr.quantile(qs=q, interpolation=interpolation)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\internals\managers.py", line 1548, in quantile
+    blocks = [
+             ^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\internals\managers.py", line 1549, in <listcomp>
+    blk.quantile(qs=qs, interpolation=interpolation) for blk in self.blocks
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\internals\blocks.py", line 1891, in quantile
+    result = quantile_compat(self.values, np.asarray(qs._values), interpolation)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\array_algos\quantile.py", line 39, in quantile_compat
+    return quantile_with_mask(values, mask, fill_value, qs, interpolation)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\array_algos\quantile.py", line 97, in quantile_with_mask
+    result = _nanpercentile(
+             ^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\array_algos\quantile.py", line 218, in _nanpercentile
+    return np.percentile(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\numpy\lib\function_base.py", line 4283, in percentile
+    return _quantile_unchecked(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\numpy\lib\function_base.py", line 4555, in _quantile_unchecked
+    return _ureduce(a,
+           ^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\numpy\lib\function_base.py", line 3823, in _ureduce
+    r = func(a, **kwargs)
+        ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\numpy\lib\function_base.py", line 4721, in _quantile_ureduce_func
+    arr = a.copy()
+          ^^^^^^^^
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 80.5 MiB for an array with shape (1, 21094956) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 11976, in describe
+    return describe_ndframe(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 97, in describe_ndframe
+    result = describer.describe(percentiles=percentiles)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 133, in describe
+    return describe_func(self.obj, percentiles)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 233, in describe_numeric_1d
+    [series.count(), series.mean(), series.std(), series.min()]
+                                    ^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6592, in std
+    return NDFrame.std(self, axis, skipna, ddof, numeric_only, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12358, in std
+    return self._stat_function_ddof(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12322, in _stat_function_ddof
+    return self._reduce(
+           ^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6457, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 950, in nanstd
+    result = np.sqrt(nanvar(values, axis=axis, skipna=skipna, ddof=ddof, mask=mask))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 85, in _f
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 1016, in nanvar
+    sqr = _ensure_numeric((avg - values) ** 2)
+                           ~~~~^~~~~~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 113. MiB for an array with shape (29699220,) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 938, in process_file
+    test_df, grasps = src.build_dataframe(
+                      ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 96, in build_dataframe
+    emg_df = (emg_df - emg_df.mean()) / emg_df.std()
+              ~~~~~~~^~~~~~~~~~~~~~~
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\arraylike.py", line 194, in __sub__
+    return self._arith_method(other, operator.sub)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\frame.py", line 7913, in _arith_method
+    new_data = self._dispatch_frame_op(other, op, axis=axis)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\frame.py", line 7956, in _dispatch_frame_op
+    bm = self._mgr.operate_blockwise(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\internals\managers.py", line 1511, in operate_blockwise
+    return operate_blockwise(self, other, array_op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\internals\ops.py", line 65, in operate_blockwise
+    res_values = array_op(lvals, rvals)
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\computation\expressions.py", line 242, in evaluate
+    return _evaluate(op, op_str, a, b)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\computation\expressions.py", line 73, in _evaluate_standard
+    return op(a, b)
+           ^^^^^^^^
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 56.7 MiB for an array with shape (12, 1239541) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 11976, in describe
+    return describe_ndframe(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 97, in describe_ndframe
+    result = describer.describe(percentiles=percentiles)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 133, in describe
+    return describe_func(self.obj, percentiles)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 233, in describe_numeric_1d
+    [series.count(), series.mean(), series.std(), series.min()]
+                                    ^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6592, in std
+    return NDFrame.std(self, axis, skipna, ddof, numeric_only, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12358, in std
+    return self._stat_function_ddof(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12322, in _stat_function_ddof
+    return self._reduce(
+           ^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6457, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 950, in nanstd
+    result = np.sqrt(nanvar(values, axis=axis, skipna=skipna, ddof=ddof, mask=mask))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 85, in _f
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 1016, in nanvar
+    sqr = _ensure_numeric((avg - values) ** 2)
+                           ~~~~^~~~~~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 80.6 MiB for an array with shape (21119352,) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 38, in loadmatNina
+    mat_file = loadmat(sample_file)
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\io\matlab\_mio.py", line 235, in loadmat
+    matfile_dict = MR.get_variables(variable_names)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\io\matlab\_mio5.py", line 333, in get_variables
+    res = self.read_var_array(hdr, process)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\scipy\io\matlab\_mio5.py", line 291, in read_var_array
+    return self._matrix_reader.array_from_header(header, process)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_mio5_utils.pyx", line 665, in scipy.io.matlab._mio5_utils.VarReader5.array_from_header
+  File "_mio5_utils.pyx", line 694, in scipy.io.matlab._mio5_utils.VarReader5.array_from_header
+  File "_mio5_utils.pyx", line 768, in scipy.io.matlab._mio5_utils.VarReader5.read_real_complex
+  File "_mio5_utils.pyx", line 445, in scipy.io.matlab._mio5_utils.VarReader5.read_numeric
+  File "_mio5_utils.pyx", line 350, in scipy.io.matlab._mio5_utils.VarReader5.read_element
+  File "_streams.pyx", line 170, in scipy.io.matlab._streams.ZlibInputStream.read_string
+  File "_pyalloc.pxd", line 9, in scipy.io.matlab._pyalloc.pyalloc_v
+MemoryError
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 11976, in describe
+    return describe_ndframe(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 97, in describe_ndframe
+    result = describer.describe(percentiles=percentiles)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 133, in describe
+    return describe_func(self.obj, percentiles)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 233, in describe_numeric_1d
+    [series.count(), series.mean(), series.std(), series.min()]
+                                    ^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6592, in std
+    return NDFrame.std(self, axis, skipna, ddof, numeric_only, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12358, in std
+    return self._stat_function_ddof(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12322, in _stat_function_ddof
+    return self._reduce(
+           ^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6457, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 950, in nanstd
+    result = np.sqrt(nanvar(values, axis=axis, skipna=skipna, ddof=ddof, mask=mask))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 85, in _f
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 1016, in nanvar
+    sqr = _ensure_numeric((avg - values) ** 2)
+                           ~~~~^~~~~~~~
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 56.7 MiB for an array with shape (14867244,) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 11976, in describe
+    return describe_ndframe(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 97, in describe_ndframe
+    result = describer.describe(percentiles=percentiles)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 133, in describe
+    return describe_func(self.obj, percentiles)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 233, in describe_numeric_1d
+    [series.count(), series.mean(), series.std(), series.min()]
+                                    ^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6592, in std
+    return NDFrame.std(self, axis, skipna, ddof, numeric_only, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12358, in std
+    return self._stat_function_ddof(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12322, in _stat_function_ddof
+    return self._reduce(
+           ^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6457, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 950, in nanstd
+    result = np.sqrt(nanvar(values, axis=axis, skipna=skipna, ddof=ddof, mask=mask))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 85, in _f
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 1004, in nanvar
+    values = values.copy()
+             ^^^^^^^^^^^^^
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 80.5 MiB for an array with shape (21095988,) and data type float32
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 935, in process_file
+    mat_data = src.loadmatNina(database, filename, subject=subject)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\src\db_utils.py", line 44, in loadmatNina
+    summary_data[key] = pd.Series(value.flatten()).describe()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 11976, in describe
+    return describe_ndframe(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 97, in describe_ndframe
+    result = describer.describe(percentiles=percentiles)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 133, in describe
+    return describe_func(self.obj, percentiles)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\methods\describe.py", line 233, in describe_numeric_1d
+    [series.count(), series.mean(), series.std(), series.min()]
+                                    ^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6592, in std
+    return NDFrame.std(self, axis, skipna, ddof, numeric_only, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12358, in std
+    return self._stat_function_ddof(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\generic.py", line 12322, in _stat_function_ddof
+    return self._reduce(
+           ^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\series.py", line 6457, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 950, in nanstd
+    result = np.sqrt(nanvar(values, axis=axis, skipna=skipna, ddof=ddof, mask=mask))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 85, in _f
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Lib\site-packages\pandas\core\nanops.py", line 1004, in nanvar
+    values = values.copy()
+             ^^^^^^^^^^^^^
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 113. MiB for an array with shape (29705544,) and data type float32
+
+Processing files:   3%|3         | 1/30 [02:17<1:06:39, 137.92s/it]
+Processing files:   3%|3         | 1/30 [02:17<1:06:39, 137.92s/it, errors=0, windows=74292]
+Processing files:   7%|6         | 2/30 [02:17<1:04:21, 137.92s/it, errors=1, windows=74292]
+Processing files:  10%|#         | 3/30 [03:33<28:45, 63.90s/it, errors=1, windows=74292]   
+Processing files:  10%|#         | 3/30 [03:33<28:45, 63.90s/it, errors=1, windows=222612]
+Processing files:  13%|#3        | 4/30 [03:33<27:41, 63.90s/it, errors=2, windows=222612]
+Processing files:  17%|#6        | 5/30 [03:33<26:37, 63.90s/it, errors=2, windows=328140]
+Processing files:  20%|##        | 6/30 [03:34<09:55, 24.81s/it, errors=2, windows=328140]
+Processing files:  20%|##        | 6/30 [03:34<09:55, 24.81s/it, errors=2, windows=476520]
+Processing files:  23%|##3       | 7/30 [03:34<09:30, 24.81s/it, errors=3, windows=476520]
+Processing files:  27%|##6       | 8/30 [03:35<05:50, 15.92s/it, errors=3, windows=476520]
+Processing files:  27%|##6       | 8/30 [03:35<05:50, 15.92s/it, errors=3, windows=581868]
+Processing files:  30%|###       | 9/30 [03:35<05:34, 15.92s/it, errors=3, windows=730284]
+Processing files:  33%|###3      | 10/30 [03:35<05:18, 15.92s/it, errors=3, windows=804600]
+Processing files:  37%|###6      | 11/30 [03:35<05:02, 15.92s/it, errors=3, windows=909972]
+Processing files:  40%|####      | 12/30 [03:35<04:46, 15.92s/it, errors=3, windows=1058292]
+Processing files:  40%|####      | 12/30 [03:35<05:23, 18.00s/it, errors=3, windows=1058292]
+
+--------------------------------------------------------------------------------
+
+Combination 7/21 - 20:05:04
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 200 --overlap 0 --envelope-type 6 --filter-cutoff 0.6
+Status: Failed
+Execution Time: 6.97 seconds
+Return Code: 2
+
+STDERR:
+usage: wf_extractor.py [-h] [--database DATABASE] [--window-size WINDOW_SIZE]
+                       [--overlap OVERLAP] [--envelope-type {0,1,2,3}]
+                       [--filter-cutoff FILTER_CUTOFF] [--only-channel-10]
+                       [--filtered-labels FILTERED_LABELS] [--use-gpu]
+                       [--batch-size BATCH_SIZE] [--fast-mode]
+wf_extractor.py: error: argument --envelope-type: invalid choice: 6 (choose from 0, 1, 2, 3)
+
+--------------------------------------------------------------------------------
+
+Combination 8/21 - 20:05:11
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 200 --overlap 0 --envelope-type 6 --filter-cutoff 1.0
+Status: Failed
+Execution Time: 5.86 seconds
+Return Code: 2
+
+STDERR:
+usage: wf_extractor.py [-h] [--database DATABASE] [--window-size WINDOW_SIZE]
+                       [--overlap OVERLAP] [--envelope-type {0,1,2,3}]
+                       [--filter-cutoff FILTER_CUTOFF] [--only-channel-10]
+                       [--filtered-labels FILTERED_LABELS] [--use-gpu]
+                       [--batch-size BATCH_SIZE] [--fast-mode]
+wf_extractor.py: error: argument --envelope-type: invalid choice: 6 (choose from 0, 1, 2, 3)
+
+--------------------------------------------------------------------------------
+
+Combination 9/21 - 20:05:17
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 200 --overlap 0 --envelope-type 6 --filter-cutoff 5.0
+Status: Failed
+Execution Time: 5.02 seconds
+Return Code: 2
+
+STDERR:
+usage: wf_extractor.py [-h] [--database DATABASE] [--window-size WINDOW_SIZE]
+                       [--overlap OVERLAP] [--envelope-type {0,1,2,3}]
+                       [--filter-cutoff FILTER_CUTOFF] [--only-channel-10]
+                       [--filtered-labels FILTERED_LABELS] [--use-gpu]
+                       [--batch-size BATCH_SIZE] [--fast-mode]
+wf_extractor.py: error: argument --envelope-type: invalid choice: 6 (choose from 0, 1, 2, 3)
+
+--------------------------------------------------------------------------------
+
+Combination 10/21 - 20:05:22
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 400 --overlap 0 --envelope-type 0 --filter-cutoff 0.6
+Status: Success
+Execution Time: 449.10 seconds
+Return Code: 0
+
+STDOUT:
+GPU acceleration not requested, using CPU
+Processing database: DB4
+Window size: 400 samples (0.200 seconds at 2kHz)
+Overlap: 0 samples
+Envelope type: 0
+Filter cutoff: 0.6 Hz
+Labels: All
+Channels: All available channels
+Output file will be: DB4_w400_env0_f0.6
+Found 10 subject folders.
+Total .mat files to process: 30
+Using 12 parallel processes
+
+Found 3 previously saved chunks. Consolidating...
+Loading chunk 1/3: chunk_DB4_w400_env0_f0.6_20250406-201026.parquet
+  - 528828 windows loaded
+Loading chunk 2/3: chunk_DB4_w400_env0_f0.6_20250406-201150.parquet
+  - 544188 windows loaded
+Loading chunk 3/3: chunk_DB4_w400_env0_f0.6_20250406-201245.parquet
+  - 565740 windows loaded
+
+Combining 3 dataframes with a total of 3277512 windows...
+Saving consolidated file with 1638756 windows to preprocessed_data\DB4\DB4_w400_env0_f0.6[20250406-201248].parquet
+Consolidated file successfully saved to preprocessed_data\DB4\DB4_w400_env0_f0.6[20250406-201248].parquet
+Cleaning up intermediate chunks...
+  - Deleted: chunk_DB4_w400_env0_f0.6_20250406-201026.parquet
+  - Deleted: chunk_DB4_w400_env0_f0.6_20250406-201150.parquet
+  - Deleted: chunk_DB4_w400_env0_f0.6_20250406-201245.parquet
+
+Processing complete in 7.39 minutes!
+Average speed: 0.07 files/second
+Total windows extracted: 1638756
+
+STDERR:
+
+Processing files:   0%|          | 0/30 [00:00<?, ?it/s]
+Processing files:   3%|3         | 1/30 [03:55<1:53:54, 235.68s/it]
+Processing files:   3%|3         | 1/30 [03:55<1:53:54, 235.68s/it, errors=0, windows=37092]
+Processing files:   7%|6         | 2/30 [04:23<52:47, 113.12s/it, errors=0, windows=37092]  
+Processing files:   7%|6         | 2/30 [04:23<52:47, 113.12s/it, errors=0, windows=89820]
+Processing files:  10%|#         | 3/30 [04:58<34:56, 77.65s/it, errors=0, windows=89820] 
+Processing files:  10%|#         | 3/30 [04:58<34:56, 77.65s/it, errors=0, windows=163920]
+Processing files:  13%|#3        | 4/30 [04:58<33:38, 77.65s/it, errors=0, windows=201000]
+Processing files:  17%|#6        | 5/30 [04:58<14:03, 33.73s/it, errors=0, windows=201000]
+Processing files:  17%|#6        | 5/30 [04:58<14:03, 33.73s/it, errors=0, windows=253704]
+Processing files:  20%|##        | 6/30 [04:58<13:29, 33.73s/it, errors=0, windows=327816]
+Processing files:  23%|##3       | 7/30 [04:58<07:09, 18.68s/it, errors=0, windows=327816]
+Processing files:  23%|##3       | 7/30 [04:58<07:09, 18.68s/it, errors=0, windows=364932]
+Processing files:  27%|##6       | 8/30 [04:58<06:51, 18.68s/it, errors=0, windows=417576]
+Processing files:  30%|###       | 9/30 [04:59<04:01, 11.49s/it, errors=0, windows=417576]
+Processing files:  30%|###       | 9/30 [04:59<04:01, 11.49s/it, errors=0, windows=491712]
+Processing files:  33%|###3      | 10/30 [05:03<03:18,  9.93s/it, errors=0, windows=491712]
+Processing files:  33%|###3      | 10/30 [05:03<03:18,  9.93s/it, errors=0, windows=528828]
+Processing files:  37%|###6      | 11/30 [05:03<03:08,  9.93s/it, errors=0, windows=581472]
+Processing files:  40%|####      | 12/30 [05:03<02:58,  9.93s/it, errors=0, windows=655536]
+Processing files:  43%|####3     | 13/30 [05:03<02:48,  9.93s/it, errors=0, windows=692736]
+Processing files:  47%|####6     | 14/30 [05:26<02:00,  7.56s/it, errors=0, windows=692736]
+Processing files:  47%|####6     | 14/30 [05:26<02:00,  7.56s/it, errors=0, windows=745344]
+Processing files:  50%|#####     | 15/30 [06:01<03:03, 12.22s/it, errors=0, windows=745344]
+Processing files:  50%|#####     | 15/30 [06:01<03:03, 12.22s/it, errors=0, windows=819432]
+Processing files:  53%|#####3    | 16/30 [06:01<02:51, 12.22s/it, errors=0, windows=856536]
+Processing files:  57%|#####6    | 17/30 [06:01<02:38, 12.22s/it, errors=0, windows=909168]
+Processing files:  60%|######    | 18/30 [06:22<02:00, 10.06s/it, errors=0, windows=909168]
+Processing files:  60%|######    | 18/30 [06:22<02:00, 10.06s/it, errors=0, windows=983256]
+Processing files:  63%|######3   | 19/30 [06:22<01:50, 10.06s/it, errors=0, windows=1020396]
+Processing files:  67%|######6   | 20/30 [06:24<01:14,  7.46s/it, errors=0, windows=1020396]
+Processing files:  67%|######6   | 20/30 [06:24<01:14,  7.46s/it, errors=0, windows=1073016]
+Processing files:  70%|#######   | 21/30 [06:46<01:28,  9.84s/it, errors=0, windows=1073016]
+Processing files:  70%|#######   | 21/30 [06:46<01:28,  9.84s/it, errors=0, windows=1147152]
+Processing files:  73%|#######3  | 22/30 [06:46<01:18,  9.84s/it, errors=0, windows=1184268]
+Processing files:  77%|#######6  | 23/30 [06:46<01:08,  9.84s/it, errors=0, windows=1236876]
+Processing files:  80%|########  | 24/30 [06:47<00:34,  5.82s/it, errors=0, windows=1236876]
+Processing files:  80%|########  | 24/30 [06:47<00:34,  5.82s/it, errors=0, windows=1311000]
+Processing files:  83%|########3 | 25/30 [06:47<00:29,  5.82s/it, errors=0, windows=1348104]
+Processing files:  87%|########6 | 26/30 [06:47<00:23,  5.82s/it, errors=0, windows=1.4e+6] 
+Processing files:  90%|######### | 27/30 [07:02<00:16,  5.60s/it, errors=0, windows=1.4e+6]
+Processing files:  90%|######### | 27/30 [07:02<00:16,  5.60s/it, errors=0, windows=1474920]
+Processing files:  93%|#########3| 28/30 [07:02<00:11,  5.60s/it, errors=0, windows=1512000]
+Processing files:  97%|#########6| 29/30 [07:02<00:05,  5.60s/it, errors=0, windows=1564620]
+Processing files: 100%|##########| 30/30 [07:19<00:00,  5.63s/it, errors=0, windows=1564620]
+Processing files: 100%|##########| 30/30 [07:19<00:00,  5.63s/it, errors=0, windows=1638756]
+Processing files: 100%|##########| 30/30 [07:19<00:00, 14.66s/it, errors=0, windows=1638756]
+
+--------------------------------------------------------------------------------
+
+Combination 13/21 - 20:12:51
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 400 --overlap 0 --envelope-type 1 --filter-cutoff 0.6
+Status: Success
+Execution Time: 294.14 seconds
+Return Code: 0
+
+STDOUT:
+GPU acceleration not requested, using CPU
+Processing database: DB4
+Window size: 400 samples (0.200 seconds at 2kHz)
+Overlap: 0 samples
+Envelope type: 1
+Filter cutoff: 0.6 Hz
+Labels: All
+Channels: All available channels
+Output file will be: DB4_w400_env1_f0.6
+Found 10 subject folders.
+Total .mat files to process: 30
+Using 12 parallel processes
+
+Found 3 previously saved chunks. Consolidating...
+Loading chunk 1/3: chunk_DB4_w400_env1_f0.6_20250406-201518.parquet
+  - 528828 windows loaded
+Loading chunk 2/3: chunk_DB4_w400_env1_f0.6_20250406-201645.parquet
+  - 544188 windows loaded
+Loading chunk 3/3: chunk_DB4_w400_env1_f0.6_20250406-201739.parquet
+  - 565740 windows loaded
+
+Combining 3 dataframes with a total of 3277512 windows...
+Saving consolidated file with 1638756 windows to preprocessed_data\DB4\DB4_w400_env1_f0.6[20250406-201742].parquet
+Consolidated file successfully saved to preprocessed_data\DB4\DB4_w400_env1_f0.6[20250406-201742].parquet
+Cleaning up intermediate chunks...
+  - Deleted: chunk_DB4_w400_env1_f0.6_20250406-201518.parquet
+  - Deleted: chunk_DB4_w400_env1_f0.6_20250406-201645.parquet
+  - Deleted: chunk_DB4_w400_env1_f0.6_20250406-201739.parquet
+
+Processing complete in 4.78 minutes!
+Average speed: 0.10 files/second
+Total windows extracted: 1638756
+
+STDERR:
+
+Processing files:   0%|          | 0/30 [00:00<?, ?it/s]
+Processing files:   3%|3         | 1/30 [01:11<34:40, 71.75s/it]
+Processing files:   3%|3         | 1/30 [01:11<34:40, 71.75s/it, errors=0, windows=37092]
+Processing files:   7%|6         | 2/30 [01:41<22:01, 47.18s/it, errors=0, windows=37092]
+Processing files:   7%|6         | 2/30 [01:41<22:01, 47.18s/it, errors=0, windows=89820]
+Processing files:  10%|#         | 3/30 [02:15<18:30, 41.13s/it, errors=0, windows=89820]
+Processing files:  10%|#         | 3/30 [02:15<18:30, 41.13s/it, errors=0, windows=163920]
+Processing files:  13%|#3        | 4/30 [02:15<17:49, 41.13s/it, errors=0, windows=201000]
+Processing files:  17%|#6        | 5/30 [02:15<17:08, 41.13s/it, errors=0, windows=253704]
+Processing files:  20%|##        | 6/30 [02:19<05:52, 14.70s/it, errors=0, windows=253704]
+Processing files:  20%|##        | 6/30 [02:19<05:52, 14.70s/it, errors=0, windows=327816]
+Processing files:  23%|##3       | 7/30 [02:19<05:38, 14.70s/it, errors=0, windows=364932]
+Processing files:  27%|##6       | 8/30 [02:19<03:19,  9.05s/it, errors=0, windows=364932]
+Processing files:  27%|##6       | 8/30 [02:19<03:19,  9.05s/it, errors=0, windows=417576]
+Processing files:  30%|###       | 9/30 [02:20<02:35,  7.40s/it, errors=0, windows=417576]
+Processing files:  30%|###       | 9/30 [02:20<02:35,  7.40s/it, errors=0, windows=491712]
+Processing files:  33%|###3      | 10/30 [02:25<02:12,  6.64s/it, errors=0, windows=491712]
+Processing files:  33%|###3      | 10/30 [02:25<02:12,  6.64s/it, errors=0, windows=528828]
+Processing files:  37%|###6      | 11/30 [02:25<02:06,  6.64s/it, errors=0, windows=581472]
+Processing files:  40%|####      | 12/30 [02:25<01:59,  6.64s/it, errors=0, windows=655536]
+Processing files:  43%|####3     | 13/30 [02:25<00:56,  3.32s/it, errors=0, windows=655536]
+Processing files:  43%|####3     | 13/30 [02:25<00:56,  3.32s/it, errors=0, windows=692736]
+Processing files:  43%|####3     | 13/30 [02:40<00:56,  3.32s/it, errors=0, windows=692736]
+Processing files:  47%|####6     | 14/30 [02:49<01:56,  7.31s/it, errors=0, windows=692736]
+Processing files:  47%|####6     | 14/30 [02:49<01:56,  7.31s/it, errors=0, windows=745344]
+Processing files:  50%|#####     | 15/30 [03:26<03:26, 13.76s/it, errors=0, windows=745344]
+Processing files:  50%|#####     | 15/30 [03:26<03:26, 13.76s/it, errors=0, windows=819432]
+Processing files:  53%|#####3    | 16/30 [03:26<03:12, 13.76s/it, errors=0, windows=856536]
+Processing files:  57%|#####6    | 17/30 [03:26<02:58, 13.76s/it, errors=0, windows=909168]
+Processing files:  60%|######    | 18/30 [03:47<02:06, 10.56s/it, errors=0, windows=909168]
+Processing files:  60%|######    | 18/30 [03:47<02:06, 10.56s/it, errors=0, windows=983256]
+Processing files:  63%|######3   | 19/30 [03:47<01:56, 10.56s/it, errors=0, windows=1020396]
+Processing files:  67%|######6   | 20/30 [03:49<01:14,  7.49s/it, errors=0, windows=1020396]
+Processing files:  67%|######6   | 20/30 [03:49<01:14,  7.49s/it, errors=0, windows=1073016]
+Processing files:  70%|#######   | 21/30 [04:07<01:25,  9.55s/it, errors=0, windows=1073016]
+Processing files:  70%|#######   | 21/30 [04:07<01:25,  9.55s/it, errors=0, windows=1147152]
+Processing files:  73%|#######3  | 22/30 [04:07<01:16,  9.55s/it, errors=0, windows=1184268]
+Processing files:  77%|#######6  | 23/30 [04:07<01:06,  9.55s/it, errors=0, windows=1236876]
+Processing files:  80%|########  | 24/30 [04:10<00:34,  5.70s/it, errors=0, windows=1236876]
+Processing files:  80%|########  | 24/30 [04:10<00:34,  5.70s/it, errors=0, windows=1311000]
+Processing files:  83%|########3 | 25/30 [04:10<00:28,  5.70s/it, errors=0, windows=1348104]
+Processing files:  87%|########6 | 26/30 [04:10<00:22,  5.70s/it, errors=0, windows=1.4e+6] 
+Processing files:  90%|######### | 27/30 [04:25<00:16,  5.45s/it, errors=0, windows=1.4e+6]
+Processing files:  90%|######### | 27/30 [04:25<00:16,  5.45s/it, errors=0, windows=1474920]
+Processing files:  93%|#########3| 28/30 [04:25<00:10,  5.45s/it, errors=0, windows=1512000]
+Processing files:  97%|#########6| 29/30 [04:25<00:05,  5.45s/it, errors=0, windows=1564620]
+Processing files: 100%|##########| 30/30 [04:43<00:00,  5.60s/it, errors=0, windows=1564620]
+Processing files: 100%|##########| 30/30 [04:43<00:00,  5.60s/it, errors=0, windows=1638756]
+Processing files: 100%|##########| 30/30 [04:43<00:00,  9.44s/it, errors=0, windows=1638756]
+
+--------------------------------------------------------------------------------
+
+Combination 14/21 - 20:17:45
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 400 --overlap 0 --envelope-type 1 --filter-cutoff 1.0
+Status: Success
+Execution Time: 299.74 seconds
+Return Code: 0
+
+STDOUT:
+GPU acceleration not requested, using CPU
+Processing database: DB4
+Window size: 400 samples (0.200 seconds at 2kHz)
+Overlap: 0 samples
+Envelope type: 1
+Filter cutoff: 1.0 Hz
+Labels: All
+Channels: All available channels
+Output file will be: DB4_w400_env1_f1.0
+Found 10 subject folders.
+Total .mat files to process: 30
+Using 12 parallel processes
+
+Found 3 previously saved chunks. Consolidating...
+Loading chunk 1/3: chunk_DB4_w400_env1_f1.0_20250406-202019.parquet
+  - 528828 windows loaded
+Loading chunk 2/3: chunk_DB4_w400_env1_f1.0_20250406-202146.parquet
+  - 544188 windows loaded
+Loading chunk 3/3: chunk_DB4_w400_env1_f1.0_20250406-202239.parquet
+  - 565740 windows loaded
+
+Combining 3 dataframes with a total of 3277512 windows...
+Saving consolidated file with 1638756 windows to preprocessed_data\DB4\DB4_w400_env1_f1.0[20250406-202242].parquet
+Consolidated file successfully saved to preprocessed_data\DB4\DB4_w400_env1_f1.0[20250406-202242].parquet
+Cleaning up intermediate chunks...
+  - Deleted: chunk_DB4_w400_env1_f1.0_20250406-202019.parquet
+  - Deleted: chunk_DB4_w400_env1_f1.0_20250406-202146.parquet
+  - Deleted: chunk_DB4_w400_env1_f1.0_20250406-202239.parquet
+
+Processing complete in 4.86 minutes!
+Average speed: 0.10 files/second
+Total windows extracted: 1638756
+
+STDERR:
+
+Processing files:   0%|          | 0/30 [00:00<?, ?it/s]
+Processing files:   3%|3         | 1/30 [01:13<35:43, 73.90s/it]
+Processing files:   3%|3         | 1/30 [01:13<35:43, 73.90s/it, errors=0, windows=37092]
+Processing files:   7%|6         | 2/30 [01:45<22:44, 48.74s/it, errors=0, windows=37092]
+Processing files:   7%|6         | 2/30 [01:45<22:44, 48.74s/it, errors=0, windows=89820]
+Processing files:  10%|#         | 3/30 [02:20<19:06, 42.45s/it, errors=0, windows=89820]
+Processing files:  10%|#         | 3/30 [02:20<19:06, 42.45s/it, errors=0, windows=163920]
+Processing files:  13%|#3        | 4/30 [02:20<18:23, 42.45s/it, errors=0, windows=201000]
+Processing files:  17%|#6        | 5/30 [02:20<07:41, 18.46s/it, errors=0, windows=201000]
+Processing files:  17%|#6        | 5/30 [02:20<07:41, 18.46s/it, errors=0, windows=253704]
+Processing files:  20%|##        | 6/30 [02:24<07:22, 18.46s/it, errors=0, windows=327816]
+Processing files:  23%|##3       | 7/30 [02:24<04:17, 11.17s/it, errors=0, windows=327816]
+Processing files:  23%|##3       | 7/30 [02:24<04:17, 11.17s/it, errors=0, windows=364932]
+Processing files:  27%|##6       | 8/30 [02:24<04:05, 11.17s/it, errors=0, windows=417576]
+Processing files:  30%|###       | 9/30 [02:26<02:30,  7.18s/it, errors=0, windows=417576]
+Processing files:  30%|###       | 9/30 [02:26<02:30,  7.18s/it, errors=0, windows=491712]
+Processing files:  33%|###3      | 10/30 [02:30<02:09,  6.45s/it, errors=0, windows=491712]
+Processing files:  33%|###3      | 10/30 [02:30<02:09,  6.45s/it, errors=0, windows=528828]
+Processing files:  37%|###6      | 11/30 [02:30<02:02,  6.45s/it, errors=0, windows=581472]
+Processing files:  40%|####      | 12/30 [02:30<01:56,  6.45s/it, errors=0, windows=655536]
+Processing files:  43%|####3     | 13/30 [02:30<01:49,  6.45s/it, errors=0, windows=692736]
+Processing files:  47%|####6     | 14/30 [02:51<01:34,  5.89s/it, errors=0, windows=692736]
+Processing files:  47%|####6     | 14/30 [02:51<01:34,  5.89s/it, errors=0, windows=745344]
+Processing files:  50%|#####     | 15/30 [03:31<02:50, 11.39s/it, errors=0, windows=745344]
+Processing files:  50%|#####     | 15/30 [03:31<02:50, 11.39s/it, errors=0, windows=819432]
+Processing files:  53%|#####3    | 16/30 [03:31<02:39, 11.39s/it, errors=0, windows=856536]
+Processing files:  57%|#####6    | 17/30 [03:31<01:40,  7.76s/it, errors=0, windows=856536]
+Processing files:  57%|#####6    | 17/30 [03:31<01:40,  7.76s/it, errors=0, windows=909168]
+Processing files:  60%|######    | 18/30 [03:52<02:03, 10.31s/it, errors=0, windows=909168]
+Processing files:  60%|######    | 18/30 [03:52<02:03, 10.31s/it, errors=0, windows=983256]
+Processing files:  63%|######3   | 19/30 [03:52<01:53, 10.31s/it, errors=0, windows=1020396]
+Processing files:  67%|######6   | 20/30 [03:54<01:10,  7.00s/it, errors=0, windows=1020396]
+Processing files:  67%|######6   | 20/30 [03:54<01:10,  7.00s/it, errors=0, windows=1073016]
+Processing files:  70%|#######   | 21/30 [04:10<01:20,  8.90s/it, errors=0, windows=1073016]
+Processing files:  70%|#######   | 21/30 [04:10<01:20,  8.90s/it, errors=0, windows=1147152]
+Processing files:  73%|#######3  | 22/30 [04:10<01:11,  8.90s/it, errors=0, windows=1184268]
+Processing files:  77%|#######6  | 23/30 [04:10<01:02,  8.90s/it, errors=0, windows=1236876]
+Processing files:  80%|########  | 24/30 [04:16<00:33,  5.63s/it, errors=0, windows=1236876]
+Processing files:  80%|########  | 24/30 [04:16<00:33,  5.63s/it, errors=0, windows=1311000]
+Processing files:  83%|########3 | 25/30 [04:16<00:28,  5.63s/it, errors=0, windows=1348104]
+Processing files:  87%|########6 | 26/30 [04:16<00:22,  5.63s/it, errors=0, windows=1.4e+6] 
+Processing files:  90%|######### | 27/30 [04:30<00:15,  5.23s/it, errors=0, windows=1.4e+6]
+Processing files:  90%|######### | 27/30 [04:30<00:15,  5.23s/it, errors=0, windows=1474920]
+Processing files:  93%|#########3| 28/30 [04:30<00:10,  5.23s/it, errors=0, windows=1512000]
+Processing files:  97%|#########6| 29/30 [04:30<00:05,  5.23s/it, errors=0, windows=1564620]
+Processing files: 100%|##########| 30/30 [04:47<00:00,  5.45s/it, errors=0, windows=1564620]
+Processing files: 100%|##########| 30/30 [04:47<00:00,  5.45s/it, errors=0, windows=1638756]
+Processing files: 100%|##########| 30/30 [04:47<00:00,  9.59s/it, errors=0, windows=1638756]
+
+--------------------------------------------------------------------------------
+
+Combination 15/21 - 20:22:45
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 400 --overlap 0 --envelope-type 1 --filter-cutoff 5.0
+Status: Success
+Execution Time: 1347.07 seconds
+Return Code: 0
+
+STDOUT:
+GPU acceleration not requested, using CPU
+Processing database: DB4
+Window size: 400 samples (0.200 seconds at 2kHz)
+Overlap: 0 samples
+Envelope type: 1
+Filter cutoff: 5.0 Hz
+Labels: All
+Channels: All available channels
+Output file will be: DB4_w400_env1_f5.0
+Found 10 subject folders.
+Total .mat files to process: 30
+Using 12 parallel processes
+
+Found 3 previously saved chunks. Consolidating...
+Loading chunk 1/3: chunk_DB4_w400_env1_f5.0_20250406-202515.parquet
+  - 528828 windows loaded
+Loading chunk 2/3: chunk_DB4_w400_env1_f5.0_20250406-204413.parquet
+  - 544188 windows loaded
+Loading chunk 3/3: chunk_DB4_w400_env1_f5.0_20250406-204505.parquet
+  - 565740 windows loaded
+
+Combining 3 dataframes with a total of 3277512 windows...
+Saving consolidated file with 1638756 windows to preprocessed_data\DB4\DB4_w400_env1_f5.0[20250406-204508].parquet
+Consolidated file successfully saved to preprocessed_data\DB4\DB4_w400_env1_f5.0[20250406-204508].parquet
+Cleaning up intermediate chunks...
+  - Deleted: chunk_DB4_w400_env1_f5.0_20250406-202515.parquet
+  - Deleted: chunk_DB4_w400_env1_f5.0_20250406-204413.parquet
+  - Deleted: chunk_DB4_w400_env1_f5.0_20250406-204505.parquet
+
+Processing complete in 22.29 minutes!
+Average speed: 0.02 files/second
+Total windows extracted: 1638756
+
+STDERR:
+
+Processing files:   0%|          | 0/30 [00:00<?, ?it/s]
+Processing files:   3%|3         | 1/30 [01:12<35:05, 72.62s/it]
+Processing files:   3%|3         | 1/30 [01:12<35:05, 72.62s/it, errors=0, windows=37092]
+Processing files:   7%|6         | 2/30 [01:42<22:06, 47.37s/it, errors=0, windows=37092]
+Processing files:   7%|6         | 2/30 [01:42<22:06, 47.37s/it, errors=0, windows=89820]
+Processing files:  10%|#         | 3/30 [02:17<18:50, 41.86s/it, errors=0, windows=89820]
+Processing files:  10%|#         | 3/30 [02:17<18:50, 41.86s/it, errors=0, windows=163920]
+Processing files:  13%|#3        | 4/30 [02:17<18:08, 41.86s/it, errors=0, windows=201000]
+Processing files:  17%|#6        | 5/30 [02:17<17:26, 41.86s/it, errors=0, windows=253704]
+Processing files:  20%|##        | 6/30 [02:18<05:45, 14.40s/it, errors=0, windows=253704]
+Processing files:  20%|##        | 6/30 [02:18<05:45, 14.40s/it, errors=0, windows=327816]
+Processing files:  23%|##3       | 7/30 [02:18<05:31, 14.40s/it, errors=0, windows=364932]
+Processing files:  27%|##6       | 8/30 [02:18<03:15,  8.87s/it, errors=0, windows=364932]
+Processing files:  27%|##6       | 8/30 [02:18<03:15,  8.87s/it, errors=0, windows=417576]
+Processing files:  30%|###       | 9/30 [02:20<02:35,  7.39s/it, errors=0, windows=417576]
+Processing files:  30%|###       | 9/30 [02:20<02:35,  7.39s/it, errors=0, windows=491712]
+Processing files:  33%|###3      | 10/30 [02:24<02:10,  6.55s/it, errors=0, windows=491712]
+Processing files:  33%|###3      | 10/30 [02:24<02:10,  6.55s/it, errors=0, windows=528828]
+Processing files:  37%|###6      | 11/30 [02:24<02:04,  6.55s/it, errors=0, windows=581472]
+Processing files:  40%|####      | 12/30 [02:24<01:57,  6.55s/it, errors=0, windows=655536]
+Processing files:  43%|####3     | 13/30 [02:24<01:51,  6.55s/it, errors=0, windows=692736]
+Processing files:  47%|####6     | 14/30 [02:47<01:37,  6.09s/it, errors=0, windows=692736]
+Processing files:  47%|####6     | 14/30 [02:47<01:37,  6.09s/it, errors=0, windows=745344]
+Processing files:  50%|#####     | 15/30 [20:48<47:15, 189.06s/it, errors=0, windows=745344]
+Processing files:  50%|#####     | 15/30 [20:48<47:15, 189.06s/it, errors=0, windows=819432]
+Processing files:  53%|#####3    | 16/30 [20:48<44:06, 189.06s/it, errors=0, windows=856536]
+Processing files:  57%|#####6    | 17/30 [20:49<27:34, 127.23s/it, errors=0, windows=856536]
+Processing files:  57%|#####6    | 17/30 [20:49<27:34, 127.23s/it, errors=0, windows=909168]
+Processing files:  60%|######    | 18/30 [21:19<21:46, 108.89s/it, errors=0, windows=909168]
+Processing files:  60%|######    | 18/30 [21:19<21:46, 108.89s/it, errors=0, windows=983256]
+Processing files:  63%|######3   | 19/30 [21:19<19:57, 108.89s/it, errors=0, windows=1020396]
+Processing files:  67%|######6   | 20/30 [21:21<11:49, 70.95s/it, errors=0, windows=1020396] 
+Processing files:  67%|######6   | 20/30 [21:21<11:49, 70.95s/it, errors=0, windows=1073016]
+Processing files:  70%|#######   | 21/30 [21:40<09:04, 60.55s/it, errors=0, windows=1073016]
+Processing files:  70%|#######   | 21/30 [21:40<09:04, 60.55s/it, errors=0, windows=1147152]
+Processing files:  73%|#######3  | 22/30 [21:40<08:04, 60.55s/it, errors=0, windows=1184268]
+Processing files:  77%|#######6  | 23/30 [21:40<07:03, 60.55s/it, errors=0, windows=1236876]
+Processing files:  80%|########  | 24/30 [21:41<03:16, 32.72s/it, errors=0, windows=1236876]
+Processing files:  80%|########  | 24/30 [21:41<03:16, 32.72s/it, errors=0, windows=1311000]
+Processing files:  83%|########3 | 25/30 [21:41<02:43, 32.72s/it, errors=0, windows=1348104]
+Processing files:  87%|########6 | 26/30 [21:41<02:10, 32.72s/it, errors=0, windows=1.4e+6] 
+Processing files:  90%|######### | 27/30 [21:57<01:05, 21.82s/it, errors=0, windows=1.4e+6]
+Processing files:  90%|######### | 27/30 [21:57<01:05, 21.82s/it, errors=0, windows=1474920]
+Processing files:  93%|#########3| 28/30 [21:57<00:43, 21.82s/it, errors=0, windows=1512000]
+Processing files:  97%|#########6| 29/30 [21:57<00:21, 21.82s/it, errors=0, windows=1564620]
+Processing files: 100%|##########| 30/30 [22:13<00:00, 15.84s/it, errors=0, windows=1564620]
+Processing files: 100%|##########| 30/30 [22:13<00:00, 15.84s/it, errors=0, windows=1638756]
+Processing files: 100%|##########| 30/30 [22:13<00:00, 44.44s/it, errors=0, windows=1638756]
+
+--------------------------------------------------------------------------------
+
+Combination 16/21 - 20:45:12
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 400 --overlap 0 --envelope-type 6 --filter-cutoff 0.6
+Status: Failed
+Execution Time: 8.14 seconds
+Return Code: 2
+
+STDERR:
+usage: wf_extractor.py [-h] [--database DATABASE] [--window-size WINDOW_SIZE]
+                       [--overlap OVERLAP] [--envelope-type {0,1,2,3}]
+                       [--filter-cutoff FILTER_CUTOFF] [--only-channel-10]
+                       [--filtered-labels FILTERED_LABELS] [--use-gpu]
+                       [--batch-size BATCH_SIZE] [--fast-mode]
+wf_extractor.py: error: argument --envelope-type: invalid choice: 6 (choose from 0, 1, 2, 3)
+
+--------------------------------------------------------------------------------
+
+Combination 17/21 - 20:45:20
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 400 --overlap 0 --envelope-type 6 --filter-cutoff 1.0
+Status: Failed
+Execution Time: 5.98 seconds
+Return Code: 2
+
+STDERR:
+usage: wf_extractor.py [-h] [--database DATABASE] [--window-size WINDOW_SIZE]
+                       [--overlap OVERLAP] [--envelope-type {0,1,2,3}]
+                       [--filter-cutoff FILTER_CUTOFF] [--only-channel-10]
+                       [--filtered-labels FILTERED_LABELS] [--use-gpu]
+                       [--batch-size BATCH_SIZE] [--fast-mode]
+wf_extractor.py: error: argument --envelope-type: invalid choice: 6 (choose from 0, 1, 2, 3)
+
+--------------------------------------------------------------------------------
+
+Combination 18/21 - 20:45:26
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 400 --overlap 0 --envelope-type 6 --filter-cutoff 5.0
+Status: Failed
+Execution Time: 5.63 seconds
+Return Code: 2
+
+STDERR:
+usage: wf_extractor.py [-h] [--database DATABASE] [--window-size WINDOW_SIZE]
+                       [--overlap OVERLAP] [--envelope-type {0,1,2,3}]
+                       [--filter-cutoff FILTER_CUTOFF] [--only-channel-10]
+                       [--filtered-labels FILTERED_LABELS] [--use-gpu]
+                       [--batch-size BATCH_SIZE] [--fast-mode]
+wf_extractor.py: error: argument --envelope-type: invalid choice: 6 (choose from 0, 1, 2, 3)
+
+--------------------------------------------------------------------------------
+
+Combination 19/21 - 20:45:32
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 800 --overlap 0 --envelope-type 0 --filter-cutoff 0.6
+Status: Success
+Execution Time: 166.26 seconds
+Return Code: 0
+
+STDOUT:
+GPU acceleration not requested, using CPU
+Processing database: DB4
+Window size: 800 samples (0.400 seconds at 2kHz)
+Overlap: 0 samples
+Envelope type: 0
+Filter cutoff: 0.6 Hz
+Labels: All
+Channels: All available channels
+Output file will be: DB4_w800_env0_f0.6
+Found 10 subject folders.
+Total .mat files to process: 30
+Using 12 parallel processes
+
+Found 1 previously saved chunks. Consolidating...
+Loading chunk 1/1: chunk_DB4_w800_env0_f0.6_20250406-204745.parquet
+  - 509208 windows loaded
+
+Combining 2 dataframes with a total of 1326960 windows...
+Saving consolidated file with 817752 windows to preprocessed_data\DB4\DB4_w800_env0_f0.6[20250406-204816].parquet
+Consolidated file successfully saved to preprocessed_data\DB4\DB4_w800_env0_f0.6[20250406-204816].parquet
+Cleaning up intermediate chunks...
+  - Deleted: chunk_DB4_w800_env0_f0.6_20250406-204745.parquet
+
+Processing complete in 2.68 minutes!
+Average speed: 0.19 files/second
+Total windows extracted: 817752
+
+STDERR:
+
+Processing files:   0%|          | 0/30 [00:00<?, ?it/s]
+Processing files:   3%|3         | 1/30 [00:47<22:48, 47.19s/it]
+Processing files:   3%|3         | 1/30 [00:47<22:48, 47.19s/it, errors=0, windows=18516]
+Processing files:   7%|6         | 2/30 [01:01<13:07, 28.11s/it, errors=0, windows=18516]
+Processing files:   7%|6         | 2/30 [01:01<13:07, 28.11s/it, errors=0, windows=44820]
+Processing files:  10%|#         | 3/30 [01:21<10:55, 24.28s/it, errors=0, windows=44820]
+Processing files:  10%|#         | 3/30 [01:21<10:55, 24.28s/it, errors=0, windows=81804]
+Processing files:  13%|#3        | 4/30 [01:21<10:31, 24.28s/it, errors=0, windows=1e+5] 
+Processing files:  17%|#6        | 5/30 [01:21<10:06, 24.28s/it, errors=0, windows=126612]
+Processing files:  20%|##        | 6/30 [01:21<09:42, 24.28s/it, errors=0, windows=163620]
+Processing files:  23%|##3       | 7/30 [01:21<02:35,  6.74s/it, errors=0, windows=163620]
+Processing files:  23%|##3       | 7/30 [01:21<02:35,  6.74s/it, errors=0, windows=182136]
+Processing files:  27%|##6       | 8/30 [01:21<02:28,  6.74s/it, errors=0, windows=208404]
+Processing files:  30%|###       | 9/30 [01:21<02:21,  6.74s/it, errors=0, windows=245388]
+Processing files:  33%|###3      | 10/30 [01:21<02:14,  6.74s/it, errors=0, windows=263904]
+Processing files:  37%|###6      | 11/30 [01:21<01:03,  3.34s/it, errors=0, windows=263904]
+Processing files:  37%|###6      | 11/30 [01:21<01:03,  3.34s/it, errors=0, windows=290172]
+Processing files:  40%|####      | 12/30 [01:22<01:00,  3.34s/it, errors=0, windows=327144]
+Processing files:  43%|####3     | 13/30 [01:22<00:56,  3.34s/it, errors=0, windows=345720]
+Processing files:  47%|####6     | 14/30 [01:36<01:02,  3.89s/it, errors=0, windows=345720]
+Processing files:  47%|####6     | 14/30 [01:36<01:02,  3.89s/it, errors=0, windows=371952]
+Processing files:  50%|#####     | 15/30 [01:56<01:33,  6.20s/it, errors=0, windows=371952]
+Processing files:  50%|#####     | 15/30 [01:56<01:33,  6.20s/it, errors=0, windows=408900]
+Processing files:  53%|#####3    | 16/30 [01:56<01:26,  6.20s/it, errors=0, windows=427416]
+Processing files:  57%|#####6    | 17/30 [01:56<00:57,  4.41s/it, errors=0, windows=427416]
+Processing files:  57%|#####6    | 17/30 [01:56<00:57,  4.41s/it, errors=0, windows=453684]
+Processing files:  60%|######    | 18/30 [02:08<00:52,  4.41s/it, errors=0, windows=490668]
+Processing files:  63%|######3   | 19/30 [02:10<00:48,  4.41s/it, errors=0, windows=509208]
+Processing files:  67%|######6   | 20/30 [02:10<00:44,  4.42s/it, errors=0, windows=509208]
+Processing files:  67%|######6   | 20/30 [02:10<00:44,  4.42s/it, errors=0, windows=535452]
+Processing files:  70%|#######   | 21/30 [02:21<00:49,  5.45s/it, errors=0, windows=535452]
+Processing files:  70%|#######   | 21/30 [02:21<00:49,  5.45s/it, errors=0, windows=572436]
+Processing files:  73%|#######3  | 22/30 [02:21<00:43,  5.45s/it, errors=0, windows=590964]
+Processing files:  77%|#######6  | 23/30 [02:21<00:38,  5.45s/it, errors=0, windows=617208]
+Processing files:  80%|########  | 24/30 [02:21<00:19,  3.29s/it, errors=0, windows=617208]
+Processing files:  80%|########  | 24/30 [02:21<00:19,  3.29s/it, errors=0, windows=654216]
+Processing files:  83%|########3 | 25/30 [02:21<00:16,  3.29s/it, errors=0, windows=672744]
+Processing files:  87%|########6 | 26/30 [02:21<00:13,  3.29s/it, errors=0, windows=699036]
+Processing files:  90%|######### | 27/30 [02:29<00:09,  3.12s/it, errors=0, windows=699036]
+Processing files:  90%|######### | 27/30 [02:29<00:09,  3.12s/it, errors=0, windows=736032]
+Processing files:  93%|#########3| 28/30 [02:29<00:06,  3.12s/it, errors=0, windows=754512]
+Processing files:  97%|#########6| 29/30 [02:29<00:03,  3.12s/it, errors=0, windows=780768]
+Processing files: 100%|##########| 30/30 [02:38<00:00,  3.06s/it, errors=0, windows=780768]
+Processing files: 100%|##########| 30/30 [02:38<00:00,  3.06s/it, errors=0, windows=817752]
+Processing files: 100%|##########| 30/30 [02:38<00:00,  5.28s/it, errors=0, windows=817752]
+
+--------------------------------------------------------------------------------
+
+Combination 22/21 - 20:48:18
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 800 --overlap 0 --envelope-type 1 --filter-cutoff 0.6
+Status: Success
+Execution Time: 189.97 seconds
+Return Code: 0
+
+STDOUT:
+GPU acceleration not requested, using CPU
+Processing database: DB4
+Window size: 800 samples (0.400 seconds at 2kHz)
+Overlap: 0 samples
+Envelope type: 1
+Filter cutoff: 0.6 Hz
+Labels: All
+Channels: All available channels
+Output file will be: DB4_w800_env1_f0.6
+Found 10 subject folders.
+Total .mat files to process: 30
+Using 12 parallel processes
+
+Found 1 previously saved chunks. Consolidating...
+Loading chunk 1/1: chunk_DB4_w800_env1_f0.6_20250406-205053.parquet
+  - 509208 windows loaded
+
+Combining 2 dataframes with a total of 1326960 windows...
+Saving consolidated file with 817752 windows to preprocessed_data\DB4\DB4_w800_env1_f0.6[20250406-205126].parquet
+Consolidated file successfully saved to preprocessed_data\DB4\DB4_w800_env1_f0.6[20250406-205126].parquet
+Cleaning up intermediate chunks...
+  - Deleted: chunk_DB4_w800_env1_f0.6_20250406-205053.parquet
+
+Processing complete in 3.05 minutes!
+Average speed: 0.16 files/second
+Total windows extracted: 817752
+
+STDERR:
+
+Processing files:   0%|          | 0/30 [00:00<?, ?it/s]
+Processing files:   3%|3         | 1/30 [00:49<23:42, 49.05s/it]
+Processing files:   3%|3         | 1/30 [00:49<23:42, 49.05s/it, errors=0, windows=18516]
+Processing files:   7%|6         | 2/30 [01:09<15:00, 32.17s/it, errors=0, windows=18516]
+Processing files:   7%|6         | 2/30 [01:09<15:00, 32.17s/it, errors=0, windows=44820]
+Processing files:  10%|#         | 3/30 [01:30<12:13, 27.18s/it, errors=0, windows=44820]
+Processing files:  10%|#         | 3/30 [01:30<12:13, 27.18s/it, errors=0, windows=81804]
+Processing files:  13%|#3        | 4/30 [01:30<11:46, 27.18s/it, errors=0, windows=1e+5] 
+Processing files:  17%|#6        | 5/30 [01:30<11:19, 27.18s/it, errors=0, windows=126612]
+Processing files:  20%|##        | 6/30 [01:31<03:43,  9.33s/it, errors=0, windows=126612]
+Processing files:  20%|##        | 6/30 [01:31<03:43,  9.33s/it, errors=0, windows=163620]
+Processing files:  23%|##3       | 7/30 [01:31<03:34,  9.33s/it, errors=0, windows=182136]
+Processing files:  27%|##6       | 8/30 [01:31<02:06,  5.74s/it, errors=0, windows=182136]
+Processing files:  27%|##6       | 8/30 [01:31<02:06,  5.74s/it, errors=0, windows=208404]
+Processing files:  30%|###       | 9/30 [01:33<02:00,  5.74s/it, errors=0, windows=245388]
+Processing files:  33%|###3      | 10/30 [01:33<01:20,  4.04s/it, errors=0, windows=245388]
+Processing files:  33%|###3      | 10/30 [01:33<01:20,  4.04s/it, errors=0, windows=263904]
+Processing files:  37%|###6      | 11/30 [01:33<01:01,  3.25s/it, errors=0, windows=263904]
+Processing files:  37%|###6      | 11/30 [01:33<01:01,  3.25s/it, errors=0, windows=290172]
+Processing files:  40%|####      | 12/30 [01:33<00:58,  3.25s/it, errors=0, windows=327144]
+Processing files:  43%|####3     | 13/30 [01:33<00:35,  2.09s/it, errors=0, windows=327144]
+Processing files:  43%|####3     | 13/30 [01:33<00:35,  2.09s/it, errors=0, windows=345720]
+Processing files:  47%|####6     | 14/30 [01:49<01:20,  5.06s/it, errors=0, windows=345720]
+Processing files:  47%|####6     | 14/30 [01:49<01:20,  5.06s/it, errors=0, windows=371952]
+Processing files:  50%|#####     | 15/30 [02:13<02:19,  9.29s/it, errors=0, windows=371952]
+Processing files:  50%|#####     | 15/30 [02:13<02:19,  9.29s/it, errors=0, windows=408900]
+Processing files:  53%|#####3    | 16/30 [02:13<02:10,  9.29s/it, errors=0, windows=427416]
+Processing files:  57%|#####6    | 17/30 [02:13<01:13,  5.64s/it, errors=0, windows=427416]
+Processing files:  57%|#####6    | 17/30 [02:13<01:13,  5.64s/it, errors=0, windows=453684]
+Processing files:  60%|######    | 18/30 [02:28<01:07,  5.64s/it, errors=0, windows=490668]
+Processing files:  63%|######3   | 19/30 [02:29<01:12,  6.55s/it, errors=0, windows=490668]
+Processing files:  63%|######3   | 19/30 [02:29<01:12,  6.55s/it, errors=0, windows=509208]
+Processing files:  67%|######6   | 20/30 [02:29<01:05,  6.55s/it, errors=0, windows=535452]
+Processing files:  70%|#######   | 21/30 [02:38<00:52,  5.85s/it, errors=0, windows=535452]
+Processing files:  70%|#######   | 21/30 [02:38<00:52,  5.85s/it, errors=0, windows=572436]
+Processing files:  73%|#######3  | 22/30 [02:39<00:46,  5.85s/it, errors=0, windows=590964]
+Processing files:  77%|#######6  | 23/30 [02:39<00:40,  5.85s/it, errors=0, windows=617208]
+Processing files:  80%|########  | 24/30 [02:41<00:22,  3.70s/it, errors=0, windows=617208]
+Processing files:  80%|########  | 24/30 [02:41<00:22,  3.70s/it, errors=0, windows=654216]
+Processing files:  83%|########3 | 25/30 [02:41<00:18,  3.70s/it, errors=0, windows=672744]
+Processing files:  87%|########6 | 26/30 [02:41<00:14,  3.70s/it, errors=0, windows=699036]
+Processing files:  90%|######### | 27/30 [02:50<00:10,  3.43s/it, errors=0, windows=699036]
+Processing files:  90%|######### | 27/30 [02:50<00:10,  3.43s/it, errors=0, windows=736032]
+Processing files:  93%|#########3| 28/30 [02:50<00:06,  3.43s/it, errors=0, windows=754512]
+Processing files:  97%|#########6| 29/30 [02:50<00:03,  3.43s/it, errors=0, windows=780768]
+Processing files: 100%|##########| 30/30 [03:00<00:00,  3.45s/it, errors=0, windows=780768]
+Processing files: 100%|##########| 30/30 [03:00<00:00,  3.45s/it, errors=0, windows=817752]
+Processing files: 100%|##########| 30/30 [03:00<00:00,  6.02s/it, errors=0, windows=817752]
+
+--------------------------------------------------------------------------------
+
+Combination 23/21 - 20:51:28
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 800 --overlap 0 --envelope-type 1 --filter-cutoff 1.0
+Status: Success
+Execution Time: 188.78 seconds
+Return Code: 0
+
+STDOUT:
+GPU acceleration not requested, using CPU
+Processing database: DB4
+Window size: 800 samples (0.400 seconds at 2kHz)
+Overlap: 0 samples
+Envelope type: 1
+Filter cutoff: 1.0 Hz
+Labels: All
+Channels: All available channels
+Output file will be: DB4_w800_env1_f1.0
+Found 10 subject folders.
+Total .mat files to process: 30
+Using 12 parallel processes
+
+Found 1 previously saved chunks. Consolidating...
+Loading chunk 1/1: chunk_DB4_w800_env1_f1.0_20250406-205400.parquet
+  - 509208 windows loaded
+
+Combining 2 dataframes with a total of 1326960 windows...
+Saving consolidated file with 817752 windows to preprocessed_data\DB4\DB4_w800_env1_f1.0[20250406-205434].parquet
+Consolidated file successfully saved to preprocessed_data\DB4\DB4_w800_env1_f1.0[20250406-205434].parquet
+Cleaning up intermediate chunks...
+  - Deleted: chunk_DB4_w800_env1_f1.0_20250406-205400.parquet
+
+Processing complete in 3.02 minutes!
+Average speed: 0.17 files/second
+Total windows extracted: 817752
+
+STDERR:
+
+Processing files:   0%|          | 0/30 [00:00<?, ?it/s]
+Processing files:   3%|3         | 1/30 [00:48<23:18, 48.21s/it]
+Processing files:   3%|3         | 1/30 [00:48<23:18, 48.21s/it, errors=0, windows=18516]
+Processing files:   7%|6         | 2/30 [01:07<14:36, 31.31s/it, errors=0, windows=18516]
+Processing files:   7%|6         | 2/30 [01:07<14:36, 31.31s/it, errors=0, windows=44820]
+Processing files:  10%|#         | 3/30 [01:27<11:46, 26.15s/it, errors=0, windows=44820]
+Processing files:  10%|#         | 3/30 [01:27<11:46, 26.15s/it, errors=0, windows=81804]
+Processing files:  13%|#3        | 4/30 [01:27<11:19, 26.15s/it, errors=0, windows=1e+5] 
+Processing files:  17%|#6        | 5/30 [01:27<10:53, 26.15s/it, errors=0, windows=126612]
+Processing files:  20%|##        | 6/30 [01:30<03:47,  9.49s/it, errors=0, windows=126612]
+Processing files:  20%|##        | 6/30 [01:30<03:47,  9.49s/it, errors=0, windows=163620]
+Processing files:  23%|##3       | 7/30 [01:30<03:38,  9.49s/it, errors=0, windows=182136]
+Processing files:  27%|##6       | 8/30 [01:30<02:08,  5.85s/it, errors=0, windows=182136]
+Processing files:  27%|##6       | 8/30 [01:30<02:08,  5.85s/it, errors=0, windows=208404]
+Processing files:  30%|###       | 9/30 [01:32<01:43,  4.91s/it, errors=0, windows=208404]
+Processing files:  30%|###       | 9/30 [01:32<01:43,  4.91s/it, errors=0, windows=245388]
+Processing files:  33%|###3      | 10/30 [01:32<01:38,  4.91s/it, errors=0, windows=263904]
+Processing files:  37%|###6      | 11/30 [01:32<00:58,  3.06s/it, errors=0, windows=263904]
+Processing files:  37%|###6      | 11/30 [01:32<00:58,  3.06s/it, errors=0, windows=290172]
+Processing files:  40%|####      | 12/30 [01:32<00:43,  2.43s/it, errors=0, windows=290172]
+Processing files:  40%|####      | 12/30 [01:32<00:43,  2.43s/it, errors=0, windows=327144]
+Processing files:  43%|####3     | 13/30 [01:32<00:32,  1.90s/it, errors=0, windows=327144]
+Processing files:  43%|####3     | 13/30 [01:32<00:32,  1.90s/it, errors=0, windows=345720]
+Processing files:  47%|####6     | 14/30 [01:48<01:27,  5.44s/it, errors=0, windows=345720]
+Processing files:  47%|####6     | 14/30 [01:48<01:27,  5.44s/it, errors=0, windows=371952]
+Processing files:  50%|#####     | 15/30 [02:12<02:33, 10.25s/it, errors=0, windows=371952]
+Processing files:  50%|#####     | 15/30 [02:12<02:33, 10.25s/it, errors=0, windows=408900]
+Processing files:  53%|#####3    | 16/30 [02:12<02:23, 10.25s/it, errors=0, windows=427416]
+Processing files:  57%|#####6    | 17/30 [02:12<01:16,  5.87s/it, errors=0, windows=427416]
+Processing files:  57%|#####6    | 17/30 [02:12<01:16,  5.87s/it, errors=0, windows=453684]
+Processing files:  60%|######    | 18/30 [02:25<01:31,  7.64s/it, errors=0, windows=453684]
+Processing files:  60%|######    | 18/30 [02:25<01:31,  7.64s/it, errors=0, windows=490668]
+Processing files:  63%|######3   | 19/30 [02:28<01:08,  6.24s/it, errors=0, windows=490668]
+Processing files:  63%|######3   | 19/30 [02:28<01:08,  6.24s/it, errors=0, windows=509208]
+Processing files:  67%|######6   | 20/30 [02:28<01:02,  6.24s/it, errors=0, windows=535452]
+Processing files:  70%|#######   | 21/30 [02:37<00:50,  5.63s/it, errors=0, windows=535452]
+Processing files:  70%|#######   | 21/30 [02:37<00:50,  5.63s/it, errors=0, windows=572436]
+Processing files:  73%|#######3  | 22/30 [02:37<00:45,  5.63s/it, errors=0, windows=590964]
+Processing files:  77%|#######6  | 23/30 [02:37<00:39,  5.63s/it, errors=0, windows=617208]
+Processing files:  80%|########  | 24/30 [02:40<00:20,  3.39s/it, errors=0, windows=617208]
+Processing files:  80%|########  | 24/30 [02:40<00:20,  3.39s/it, errors=0, windows=654216]
+Processing files:  83%|########3 | 25/30 [02:40<00:16,  3.39s/it, errors=0, windows=672744]
+Processing files:  87%|########6 | 26/30 [02:40<00:13,  3.39s/it, errors=0, windows=699036]
+Processing files:  90%|######### | 27/30 [02:47<00:09,  3.06s/it, errors=0, windows=699036]
+Processing files:  90%|######### | 27/30 [02:47<00:09,  3.06s/it, errors=0, windows=736032]
+Processing files:  93%|#########3| 28/30 [02:47<00:06,  3.06s/it, errors=0, windows=754512]
+Processing files:  97%|#########6| 29/30 [02:48<00:03,  3.06s/it, errors=0, windows=780768]
+Processing files: 100%|##########| 30/30 [02:58<00:00,  3.26s/it, errors=0, windows=780768]
+Processing files: 100%|##########| 30/30 [02:58<00:00,  3.26s/it, errors=0, windows=817752]
+Processing files: 100%|##########| 30/30 [02:58<00:00,  5.96s/it, errors=0, windows=817752]
+
+--------------------------------------------------------------------------------
+
+Combination 24/21 - 20:54:37
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 800 --overlap 0 --envelope-type 1 --filter-cutoff 5.0
+Status: Success
+Execution Time: 188.82 seconds
+Return Code: 0
+
+STDOUT:
+GPU acceleration not requested, using CPU
+Processing database: DB4
+Window size: 800 samples (0.400 seconds at 2kHz)
+Overlap: 0 samples
+Envelope type: 1
+Filter cutoff: 5.0 Hz
+Labels: All
+Channels: All available channels
+Output file will be: DB4_w800_env1_f5.0
+Found 10 subject folders.
+Total .mat files to process: 30
+Using 12 parallel processes
+
+Found 1 previously saved chunks. Consolidating...
+Loading chunk 1/1: chunk_DB4_w800_env1_f5.0_20250406-205711.parquet
+  - 509208 windows loaded
+
+Combining 2 dataframes with a total of 1326960 windows...
+Saving consolidated file with 817752 windows to preprocessed_data\DB4\DB4_w800_env1_f5.0[20250406-205743].parquet
+Consolidated file successfully saved to preprocessed_data\DB4\DB4_w800_env1_f5.0[20250406-205743].parquet
+Cleaning up intermediate chunks...
+  - Deleted: chunk_DB4_w800_env1_f5.0_20250406-205711.parquet
+
+Processing complete in 3.02 minutes!
+Average speed: 0.17 files/second
+Total windows extracted: 817752
+
+STDERR:
+
+Processing files:   0%|          | 0/30 [00:00<?, ?it/s]
+Processing files:   3%|3         | 1/30 [00:50<24:12, 50.07s/it]
+Processing files:   3%|3         | 1/30 [00:50<24:12, 50.07s/it, errors=0, windows=18516]
+Processing files:   7%|6         | 2/30 [01:09<14:56, 32.00s/it, errors=0, windows=18516]
+Processing files:   7%|6         | 2/30 [01:09<14:56, 32.00s/it, errors=0, windows=44820]
+Processing files:  10%|#         | 3/30 [01:29<11:54, 26.48s/it, errors=0, windows=44820]
+Processing files:  10%|#         | 3/30 [01:29<11:54, 26.48s/it, errors=0, windows=81804]
+Processing files:  13%|#3        | 4/30 [01:29<11:28, 26.48s/it, errors=0, windows=1e+5] 
+Processing files:  17%|#6        | 5/30 [01:29<11:02, 26.48s/it, errors=0, windows=126612]
+Processing files:  20%|##        | 6/30 [01:30<03:41,  9.22s/it, errors=0, windows=126612]
+Processing files:  20%|##        | 6/30 [01:30<03:41,  9.22s/it, errors=0, windows=163620]
+Processing files:  23%|##3       | 7/30 [01:30<03:32,  9.22s/it, errors=0, windows=182136]
+Processing files:  27%|##6       | 8/30 [01:30<03:22,  9.22s/it, errors=0, windows=208404]
+Processing files:  30%|###       | 9/30 [01:33<01:49,  5.19s/it, errors=0, windows=208404]
+Processing files:  30%|###       | 9/30 [01:33<01:49,  5.19s/it, errors=0, windows=245388]
+Processing files:  33%|###3      | 10/30 [01:33<01:43,  5.19s/it, errors=0, windows=263904]
+Processing files:  37%|###6      | 11/30 [01:33<01:07,  3.57s/it, errors=0, windows=263904]
+Processing files:  37%|###6      | 11/30 [01:33<01:07,  3.57s/it, errors=0, windows=290172]
+Processing files:  40%|####      | 12/30 [01:33<01:04,  3.57s/it, errors=0, windows=327144]
+Processing files:  43%|####3     | 13/30 [01:33<00:42,  2.48s/it, errors=0, windows=327144]
+Processing files:  43%|####3     | 13/30 [01:33<00:42,  2.48s/it, errors=0, windows=345720]
+Processing files:  47%|####6     | 14/30 [01:49<01:17,  4.84s/it, errors=0, windows=345720]
+Processing files:  47%|####6     | 14/30 [01:49<01:17,  4.84s/it, errors=0, windows=371952]
+Processing files:  50%|#####     | 15/30 [02:13<02:13,  8.88s/it, errors=0, windows=371952]
+Processing files:  50%|#####     | 15/30 [02:13<02:13,  8.88s/it, errors=0, windows=408900]
+Processing files:  53%|#####3    | 16/30 [02:13<02:04,  8.88s/it, errors=0, windows=427416]
+Processing files:  57%|#####6    | 17/30 [02:13<01:12,  5.61s/it, errors=0, windows=427416]
+Processing files:  57%|#####6    | 17/30 [02:13<01:12,  5.61s/it, errors=0, windows=453684]
+Processing files:  60%|######    | 18/30 [02:27<01:07,  5.61s/it, errors=0, windows=490668]
+Processing files:  63%|######3   | 19/30 [02:29<01:09,  6.35s/it, errors=0, windows=490668]
+Processing files:  63%|######3   | 19/30 [02:29<01:09,  6.35s/it, errors=0, windows=509208]
+Processing files:  67%|######6   | 20/30 [02:29<01:03,  6.35s/it, errors=0, windows=535452]
+Processing files:  70%|#######   | 21/30 [02:39<00:53,  5.96s/it, errors=0, windows=535452]
+Processing files:  70%|#######   | 21/30 [02:39<00:53,  5.96s/it, errors=0, windows=572436]
+Processing files:  73%|#######3  | 22/30 [02:39<00:47,  5.96s/it, errors=0, windows=590964]
+Processing files:  77%|#######6  | 23/30 [02:39<00:41,  5.96s/it, errors=0, windows=617208]
+Processing files:  80%|########  | 24/30 [02:39<00:21,  3.53s/it, errors=0, windows=617208]
+Processing files:  80%|########  | 24/30 [02:39<00:21,  3.53s/it, errors=0, windows=654216]
+Processing files:  83%|########3 | 25/30 [02:39<00:17,  3.53s/it, errors=0, windows=672744]
+Processing files:  87%|########6 | 26/30 [02:39<00:14,  3.53s/it, errors=0, windows=699036]
+Processing files:  90%|######### | 27/30 [02:48<00:09,  3.32s/it, errors=0, windows=699036]
+Processing files:  90%|######### | 27/30 [02:48<00:09,  3.32s/it, errors=0, windows=736032]
+Processing files:  93%|#########3| 28/30 [02:48<00:06,  3.32s/it, errors=0, windows=754512]
+Processing files:  97%|#########6| 29/30 [02:48<00:03,  3.32s/it, errors=0, windows=780768]
+Processing files: 100%|##########| 30/30 [02:59<00:00,  3.39s/it, errors=0, windows=780768]
+Processing files: 100%|##########| 30/30 [02:59<00:00,  3.39s/it, errors=0, windows=817752]
+Processing files: 100%|##########| 30/30 [02:59<00:00,  5.97s/it, errors=0, windows=817752]
+
+--------------------------------------------------------------------------------
+
+Combination 25/21 - 20:57:46
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 800 --overlap 0 --envelope-type 6 --filter-cutoff 0.6
+Status: Failed
+Execution Time: 6.48 seconds
+Return Code: 2
+
+STDERR:
+usage: wf_extractor.py [-h] [--database DATABASE] [--window-size WINDOW_SIZE]
+                       [--overlap OVERLAP] [--envelope-type {0,1,2,3}]
+                       [--filter-cutoff FILTER_CUTOFF] [--only-channel-10]
+                       [--filtered-labels FILTERED_LABELS] [--use-gpu]
+                       [--batch-size BATCH_SIZE] [--fast-mode]
+wf_extractor.py: error: argument --envelope-type: invalid choice: 6 (choose from 0, 1, 2, 3)
+
+--------------------------------------------------------------------------------
+
+Combination 26/21 - 20:57:52
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 800 --overlap 0 --envelope-type 6 --filter-cutoff 1.0
+Status: Failed
+Execution Time: 5.62 seconds
+Return Code: 2
+
+STDERR:
+usage: wf_extractor.py [-h] [--database DATABASE] [--window-size WINDOW_SIZE]
+                       [--overlap OVERLAP] [--envelope-type {0,1,2,3}]
+                       [--filter-cutoff FILTER_CUTOFF] [--only-channel-10]
+                       [--filtered-labels FILTERED_LABELS] [--use-gpu]
+                       [--batch-size BATCH_SIZE] [--fast-mode]
+wf_extractor.py: error: argument --envelope-type: invalid choice: 6 (choose from 0, 1, 2, 3)
+
+--------------------------------------------------------------------------------
+
+Combination 27/21 - 20:57:58
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 800 --overlap 0 --envelope-type 6 --filter-cutoff 5.0
+Status: Failed
+Execution Time: 6.23 seconds
+Return Code: 2
+
+STDERR:
+usage: wf_extractor.py [-h] [--database DATABASE] [--window-size WINDOW_SIZE]
+                       [--overlap OVERLAP] [--envelope-type {0,1,2,3}]
+                       [--filter-cutoff FILTER_CUTOFF] [--only-channel-10]
+                       [--filtered-labels FILTERED_LABELS] [--use-gpu]
+                       [--batch-size BATCH_SIZE] [--fast-mode]
+wf_extractor.py: error: argument --envelope-type: invalid choice: 6 (choose from 0, 1, 2, 3)
+
+--------------------------------------------------------------------------------
+

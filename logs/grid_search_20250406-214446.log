@@ -1,0 +1,218 @@
+Grid Search Log - 2025-04-06 21:44:46
+Database: DB4
+Window Sizes: [200, 400, 800]
+Envelope Types: [6]
+Filter Cutoffs: [0.6, 1.0, 5.0]
+Overlap Percentage: 0%
+Use GPU: True
+Batch Size: 64
+Python Executable: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe
+
+--------------------------------------------------------------------------------
+
+Combination 1/9 - 21:44:46
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 200 --overlap 0 --envelope-type 6 --filter-cutoff 0.6 --use-gpu --batch-size 64
+Status: Failed
+Execution Time: 8.68 seconds
+Return Code: 1
+
+STDOUT:
+
+=== CUDA Environment Check ===
+OS: win32
+Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+CUDA_PATH: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7
+CUDA_HOME: 
+
+=== System CUDA Check ===
+NVIDIA Driver: Available
+Driver Version: 566.07
+NVCC: Available
+CUDA Version: 11.7.64
+
+=== PyTorch CUDA Check ===
+PyTorch version: 2.5.1+cu121
+torch.cuda.is_available(): True
+GPU count: 1
+GPU 0: NVIDIA GeForce RTX 3060 Laptop GPU
+CUDA Version (PyTorch): 12.1
+cuDNN Enabled: True
+cuDNN Version: 90100
+
+Running basic CUDA tensor test...
+Tensor calculation successful: tensor([1., 2.], device='cuda:0') + tensor([3., 4.], device='cuda:0') = tensor([4., 6.], device='cuda:0')
+
+STDERR:
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 165, in setup_cuda
+    print("\n\u2713 CUDA is available and working")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2713' in position 2: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 169, in setup_cuda
+    print(f"\u274c CUDA tensor operations failed: {e}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 1357, in <module>
+    main()
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 1156, in main
+    has_gpu = setup_cuda(False)
+              ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 178, in setup_cuda
+    print(f"\u274c Error checking PyTorch CUDA: {e}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+--------------------------------------------------------------------------------
+
+Combination 2/9 - 21:44:55
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 200 --overlap 0 --envelope-type 6 --filter-cutoff 1.0 --use-gpu --batch-size 64
+Status: Failed
+Execution Time: 5.09 seconds
+Return Code: 1
+
+STDOUT:
+
+=== CUDA Environment Check ===
+OS: win32
+Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+CUDA_PATH: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7
+CUDA_HOME: 
+
+=== System CUDA Check ===
+NVIDIA Driver: Available
+Driver Version: 566.07
+NVCC: Available
+CUDA Version: 11.7.64
+
+=== PyTorch CUDA Check ===
+PyTorch version: 2.5.1+cu121
+torch.cuda.is_available(): True
+GPU count: 1
+GPU 0: NVIDIA GeForce RTX 3060 Laptop GPU
+CUDA Version (PyTorch): 12.1
+cuDNN Enabled: True
+cuDNN Version: 90100
+
+Running basic CUDA tensor test...
+Tensor calculation successful: tensor([1., 2.], device='cuda:0') + tensor([3., 4.], device='cuda:0') = tensor([4., 6.], device='cuda:0')
+
+STDERR:
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 165, in setup_cuda
+    print("\n\u2713 CUDA is available and working")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2713' in position 2: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 169, in setup_cuda
+    print(f"\u274c CUDA tensor operations failed: {e}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 1357, in <module>
+    main()
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 1156, in main
+    has_gpu = setup_cuda(False)
+              ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 178, in setup_cuda
+    print(f"\u274c Error checking PyTorch CUDA: {e}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+--------------------------------------------------------------------------------
+
+Combination 3/9 - 21:45:00
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 200 --overlap 0 --envelope-type 6 --filter-cutoff 5.0 --use-gpu --batch-size 64
+Status: Failed
+Execution Time: 5.01 seconds
+Return Code: 1
+
+STDOUT:
+
+=== CUDA Environment Check ===
+OS: win32
+Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+CUDA_PATH: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7
+CUDA_HOME: 
+
+=== System CUDA Check ===
+NVIDIA Driver: Available
+Driver Version: 566.07
+NVCC: Available
+CUDA Version: 11.7.64
+
+=== PyTorch CUDA Check ===
+PyTorch version: 2.5.1+cu121
+torch.cuda.is_available(): True
+GPU count: 1
+GPU 0: NVIDIA GeForce RTX 3060 Laptop GPU
+CUDA Version (PyTorch): 12.1
+cuDNN Enabled: True
+cuDNN Version: 90100
+
+Running basic CUDA tensor test...
+Tensor calculation successful: tensor([1., 2.], device='cuda:0') + tensor([3., 4.], device='cuda:0') = tensor([4., 6.], device='cuda:0')
+
+STDERR:
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 165, in setup_cuda
+    print("\n\u2713 CUDA is available and working")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2713' in position 2: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 169, in setup_cuda
+    print(f"\u274c CUDA tensor operations failed: {e}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 1357, in <module>
+    main()
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 1156, in main
+    has_gpu = setup_cuda(False)
+              ^^^^^^^^^^^^^^^^^
+  File "C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py", line 178, in setup_cuda
+    print(f"\u274c Error checking PyTorch CUDA: {e}")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+--------------------------------------------------------------------------------
+
+Combination 4/9 - 21:45:05
+Command: C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\venv\Scripts\python.exe C:\Users\escob\Desktop\PhD\Code\IA_ProsthesisUdeA\wf_extractor.py --database DB4 --window-size 400 --overlap 0 --envelope-type 6 --filter-cutoff 0.6 --use-gpu --batch-size 64

@@ -371,7 +371,7 @@ def get_envelope_lowpass(emg_signal, fm: float, envelope_type, cutoff_freq=1):
 
     # Compute the envelope
     envelope = get_envelope(emg_signal, envelope_type)
-    print(f"Envelope shape: {envelope.shape}")  # Debugging
+    #print(f"Envelope shape: {envelope.shape}")  # Debugging
 
     # Apply low-pass filter
     if isinstance(envelope, pd.DataFrame):

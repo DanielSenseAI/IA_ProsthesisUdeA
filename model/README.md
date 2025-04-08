@@ -1,1 +1,0 @@
-Estructura de modelos desarrollados
